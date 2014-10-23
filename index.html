@@ -1,9 +1,42 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-	</head>
-	<body>
-	<script src="https://gist.github.com/michalkowol/9061702.js"></script>
-	</body>
-</html>
+<!DOCTYPE html>
+<html lang="pl"></html>
+<head>
+  <title>Michał Kowol</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/vendor.css"/>
+</head>
+<body>
+  <div class="container posts">
+    <h1>Traits like in JavaScript</h1>
+    <h2>Traits:</h2>
+    <script src="https://gist.github.com/michalkowol/f6ca3c360f703c370754.js"></script>
+    <h2>Traits example:</h2>
+    <script src="https://gist.github.com/michalkowol/4191620b733f0cbeb3ba.js"></script>
+    <div>
+      <h2>Result:</h2>
+      <xmp>
+        [start]: TraitA.functionA
+        [start]: classWithTraitATraitB.getModel
+        [end]: classWithTraitATraitB.getModel
+        model
+        [end]: TraitA.functionA
+        [start]: classWithTraitATraitB.functionB
+        [start]: TraitB.functionB
+        [start]: classWithTraitATraitB.getModel
+        [end]: classWithTraitATraitB.getModel
+        model
+        [end]: TraitB.functionB
+        [start]: TraitA.functionA
+        [start]: classWithTraitATraitB.getModel
+        [end]: classWithTraitATraitB.getModel
+        model
+        [end]: TraitA.functionA
+        [end]: classWithTraitATraitB.functionB
+        [start]: TraitB.dummyModel
+        [end]: TraitB.dummyModel
+      </xmp>
+    </div>
+  </div>
+  <script src="js/vendor.js"></script>
+</body>

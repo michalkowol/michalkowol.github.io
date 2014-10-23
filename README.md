@@ -1,2 +1,0 @@
-michalkowol.github.io
-=====================
