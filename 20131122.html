@@ -1,0 +1,19 @@
+
+<h1>Przeciążona metoda wywołana z konstruktora klasy bazowej</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">2013-11-22 [Java]</div>
+  <div class="panel-body">
+    <section>
+      <div>Przeanalizujmy poniższy kod:</div>
+      <script src="https://gist.github.com/michalkowol/e9e5f3f87338ddec829e.js"></script>
+      <div>Efektem stworzenia ClassA będzie NullPointerException. Dzieje się to dlatego, że przeciążamy showMeTheMain, które chce skorzystać ze zmiennej a.</div>
+      <div>Jak wykonuje się program:</div>
+      <ol>
+        <li>Konstruktor ClassMain.</li>
+        <li>Metoda ClassA.showMeTheMain.</li>
+        <li>Konstruktor ClassA.</li>
+      </ol>
+      <div>W tym przykładzie zmieniliśmy kwalifikator dostępu z protected na public. Zawsze można zwiększać, ale nie można zmniejszać (co jest logiczne).</div>
+    </section>
+  </div>
+</div>

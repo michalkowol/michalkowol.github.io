@@ -5,11 +5,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/vendor.min.css"/>
-  <link rel="stylesheet" href="css/style.min.css"/>
+  <link rel="stylesheet" href="css/vendor.min.css"/>
 </head>
 <body>
   <div class="container">
     <div class="posts">
+      <article>
+        <h1>Akka (notes, part 2)</h1>
+        <div class="panel panel-default">
+          <div class="panel-heading">2015-01-24 [Scala, Akka]</div>
+          <div class="panel-body">
+            <section>
+              <header>
+                <h4>Akka traits2</h4>
+              </header>
+            </section>
+          </div>
+        </div>
+      </article>
       <article>
         <h1>Akka (notes, part 1)</h1>
         <div class="panel panel-default">
@@ -19,7 +32,7 @@
               <header>
                 <h4>Akka traits</h4>
               </header>
-              <section><img src="img/reactive-traits.svg" alt="Akka traits" width="40%">
+              <section><img src="img/reactive-traits.svg" alt="Akka traits" style="max-width: 40%">
                 <div>Akka has 4 main traits. Those are:
                   <ul>
                     <li>Responsive - the system responds very fast.</li>
@@ -49,6 +62,13 @@
                   </ul>
                 </ul>
                 <div>Ref: <a href="http://stackoverflow.com/questions/1050222/concurrency-vs-parallelism-what-is-the-difference">http://stackoverflow.com/</a>.</div>
+                <div>Example
+                  <ul>
+                    <li><strong>Concurrency</strong> - two queues, one coffee machine</li>
+                    <li><strong>Parallelism</strong> - two queues, two coffee machines</li>
+                  </ul><img src="img/20141201/con_and_par.jpg" alt="Concurrency vs Parallelism">
+                  <div>Source: <a href="http://joearms.github.io/2013/04/05/concurrent-and-parallel-programming.html">http://joearms.github.io/</a></div>
+                </div>
               </section>
             </section>
             <section>
@@ -56,7 +76,7 @@
                 <h4>Actor, ActorRef</h4>
               </header>
               <section>
-                <div><img src="img/actor-ref.png" alt="Actor with Mailbox" width="40%">
+                <div><img src="img/actor-ref.png" alt="Actor with Mailbox" style="max-width: 40%">
                   <ul>
                     <li>Each actor has dispatcher and mailbox.</li>
                     <li>If we send message to actor, it will add message to its mailbox and it will return <strong>immediately</strong> - this is not blocking operation.</li>
@@ -76,7 +96,7 @@
                 <h4>How to handle "unhandled" messages</h4>
               </header>
               <section>If in receive block we do not handle some message, this message will be dropped (and maybe logged). We can use <code>unhandled</code> method to do something with messages not handled in receive block.
-                <pre>override def unhandled(message: Any): Unit = ???</pre>
+                <pre><code class="scala">override def unhandled(message: Any): Unit = ???</code></pre>
               </section>
             </section>
             <section>
@@ -84,8 +104,8 @@
                 <h4>Top-Level Actor</h4>
               </header>
               <section>If you create top-level actors, use factory methods - it will simplify testing. Always give name to your top-level actors.
-                <pre>val topLevelActor = createTopLevelActor()
-def createTopLevelActor(): ActorRef = system.actorOf(TopLevel.props, "top-level")</pre>
+                <pre><code class="scala">val topLevelActor = createTopLevelActor()
+def createTopLevelActor(): ActorRef = system.actorOf(TopLevel.props, "top-level")</code></pre>
               </section>
             </section>
             <section>
@@ -95,9 +115,28 @@ def createTopLevelActor(): ActorRef = system.actorOf(TopLevel.props, "top-level"
               <section>
                 <ul>
                   <li>Defince your message protocol in the companion object of the actor.</li>
-                  <li>If you use message protocol from other actor, use actor name as prefix to this message - this will make code more readable.
-                    <script src="https://gist.github.com/michalkowol/2891404a089231f3b851.js"></script>
-                  </li>
+                  <li>If you use message protocol from other actor, use actor name as prefix to this message - this will make code more readable.</li>
+                  <pre><code class="scala">object FooActor {
+  case object FooMessage
+}
+class FooActor extends Actor {
+  import FooActor._
+  override def receive: Receive = {
+    case FooMessage => ???
+    case BarActor.BarMessage => ???
+  }
+}
+ 
+object BarActor {
+  case object BarMessage
+}
+class BarActor extends Actor {
+  import BarActor._
+  override def receive: Receive = {
+    case FooActor.FooMessage => ???
+    case BarMessage => ???
+  }
+}</code></pre>
                 </ul>
               </section>
             </section>
@@ -106,7 +145,13 @@ def createTopLevelActor(): ActorRef = system.actorOf(TopLevel.props, "top-level"
                 <h4>Actor DSL</h4>
               </header>
               <section>To create anonymous actoes we can use <a href="http://doc.akka.io/docs/akka/2.3.0-RC1/scala/actordsl.html">Actor DSL</a>. Here, <code>actor</code> takes the role of either <code>system.actorOf</code> or <code>context.actorOf</code>. It takes an implicit <code>ActorRefFactory</code> and creates the new Actor.
-                <script src="https://gist.github.com/michalkowol/6cd33c2cc49ddaccdd9c.js"></script>
+                <pre><code class="scala">import akka.actor.ActorDSL._
+ 
+val a = actor(new Act {
+  become {
+    case "hello" => sender() ! "hi"
+  }
+})</code></pre>
               </section>
             </section>
             <section>
@@ -118,7 +163,25 @@ def createTopLevelActor(): ActorRef = system.actorOf(TopLevel.props, "top-level"
                   <li>Always create <code>Props</code> factory - the best place for that is in companion object (see: <a href="http://doc.akka.io/docs/akka/snapshot/scala/actors.html">Actors &mdash; Akka Documentation</a>).</li>
                   <li>Put Companion Object before you class.</li>
                   <li>Use <code>sender()</code> <strong>with</strong> parentheses. It is function, not val and you have to rember about it. It can be very tricky when sender() will be execute in other thread - in example in <code>Future</code>. Example:
-                    <script src="https://gist.github.com/michalkowol/9ae423ab2c44f28933f3.js"></script>
+                    <pre><code class="scala">class WrongWayActor extends Actor {
+  override def receive: Receive = {
+    case _ => Future {
+      val result = doSomeHeavyComputation
+      sender() ! result // if you reacive other message in meantime, it will send the response to WRONG actor
+    }
+  }
+}
+ 
+class GoodWayActor extends Actor {
+  override def receive: Receive = {
+    case _ =>
+      val originalSender = sender()
+      Future {
+        val result = doSomeHeavyComputation
+        originalSender ! result  // it closes clouser over - it will send response to right actor
+    }
+  }
+}</code></pre>
                   </li>
                 </ul>
               </section>
