@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Michał Kowol | Tech Blog</title>
+    <link>https://michalkowol.github.io/tags/spring/index.xml</link>
+    <description>Recent content on Michał Kowol | Tech Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://michalkowol.github.io/tags/spring/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Java with Spring</title>
+      <link>https://michalkowol.github.io/posts/java-with-spring/</link>
+      <pubDate>Thu, 05 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/java-with-spring/</guid>
+      <description>
+
+&lt;h2 id=&#34;simple-example&#34;&gt;Simple example:&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+ 
+&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
+    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+    xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&amp;quot;&amp;gt;
+ 
+    &amp;lt;bean id=&amp;quot;apple&amp;quot; class=&amp;quot;Apple&amp;quot; /&amp;gt;
+    &amp;lt;bean id=&amp;quot;juicer&amp;quot; class=&amp;quot;Juicer&amp;quot;&amp;gt;
+        &amp;lt;constructor-arg ref=&amp;quot;apple&amp;quot; /&amp;gt;
+        &amp;lt;constructor-arg ref=&amp;quot;peeler&amp;quot; /&amp;gt;
+    &amp;lt;/bean&amp;gt;
+    &amp;lt;bean id=&amp;quot;peeler&amp;quot; class=&amp;quot;Peeler&amp;quot;&amp;gt;
+        &amp;lt;constructor-arg ref=&amp;quot;apple&amp;quot; /&amp;gt;
+    &amp;lt;/bean&amp;gt;
+&amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ... --&amp;gt;
+&amp;lt;bean id=&amp;quot;juicer&amp;quot; class=&amp;quot;Juicer&amp;quot; scope=&amp;quot;prototype&amp;quot;&amp;gt;
+&amp;lt;!-- ... --&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public interface Fruit {
+    void eat();
+    String getName();
+}
+
+public interface Peelable {
+    void peel();
+}
+
+public class Apple implements Fruit, Peelable {
+    public void peel() { }
+    public void eat() { }
+    String getName() { return &amp;quot;apple&amp;quot;; }
+}
+
+public class Peeler {
+    private final Peelable peelable;
+ 
+    public Peeler(Peelable peelable) {
+        this.peelable = peelable;
+    }
+}
+
+public class Juicer {
+    private final Peelable peelable;
+    private final Peeler peeler;
+ 
+    public Juicer(Peelable peelable, Peeler peeler) {
+        this.peelable = peelable;
+        this.peeler = peeler;
+    }
+}
+view rawClasses.java hosted with ❤ by GitHub
+public class MainAppPrototype {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext(&amp;quot;beans_prototype.xml&amp;quot;);
+        Juicer j1 = context.getBean(Juicer.class);
+        Juicer j2 = context.getBean(Juicer.class);
+        System.out.println(j1 == j2);
+    }
+}
+view rawMainAppPrototype.java hosted with ❤ by GitHub
+public class MainAppSingleton {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext(&amp;quot;beans.xml&amp;quot;);
+        Juicer j1 = context.getBean(Juicer.class);
+        Juicer j2 = context.getBean(Juicer.class);
+        System.out.println(j1 == j2);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;MainAppSingleton&lt;/code&gt; execution result: &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;MainAppPrototype&lt;/code&gt; execution result: &lt;code&gt;false&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;resolving-conflicts-in-constructor-s-arguments&#34;&gt;Resolving conflicts in constructor&amp;rsquo;s arguments.&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;test&amp;quot; class=&amp;quot;Test&amp;quot;&amp;gt;
+    &amp;lt;constructor-arg value=&amp;quot;xhajs&amp;quot; /&amp;gt;
+    &amp;lt;constructor-arg value=&amp;quot;md5&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;test&amp;quot; class=&amp;quot;Test&amp;quot;&amp;gt;
+    &amp;lt;constructor-arg name=&amp;quot;password&amp;quot; value=&amp;quot;xhajs&amp;quot; /&amp;gt;
+    &amp;lt;constructor-arg value=&amp;quot;md5&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class Test {
+ 
+    private String type;
+    private String password;
+ 
+    public Test(String type, String password) {
+        this.type = type;
+        this.password = password;
+    }
+     
+    public String getPassword() {
+        return password;
+    }
+     
+    public String getType() {
+        return type;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With &lt;code&gt;bean1.xml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Test.type = xhajs
+Test.password= md5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With &lt;code&gt;bean2.xml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Test.type = md5
+Test.password= xhajs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;factories&#34;&gt;Factories&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+ 
+&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
+    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+    xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&amp;quot;&amp;gt;
+ 
+    &amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;newBanana&amp;quot; /&amp;gt;
+&amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public interface Fruit {
+    void eat();
+    String getName();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public final class Fruits {
+ 
+    private Fruits() {
+    }
+     
+    public static Fruit createFruit(String fruitName) {
+        if (fruitName.equals(&amp;quot;banana&amp;quot;)) {
+            return newBanana();
+        } else {
+            return newPlum(&amp;quot;defaultName&amp;quot;);
+        }
+    }
+     
+    public static Fruit newBanana() {
+        return new Banana();
+    }
+     
+    public static Fruit newPlum(String name) {
+        return new Plum(name);
+    }
+     
+    private static class Banana implements Fruit {
+ 
+        public void eat() {
+            System.out.println(&amp;quot;Eating a banana: omomom&amp;quot;);
+        }
+ 
+        public String getName() {
+            return &amp;quot;banana&amp;quot;;
+        }
+    }
+     
+    private static class Plum implements Fruit {
+ 
+        private String name;
+ 
+        public Plum(String name) {
+            this.name = name;
+        }
+ 
+        public void eat() {
+            System.out.println(String.format(&amp;quot;Eating a plum %s: omomom&amp;quot;, name) );
+        }
+ 
+        public String getName() {
+            return &amp;quot;plum&amp;quot;;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MainApp {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext(&amp;quot;beans.xml&amp;quot;);
+        Fruit fruit = context.getBean(Fruit.class);
+        fruit.eat();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Eating a banana: omomom
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Plum with name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;newPlum&amp;quot;&amp;gt;
+    &amp;lt;constructor-arg value=&amp;quot;sliwka&amp;quot;&amp;gt;&amp;lt;/constructor-arg&amp;gt;
+&amp;lt;/bean&amp;gt;
+view rawbeans.xml hosted with ❤ by GitHub
+Eating a plum sliwka: omomom
+Plum by name using createFruit method:
+&amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;createFruit&amp;quot;&amp;gt;
+    &amp;lt;constructor-arg value=&amp;quot;sliwka&amp;quot;&amp;gt;&amp;lt;/constructor-arg&amp;gt;
+&amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Eating a plum defaultName: omomom
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

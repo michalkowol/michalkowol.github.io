@@ -1,580 +1,248 @@
 <!DOCTYPE html>
-<html lang="pl"></html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
 <head>
-  <title>Michał Kowol</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/vendor.min.css"/>
-  <link rel="stylesheet" href="css/vendor.min.css"/>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Michał Kowol | Tech Blog</title>
+  
+
+  <link rel="stylesheet" href="https://michalkowol.github.iocss/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.iocss/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.iocss/hyde.css">
+  <link rel="stylesheet" href="https://michalkowol.github.iocss/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  <link href="https://michalkowol.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Michał Kowol | Tech Blog" />
 </head>
-<body>
-  <div class="container">
-    <div class="posts">
-      <article>
-        <h1>Akka (notes, part 2)</h1>
-        <div class="panel panel-default">
-          <div class="panel-heading">2015-01-24 [Scala, Akka]</div>
-          <div class="panel-body">
-            <section>
-              <header>
-                <h4>Akka traits2</h4>
-              </header>
-            </section>
-          </div>
-        </div>
-      </article>
-      <article>
-        <h1>Akka (notes, part 1)</h1>
-        <div class="panel panel-default">
-          <div class="panel-heading">2014-12-01 [Scala, Akka]</div>
-          <div class="panel-body">
-            <section>
-              <header>
-                <h4>Akka traits</h4>
-              </header>
-              <section><img src="img/reactive-traits.svg" alt="Akka traits" style="max-width: 40%">
-                <div>Akka has 4 main traits. Those are:
-                  <ul>
-                    <li>Responsive - the system responds very fast.</li>
-                    <li>Resilient - the system stays responsive in the face of failure.</li>
-                    <li>Elastic - the system stays responsive under varying workload. You can easily add/remove nodes (machines) to/from system.  </li>
-                    <li>Message Driven - object talks through messages. Objects are loosely coupled. There is a big diffrence between event and message - every message has recipient address, but events don't have to have it.</li>
-                  </ul>
-                  <div>Please see <a href="http://www.reactivemanifesto.org/">Reactive Manifesto</a> for more information.</div>
-                </div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Concurrency vs parallelism</h4>
-              </header>
-              <section>
-                <ul>
-                  <li>Definition 1</li>
-                  <ul>
-                    <li><strong>Concurrency</strong> is when two tasks can start, run, and complete in overlapping time periods. It doesn't necessarily mean they'll ever both be running at the same instant. Eg. multitasking on a single-core machine.</li>
-                    <li><strong>Parallelism</strong> is when tasks literally run at the same time, eg. on a multicore processor.</li>
-                  </ul>
-                  <li>Definition 2</li>
-                  <ul>
-                    <li><strong>Concurrency</strong> A condition that exists when at least two threads are making progress. A more generalized form of parallelism that can include time-slicing as a form of virtual parallelism.</li>
-                    <li><strong>Parallelism</strong> A condition that arises when at least two threads are executing simultaneously.</li>
-                  </ul>
-                </ul>
-                <div>Ref: <a href="http://stackoverflow.com/questions/1050222/concurrency-vs-parallelism-what-is-the-difference">http://stackoverflow.com/</a>.</div>
-                <div>Example
-                  <ul>
-                    <li><strong>Concurrency</strong> - two queues, one coffee machine</li>
-                    <li><strong>Parallelism</strong> - two queues, two coffee machines</li>
-                  </ul><img src="img/20141201/con_and_par.jpg" alt="Concurrency vs Parallelism">
-                  <div>Source: <a href="http://joearms.github.io/2013/04/05/concurrent-and-parallel-programming.html">http://joearms.github.io/</a></div>
-                </div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Actor, ActorRef</h4>
-              </header>
-              <section>
-                <div><img src="img/actor-ref.png" alt="Actor with Mailbox" style="max-width: 40%">
-                  <ul>
-                    <li>Each actor has dispatcher and mailbox.</li>
-                    <li>If we send message to actor, it will add message to its mailbox and it will return <strong>immediately</strong> - this is not blocking operation.</li>
-                    <li>If we create actor, <code>actorOf</code> will return <strong>immediately</strong> <code>ActorRef</code>. It does not wait to create an instance. If we send messages to actor that is "not started", messages will be added to mailbox and will be processed when actor is inicialized - we will not lose any message.</li>
-                    <li><strong>Dispatcher</strong> assigns (schedules) thread to process the message.</li>
-                    <li>Many actors have the same dispatcher - it is some kind of thread pool.</li>
-                    <li>One message is passed to the actor</li>
-                    <li>Only <strong>one</strong> thread can be in <strong>receive</strong> block ("single-threaded illusion").</li>
-                    <li>Actors could have mutable state (but rember not to share mutable state!).</li>
-                    <li>Messages must be immutable.</li>
-                  </ul>
-                </div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>How to handle "unhandled" messages</h4>
-              </header>
-              <section>If in receive block we do not handle some message, this message will be dropped (and maybe logged). We can use <code>unhandled</code> method to do something with messages not handled in receive block.
-                <pre><code class="scala">override def unhandled(message: Any): Unit = ???</code></pre>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Top-Level Actor</h4>
-              </header>
-              <section>If you create top-level actors, use factory methods - it will simplify testing. Always give name to your top-level actors.
-                <pre><code class="scala">val topLevelActor = createTopLevelActor()
-def createTopLevelActor(): ActorRef = system.actorOf(TopLevel.props, "top-level")</code></pre>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Message protocol</h4>
-              </header>
-              <section>
-                <ul>
-                  <li>Defince your message protocol in the companion object of the actor.</li>
-                  <li>If you use message protocol from other actor, use actor name as prefix to this message - this will make code more readable.</li>
-                  <pre><code class="scala">object FooActor {
-  case object FooMessage
-}
-class FooActor extends Actor {
-  import FooActor._
-  override def receive: Receive = {
-    case FooMessage => ???
-    case BarActor.BarMessage => ???
-  }
-}
- 
-object BarActor {
-  case object BarMessage
-}
-class BarActor extends Actor {
-  import BarActor._
-  override def receive: Receive = {
-    case FooActor.FooMessage => ???
-    case BarMessage => ???
-  }
-}</code></pre>
-                </ul>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Actor DSL</h4>
-              </header>
-              <section>To create anonymous actoes we can use <a href="http://doc.akka.io/docs/akka/2.3.0-RC1/scala/actordsl.html">Actor DSL</a>. Here, <code>actor</code> takes the role of either <code>system.actorOf</code> or <code>context.actorOf</code>. It takes an implicit <code>ActorRefFactory</code> and creates the new Actor.
-                <pre><code class="scala">import akka.actor.ActorDSL._
- 
-val a = actor(new Act {
-  become {
-    case "hello" => sender() ! "hi"
-  }
-})</code></pre>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Best practices</h4>
-              </header>
-              <section>
-                <ul>
-                  <li>Always create <code>Props</code> factory - the best place for that is in companion object (see: <a href="http://doc.akka.io/docs/akka/snapshot/scala/actors.html">Actors &mdash; Akka Documentation</a>).</li>
-                  <li>Put Companion Object before you class.</li>
-                  <li>Use <code>sender()</code> <strong>with</strong> parentheses. It is function, not val and you have to rember about it. It can be very tricky when sender() will be execute in other thread - in example in <code>Future</code>. Example:
-                    <pre><code class="scala">class WrongWayActor extends Actor {
-  override def receive: Receive = {
-    case _ => Future {
-      val result = doSomeHeavyComputation
-      sender() ! result // if you reacive other message in meantime, it will send the response to WRONG actor
-    }
-  }
-}
- 
-class GoodWayActor extends Actor {
-  override def receive: Receive = {
-    case _ =>
-      val originalSender = sender()
-      Future {
-        val result = doSomeHeavyComputation
-        originalSender ! result  // it closes clouser over - it will send response to right actor
-    }
-  }
-}</code></pre>
-                  </li>
-                </ul>
-              </section>
-            </section>
-          </div>
-        </div>
-      </article>
-      <article>
-        <h1>Scala (notes)</h1>
-        <div class="panel panel-default">
-          <div class="panel-heading">2014-11-28 [Scala]</div>
-          <div class="panel-body">
-            <section>
-              <header>
-                <h4>Functions without parameters</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/8c9682823103c6813097.js"></script>
-                <div>The first one is better, bacause you can easly replace it with <code>val</code>. In fact, otheres developers shouldn't know if you use <code>val</code> or <code>def</code>. It should be transparent (you shouldn't use parentheses).</div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Default parameters</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/ec5c78769d9aab576d84.js"></script>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Public API</h4>
-              </header>
-              <section>If we define public API, all methods and parameters should have explicite type.</section>
-            </section>
-            <section>
-              <header>
-                <h4>Operators</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/ccfc2bdb0bb0a90dec56.js"></script>
-                <div>To be consisten:</div>
-                <ul>
-                  <li>all operators like <code>+, !, -</code>, etc should be used with infix notation,</li>
-                  <li>in other cases we <b>should</b> use dot notation.</li>
-                </ul>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Named parameters</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/fe5d0b8fa16a6857a2eb.js"></script>
-                <div>When we have a lot of parameters (especially with the same type - integers and strings), we should used named parameters. It makes code more readable and more expressible.</div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Imports in code's block are ok</h4>
-              </header>
-              <section>If you need specific import only in one function, import it in function body.</section>
-            </section>
-            <section>
-              <header>
-                <h4>Private access modifiers in Scala</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/4965cc09b3b50c3c30a4.js"></script><code>private [this]</code> is very restrict. It can be be called only in "this". You can use package access modifier (it could be good for tests).
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Should I extend <code>App</code> or should I use <code>main(args: Array[String])</code>?</h4>
-              </header>
-              <section>Extending <code>App</code> is code for prototyping. In production you should use <code>main</code>. Why?
-                <ul>
-                  <li>Whole object body is treatead as main,</li>
-                  <li>you don't hava access to <code>args</code>,</li>
-                  <li>
-                    <blockquote cite="http://www.scala-lang.org/api/current/index.html#scala.App" class="small">It should be noted that this trait is implemented using the DelayedInit functionality, which means that fields of the object will not have been initialized before the main method has been executed.</blockquote>
-                  </li>
-                </ul>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4><code>copy</code> method in case classes</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/0042b1d075075a483a5b.js"></script>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4><code>List</code> vs <code>Vector</code></h4>
-              </header>
-              <section> 
-                <h5><code>List</code></h5>
-                <div>List has only pointer to first element - it adds very fast to head of list. To add element to end of list it has to iterate throught all elements (<code>O(n)</code>).</div>
-                <h5><code>Vector</code></h5>
-                <div>All operations are constant in time (even putting element in the middile of collection).</div>
-                <h5>Performance characteristics</h5>
-                <div>
-                  <div><img src="img/performance.png" alt="Performance characteristics"></div><a href="http://docs.scala-lang.org/overviews/collections/performance-characteristics.html">Performance characteristics</a>
-                </div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4><code>Seq</code> is mutable!</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/c8c78a917e8a794cfdf9.js"></script>
-                <div>There is at least one mutable subtype of <code>Seq</code>: <code>WrappedArray</code>. To be sure sequence is immutable use <code>scala.collection.immutable.Seq</code>.</div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Future</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/21b648b8a1fae1da8123.js"></script>
-                <div><code>Await.result</code> is blocking operation.</div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Diffrence between <code>=</code> and <code>&lt;-</code> in for comprehension</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/77cd21d39a09355c24f2.js"></script>
-                <div><code>&lt;-</code> will "unpack", <code>=</code> is simple assigment.</div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4><code>Try</code> object/trait</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/e9446d855e33a5b6ce7c.js"></script>
-                <div>In <a href="http://www.scalactic.org/">scalactic</a> you can use <code>String Or ErrorMessage</code> (<code>Good(...)</code>, <code>Bad(...)</code> subclasses).</div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4><code>if</code> in for-comprehension</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/e5e68fd31c78bf766506.js"></script>
-                <div>You can use <code>if</code> in for-comprehension.</div>
-                <div>Every for-comprehension can be replaced with <code>flatMap</code> and <code>map</code> (outer iteration is <code>flatMap</code>).</div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4><code>filter</code> vs <code>withFilter</code></h4>
-              </header>
-              <section>
-                <div><code>filter</code> always returns collections. <code>withFilter</code> returns generator. You can "join" join many generators.</div>
-                <div>You should <code>withFilter</code> when you have many filters.</div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Class modifiers</h4>
-              </header>
-              <section>
-                <ul>
-                  <li><code>final class Animal</code> you cannnot extend Animal</li>
-                  <li><code>sealed</code> All subtypes must be defined in this file. <code>sealed</code> should be define when you use <a href="http://en.wikipedia.org/wiki/Algebraic_data_type">ADT (algebraic data types)</a>. <code>sealed</code> is very helpfull in pattern matching.</li>
-                </ul>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Traits linearization</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/8c329a089e5b1bcdd51a.js"></script>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Const Pattern Mattching</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/e334f8bafff000e11549.js"></script>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Others</h4>
-              </header>
-              <section>
-                <ul>
-                  <li>In subclass you can replace <code>def</code> with <code>val</code>.</li>
-                  <li>There is type <code>Either</code> and <code>Options</code> - very usefull to handle errors or null pointers.</li>
-                  <li><code>lazy val</code> can caused some problems. Instead of <code>lazy val</code> maybe yhou should use <code>def</code>.</li>
-                  <li><code>s"..."</code> - string interpolation, <code>f"..."</code> - formating (<code>f"$value%02x"</code> (300 -&gt; 12c)).</li>
-                  <li><code>trait</code> or <code>abstract class</code>? In most cases <code>trait</code> is better. The only reason to use <code>abstract class</code> is when we have to use constructor params.</li>
-                  <li>If we ovverride method, it should call <code>super</code>.</li>
-                  <li>It is better to use simple <code>case classes</code> than <code>Tuple</code>.</li>
-                </ul>
-              </section>
-            </section>
-          </div>
-        </div>
-      </article>
-      <article>
-        <h1>Traits like in JavaScript</h1>
-        <div class="panel panel-default">
-          <div class="panel-heading">2014-10-23 [JavaScript]</div>
-          <div class="panel-body">
-            <section>
-              <h4>Traits:</h4>
-              <script src="https://gist.github.com/michalkowol/f6ca3c360f703c370754.js"></script>
-              <h4>Traits example:</h4>
-              <script src="https://gist.github.com/michalkowol/4191620b733f0cbeb3ba.js"></script>
-              <div>
-                <h4>Result:</h4>
-                <pre>[start]: TraitA.functionA
-[start]: classWithTraitATraitB.getModel
-[end]: classWithTraitATraitB.getModel
-model
-[end]: TraitA.functionA
-[start]: classWithTraitATraitB.functionB
-[start]: TraitB.functionB
-[start]: classWithTraitATraitB.getModel
-[end]: classWithTraitATraitB.getModel
-model
-[end]: TraitB.functionB
-[start]: TraitA.functionA
-[start]: classWithTraitATraitB.getModel
-[end]: classWithTraitATraitB.getModel
-model
-[end]: TraitA.functionA
-[end]: classWithTraitATraitB.functionB
-[start]: TraitB.dummyModel
-[end]: TraitB.dummyModel</pre>
-              </div>
-            </section>
-          </div>
-        </div>
-      </article>
-      <article>
-        <h1>"Closures" in JavaScript</h1>
-        <div class="panel panel-default">
-          <div class="panel-heading">2014-07-22 [JavaScript]</div>
-          <div class="panel-body">
-            <section>
-              <div>Closures in JS can simulate classes. Polymorphism, encapsulation and inheritance are avilable in this aproach.</div>
-              <script src="https://gist.github.com/michalkowol/190559f3f92f9a8e4111.js"></script>
-              <div>Example:
-                <pre>var classB = mtv.ClassB('Michal');
-classB.foo();       // ClassB.foo.start
-                    // Michal Michal
-                    // ClassA.foo.start
-                    // Michal
-                    // ClassA.foo.end
-                    // ClassB.foo.end
- 
-classB.bar();       // ClassA.bar.start
-                    // ClassB.foo.start
-                    // Michal Michal
-                    // ClassA.foo.start
-                    // Michal
-                    // ClassA.foo.end
-                    // ClassB.foo.end
-                    // ClassA.privateInA.start
-                    // Michal
-                    // ClassA.privateInA.end
-                    // ClassA.bar.end
- 
-classB.changeA();   // ClassA.changeA.start
-                    // ClassA.changeA.end
- 
-classB.bar();       // ClassA.bar.start
-                    // ClassB.foo.start
-                    // Michal Michal Kowol
-                    // ClassA.foo.start
-                    // Michal Kowol
-                    // ClassA.foo.end
-                    // ClassB.foo.end
-                    // ClassA.privateInA.start
-                    // Michal Kowol
-                    // ClassA.privateInA.end
-                    // ClassA.bar.end</pre>
-              </div>
-            </section>
-          </div>
-        </div>
-      </article>
-      <article>
-        <h1>"Classes" and Singletions in JavaScript</h1>
-        <div class="panel panel-default">
-          <div class="panel-heading">2014-04-24 [JavaScript]</div>
-          <div class="panel-body">
-            <section>
-              <div>In JS there are a lot of way to simulate classes. Here are examples:</div>
-              <script src="https://gist.github.com/michalkowol/4e7791c0fe7d8f981d7a.js"></script>
-              <div>In my option <code>MTVClass1.js</code> approach is the best one. <code>MTVClass1.js</code> has similar concept like <code>MTVObject.js</code>. In <code>MTVClass2.js</code> and <code>MTVClass3.js</code> you do not have access to class fields. <code>MTVClass1.js</code> has some small performance issue, but remeber:
-                <blockquote cite="Donald Knuth" class="small">Premature optimization is the root of all evil.</blockquote>
-              </div>
-            </section>
-          </div>
-        </div>
-      </article>
-      <article>
-        <h1>Java with Spring</h1>
-        <div class="panel panel-default">
-          <div class="panel-heading">2013-12-05 [Java, Spring, Bean]</div>
-          <div class="panel-body">
-            <section>
-              <header>
-                <h4>Simple example:</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/360bab621fa243e67894.js"></script>
-                <div>MainAppSingleton execution result:
-                  <pre>true</pre>
-                </div>
-                <div>MainAppPrototype execution result:
-                  <pre>false</pre>
-                </div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Konstruktory i rozwiązywanie konfliktów</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/dac25151507ca255a296.js"></script>
-                <div>With <code>bean1.xml</code>
-                  <pre>Test.type = xhajs
-Test.password= md5</pre>
-                </div>
-                <div>With <code>bean2.xml</code>
-                  <pre>Test.type = md5
-Test.password= xhajs</pre>
-                </div>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Factories</h4>
-              </header>
-              <section>
-                <script src="https://gist.github.com/michalkowol/e45946dfe420ca729d1e.js"></script>
-              </section>
-            </section>
-            <section>
-              <header>
-                <h4>Result:</h4>
-              </header>
-              <section>
-                <div>
-                  <pre>Eating a banana: omomom</pre>
-                </div>
-                <div>Plum with name:
-                  <script src="https://gist.github.com/michalkowol/e98f76938ac98ccb0d26.js"></script>
-                  <pre>Eating a plum sliwka: omomom</pre>
-                </div>
-                <div>Plum by name using <code>createFruit</code> method:
-                  <script src="https://gist.github.com/michalkowol/4281a064f1daa72934b1.js"></script>
-                  <pre>Eating a plum defaultName: omomom</pre>
-                </div>
-              </section>
-            </section>
-          </div>
-        </div>
-      </article>
-      <article>
-        <h1>Przeciążona metoda wywołana z konstruktora klasy bazowej</h1>
-        <div class="panel panel-default">
-          <div class="panel-heading">2013-11-22 [Java]</div>
-          <div class="panel-body">
-            <section>
-              <div>Przeanalizujmy poniższy kod:</div>
-              <script src="https://gist.github.com/michalkowol/e9e5f3f87338ddec829e.js"></script>
-              <div>Efektem stworzenia ClassA będzie NullPointerException. Dzieje się to dlatego, że przeciążamy showMeTheMain, które chce skorzystać ze zmiennej a.</div>
-              <div>Jak wykonuje się program:</div>
-              <ol>
-                <li>Konstruktor ClassMain.</li>
-                <li>Metoda ClassA.showMeTheMain.</li>
-                <li>Konstruktor ClassA.</li>
-              </ol>
-              <div>W tym przykładzie zmieniliśmy kwalifikator dostępu z protected na public. Zawsze można zwiększać, ale nie można zmniejszać (co jest logiczne).</div>
-            </section>
-          </div>
-        </div>
-      </article>
+
+<body class="theme-base-0d ">
+
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://michalkowol.github.io"><h1>Michał Kowol</h1></a>
+      <p class="lead">
+       Tech Blog 
+      </p>
     </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/posts"> Blog </a></li>
+      
+        <li><a href="/categories/development"> Development </a></li>
+      
+    </ul>
   </div>
-  <script src="js/app.min.js"></script>
+</div>
+
+
+      <div class="content container">
+  <div class="posts">
+        
+    <div class="post">
+      <h1 class="post-title">
+        <a href="https://michalkowol.github.io/posts/akka-notes-part-1/">
+          Akka (notes, part 1)
+        </a>
+      </h1>
+
+      <div class="post-date">2014-12-01</div>
+      
+        <div class="post-categories">
+        
+          <a class="post-category post-category-development" href="https://michalkowol.github.iocategories/development">development</a>
+        
+          <a class="post-category post-category-scala" href="https://michalkowol.github.iocategories/scala">scala</a>
+        
+        </div>
+      
+
+      <article class="post-summary">
+          Akka traits Akka has 4 main traits. Those are:
+ Responsive - the system responds very fast. Resilient - the system stays responsive in the face of failure. Elastic - the system stays responsive under varying workload. You can easily add/remove nodes (machines) to/from system. Message Driven - object talks through messages. Objects are loosely coupled. There is a big diffrence between event and message - every message has recipient address, but events don&rsquo;t have to have it.
+      </article>
+      <div class="read-more-link">
+          <a href="/posts/akka-notes-part-1/"></span>Read More...</a>
+      </div>
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="https://michalkowol.github.io/posts/scala-notes/">
+          Scala (notes)
+        </a>
+      </h1>
+
+      <div class="post-date">2014-11-28</div>
+      
+        <div class="post-categories">
+        
+          <a class="post-category post-category-development" href="https://michalkowol.github.iocategories/development">development</a>
+        
+          <a class="post-category post-category-scala" href="https://michalkowol.github.iocategories/scala">scala</a>
+        
+        </div>
+      
+
+      <article class="post-summary">
+          Functions without parameters def foo: String = ??? def bar(): String = ???  The first one is better, bacause you can easly replace it with val. In fact, otheres developers shouldn&rsquo;t know if you use val or def. It should be transparent (you shouldn&rsquo;t use parentheses).
+Default parameters class Welcome(message: String = &quot;default&quot;)  Public API If we define public API, all methods and parameters should have explicite type.
+      </article>
+      <div class="read-more-link">
+          <a href="/posts/scala-notes/"></span>Read More...</a>
+      </div>
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="https://michalkowol.github.io/posts/traits-in-javascript/">
+          Scala traits in javascript
+        </a>
+      </h1>
+
+      <div class="post-date">2014-10-23</div>
+      
+        <div class="post-categories">
+        
+          <a class="post-category post-category-development" href="https://michalkowol.github.iocategories/development">development</a>
+        
+          <a class="post-category post-category-javascript" href="https://michalkowol.github.iocategories/javascript">javascript</a>
+        
+        </div>
+      
+
+      <article class="post-summary">
+          Traits:
+function _extend(object, source) { for (var key in source) { if (source.hasOwnProperty(key)) { object[key] = source[key]; } } return object; }  function _with() { var self = {}; var args = Array.prototype.slice.call(arguments); for (var i = 0; i &lt; args.length; i++) { args[i](self); } self.super = _extend({}, self); return self; }  Traits example:
+var mtv = (function (mtv) { 'use strict'; mtv.TraitA = function (self) { self.functionA = function () { console.
+      </article>
+      <div class="read-more-link">
+          <a href="/posts/traits-in-javascript/"></span>Read More...</a>
+      </div>
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="https://michalkowol.github.io/posts/closures-in-javascript/">
+          &#34;Closures&#34; in JavaScript
+        </a>
+      </h1>
+
+      <div class="post-date">2014-07-22</div>
+      
+        <div class="post-categories">
+        
+          <a class="post-category post-category-development" href="https://michalkowol.github.iocategories/development">development</a>
+        
+          <a class="post-category post-category-javascript" href="https://michalkowol.github.iocategories/javascript">javascript</a>
+        
+        </div>
+      
+
+      <article class="post-summary">
+          Closures in JS can simulate classes. Polymorphism, encapsulation and inheritance are avilable in this aproach.
+function _extend(object, source) { for (var key in source) { if (source.hasOwnProperty(key)) { object[key] = source[key]; } } return object; }  var mtv = (function (mtv) { 'use strict'; mtv.ClassA = function (a) { var self = {}; self.a = a; function privateInA () { console.log('ClassA.privateInA.start'); console.log(self.a); console.log('ClassA.privateInA.end'); } self.bar = function () { console.
+      </article>
+      <div class="read-more-link">
+          <a href="/posts/closures-in-javascript/"></span>Read More...</a>
+      </div>
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="https://michalkowol.github.io/posts/classes-and-singletions-in-javascript/">
+          &#34;Classes&#34; and Singletions in JavaScript
+        </a>
+      </h1>
+
+      <div class="post-date">2014-04-24</div>
+      
+        <div class="post-categories">
+        
+          <a class="post-category post-category-development" href="https://michalkowol.github.iocategories/development">development</a>
+        
+          <a class="post-category post-category-javascript" href="https://michalkowol.github.iocategories/javascript">javascript</a>
+        
+        </div>
+      
+
+      <article class="post-summary">
+          In JS there are a lot of way to simulate classes. Here are examples:
+var com = com || {}; com.MTVClass1 = function (videoID) { &quot;use strict&quot;; var self = {}; function bar() { return &quot;bar&quot; + videoID; } self.foo = function () { return &quot;foo&quot; + bar() + videoID; }; return self; };  com.MTVClass1(&quot;123&quot;).foo(); view rawMTVClass1.js hosted with ❤ by GitHub var com = com || {}; (function () { 'use strict'; com.
+      </article>
+      <div class="read-more-link">
+          <a href="/posts/classes-and-singletions-in-javascript/"></span>Read More...</a>
+      </div>
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="https://michalkowol.github.io/posts/java-with-spring/">
+          Java with Spring
+        </a>
+      </h1>
+
+      <div class="post-date">2013-12-05</div>
+      
+        <div class="post-categories">
+        
+          <a class="post-category post-category-development" href="https://michalkowol.github.iocategories/development">development</a>
+        
+          <a class="post-category post-category-java" href="https://michalkowol.github.iocategories/java">java</a>
+        
+        </div>
+      
+
+      <article class="post-summary">
+          Simple example: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt; &lt;bean id=&quot;apple&quot; class=&quot;Apple&quot; /&gt; &lt;bean id=&quot;juicer&quot; class=&quot;Juicer&quot;&gt; &lt;constructor-arg ref=&quot;apple&quot; /&gt; &lt;constructor-arg ref=&quot;peeler&quot; /&gt; &lt;/bean&gt; &lt;bean id=&quot;peeler&quot; class=&quot;Peeler&quot;&gt; &lt;constructor-arg ref=&quot;apple&quot; /&gt; &lt;/bean&gt; &lt;/beans&gt;  &lt;!-- ... --&gt; &lt;bean id=&quot;juicer&quot; class=&quot;Juicer&quot; scope=&quot;prototype&quot;&gt; &lt;!-- ... --&gt;  public interface Fruit { void eat(); String getName(); } public interface Peelable { void peel(); } public class Apple implements Fruit, Peelable { public void peel() { } public void eat() { } String getName() { return &quot;apple&quot;; } } public class Peeler { private final Peelable peelable; public Peeler(Peelable peelable) { this.
+      </article>
+      <div class="read-more-link">
+          <a href="/posts/java-with-spring/"></span>Read More...</a>
+      </div>
+    </div>
+    
+    <div class="post">
+      <h1 class="post-title">
+        <a href="https://michalkowol.github.io/posts/java-puzzle/">
+          Java puzzle
+        </a>
+      </h1>
+
+      <div class="post-date">2013-11-22</div>
+      
+        <div class="post-categories">
+        
+          <a class="post-category post-category-development" href="https://michalkowol.github.iocategories/development">development</a>
+        
+          <a class="post-category post-category-java" href="https://michalkowol.github.iocategories/java">java</a>
+        
+        </div>
+      
+
+      <article class="post-summary">
+          Let&rsquo;s consider code bellow
+class ClassMain { private val mainVar = &quot;Main&quot; showMeTheMain() protected def showMeTheMain() { println(mainVar) } } class ClassA extends ClassMain { private val a = &quot;qwerty&quot; showMeTheMain() override def showMeTheMain() { println(&quot;not main anymore&quot; + a.toUpperCase()) } }  Result of this code is NullPointerException. This is because we override method showMeTheMain, but we want to use a parameter.
+This is how program is executed:
+ Constructor of ClassMain Method ClassA.
+      </article>
+      <div class="read-more-link">
+          <a href="/posts/java-puzzle/"></span>Read More...</a>
+      </div>
+    </div>
+    
+  </div>
+  </div>
+  <script src="https://michalkowol.github.iojs/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 </body>
+</html>

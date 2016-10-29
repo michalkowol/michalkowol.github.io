@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Michał Kowol | Tech Blog</title>
+    <link>https://michalkowol.github.io/tags/trait/index.xml</link>
+    <description>Recent content on Michał Kowol | Tech Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://michalkowol.github.io/tags/trait/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>&#34;Classes&#34; and Singletions in JavaScript</title>
+      <link>https://michalkowol.github.io/posts/classes-and-singletions-in-javascript/</link>
+      <pubDate>Thu, 24 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/classes-and-singletions-in-javascript/</guid>
+      <description>&lt;p&gt;In JS there are a lot of way to simulate classes. Here are examples:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var com = com || {};
+
+com.MTVClass1 = function (videoID) {
+    &amp;quot;use strict&amp;quot;;
+    var self = {};
+ 
+    function bar() {
+        return &amp;quot;bar&amp;quot; + videoID;
+    }
+ 
+    self.foo = function () {
+        return &amp;quot;foo&amp;quot; + bar() + videoID;
+    };
+ 
+    return self;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;com.MTVClass1(&amp;quot;123&amp;quot;).foo();
+view rawMTVClass1.js hosted with ❤ by GitHub
+var com = com || {};
+ 
+(function () {
+    &#39;use strict&#39;;
+ 
+    com.MTVClass2 = function (videoID) {
+        this.videoID = videoID;
+    };
+ 
+    function bar() {
+        return &amp;quot;bar&amp;quot;; // does not have access to videoID
+    }
+ 
+    com.MTVClass2.prototype.foo = function () {
+        return &amp;quot;foo&amp;quot; + bar() + this.videoID;
+    };
+}());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;new com.MTVClass2(&amp;quot;1234&amp;quot;).foo();
+view rawMTVClass2.js hosted with ❤ by GitHub
+var com = com || {};
+ 
+com.MTVClass3 = (function () {
+    &#39;use strict&#39;;
+ 
+    function MTVClass3(videoID) {
+        this.videoID = videoID;
+    }
+ 
+    function bar() {
+        return &amp;quot;bar&amp;quot;;  // does not have access to videoID
+    }
+ 
+    MTVClass3.prototype.foo = function () {
+        return &amp;quot;foo&amp;quot; + bar() + this.videoID;
+    };
+ 
+    return MTVClass3;
+}());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;new com.MTVClass3(&amp;quot;123&amp;quot;).foo();
+view rawMTVClass3.js hosted with ❤ by GitHub
+var com = com || {};
+ 
+com.MTVClass4 = (function () {
+    &#39;use strict&#39;;
+ 
+    function MTVClass4(videoID) {
+        this.videoID = videoID;
+    }
+ 
+    function bar(self) {
+        return &amp;quot;bar&amp;quot; + self.videoID;
+    }
+ 
+    MTVClass4.prototype.foo = function () {
+        return &amp;quot;foo&amp;quot; + bar(this) + this.videoID;
+    };
+ 
+    return MTVClass4;
+}());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;new com.MTVClass4(&amp;quot;123&amp;quot;).foo();
+view rawMTVClass4.js hosted with ❤ by GitHub
+var com = com || {};
+ 
+com.MTVObject = (function () {
+    &amp;quot;use strict&amp;quot;;
+    var self = {};
+ 
+    function bar() {
+        return &amp;quot;bar&amp;quot;;
+    }
+ 
+    self.foo = function () {
+        return &amp;quot;foo&amp;quot; + bar();
+    };
+ 
+    return self;
+}());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;com.MTVObject.foo();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In my option &lt;code&gt;MTVClass1.js&lt;/code&gt; approach is the best one. &lt;code&gt;MTVClass1.js&lt;/code&gt; has similar concept like &lt;code&gt;MTVObject.js&lt;/code&gt;. In &lt;code&gt;MTVClass2.js&lt;/code&gt; and &lt;code&gt;MTVClass3.js&lt;/code&gt; you do not have access to class fields. &lt;code&gt;MTVClass1.js&lt;/code&gt; has some small performance issue, but remeber:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Premature optimization is the root of all evil.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

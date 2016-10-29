@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Michał Kowol | Tech Blog</title>
+    <link>https://michalkowol.github.io/tags/akka/index.xml</link>
+    <description>Recent content on Michał Kowol | Tech Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://michalkowol.github.io/tags/akka/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Akka (notes, part 1)</title>
+      <link>https://michalkowol.github.io/posts/akka-notes-part-1/</link>
+      <pubDate>Mon, 01 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/akka-notes-part-1/</guid>
+      <description>
+
+&lt;h3 id=&#34;akka-traits&#34;&gt;Akka traits&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://michalkowol.github.io/img/akka-notes/reactive-traits.svg&#34; alt=&#34;akka traits&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Akka has 4 main traits. Those are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Responsive - the system responds very fast.&lt;/li&gt;
+&lt;li&gt;Resilient - the system stays responsive in the face of failure.&lt;/li&gt;
+&lt;li&gt;Elastic - the system stays responsive under varying workload. You can easily add/remove nodes (machines) to/from system.&lt;/li&gt;
+&lt;li&gt;Message Driven - object talks through messages. Objects are loosely coupled. There is a big diffrence between event and message - every message has recipient address, but events don&amp;rsquo;t have to have it.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Please see &lt;a href=&#34;http://www.reactivemanifesto.org/&#34;&gt;Reactive Manifesto&lt;/a&gt; for more information.&lt;/p&gt;
+
+&lt;h3 id=&#34;concurrency-vs-parallelism&#34;&gt;Concurrency vs parallelism&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Definition 1
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Concurrency&lt;/strong&gt; is when two tasks can start, run, and complete in overlapping time periods. It doesn&amp;rsquo;t necessarily mean they&amp;rsquo;ll ever both be running at the same instant. Eg. multitasking on a single-core machine.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Parallelism&lt;/strong&gt; is when tasks literally run at the same time, eg. on a multicore processor.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Definition 2
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Concurrency&lt;/strong&gt; A condition that exists when at least two threads are making progress. A more generalized form of parallelism that can include time-slicing as a form of virtual parallelism.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Parallelism&lt;/strong&gt; A condition that arises when at least two threads are executing simultaneously.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ref: &lt;a href=&#34;http://stackoverflow.com/questions/1050222/concurrency-vs-parallelism-what-is-the-difference&#34;&gt;stackoverflow.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Concurrency - two queues, one coffee machine&lt;/li&gt;
+&lt;li&gt;Parallelism - two queues, two coffee machines&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://michalkowol.github.io/img/akka-notes/con_and_par.jpg&#34; alt=&#34;Concurrency vs Parallelism&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Source: &lt;a href=&#34;http://joearms.github.io/2013/04/05/concurrent-and-parallel-programming.html&#34;&gt;joearms.github.io&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;actor-actorref&#34;&gt;Actor, ActorRef&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://michalkowol.github.io/img/akka-notes/actor-ref.png&#34; alt=&#34;Actor with Mailbox&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Each actor has dispatcher and mailbox.&lt;/li&gt;
+&lt;li&gt;If we send message to actor, it will add message to its mailbox and it will return &lt;strong&gt;immediately&lt;/strong&gt; - this is not blocking operation.&lt;/li&gt;
+&lt;li&gt;If we create actor, &lt;code&gt;actorOf&lt;/code&gt; will return &lt;strong&gt;immediately&lt;/strong&gt; &lt;code&gt;ActorRef&lt;/code&gt;. It does not wait to create an instance. If we send messages to actor that is &amp;ldquo;not started&amp;rdquo;, messages will be added to mailbox and will be processed when actor is inicialized - we will not lose any message.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Dispatcher&lt;/code&gt; assigns (schedules) thread to process the message.&lt;/li&gt;
+&lt;li&gt;Many actors have the same dispatcher - it is some kind of thread pool.&lt;/li&gt;
+&lt;li&gt;One message is passed to the actor&lt;/li&gt;
+&lt;li&gt;Only &lt;strong&gt;one&lt;/strong&gt; thread can be in &lt;strong&gt;receive&lt;/strong&gt; block (&amp;ldquo;single-threaded illusion&amp;rdquo;).&lt;/li&gt;
+&lt;li&gt;Actors could have mutable state (but rember not to share mutable state!).&lt;/li&gt;
+&lt;li&gt;Messages must be immutable.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;how-to-handle-unhandled-messages&#34;&gt;How to handle &amp;ldquo;unhandled&amp;rdquo; messages&lt;/h3&gt;
+
+&lt;p&gt;If in receive block we do not handle some message, this message will be dropped (and maybe logged). We can use &lt;code&gt;unhandled&lt;/code&gt; method to do something with messages not handled in receive block.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;override def unhandled(message: Any): Unit = ???
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;top-level-actor&#34;&gt;Top-Level Actor&lt;/h3&gt;
+
+&lt;p&gt;If you create top-level actors, use factory methods - it will simplify testing. Always give name to your top-level actors.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;val topLevelActor = createTopLevelActor()
+def createTopLevelActor(): ActorRef = system.actorOf(TopLevel.props, &amp;quot;top-level&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;message-protocol&#34;&gt;Message protocol&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Defince your message protocol in the companion object of the actor.&lt;/li&gt;
+&lt;li&gt;If you use message protocol from other actor, use actor name as prefix to this message - this will make code more readable.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;object FooActor {
+  case object FooMessage
+}
+class FooActor extends Actor {
+  import FooActor._
+  override def receive: Receive = {
+    case FooMessage =&amp;gt; ???
+    case BarActor.BarMessage =&amp;gt; ???
+  }
+}
+
+object BarActor {
+  case object BarMessage
+}
+class BarActor extends Actor {
+  import BarActor._
+  override def receive: Receive = {
+    case FooActor.FooMessage =&amp;gt; ???
+    case BarMessage =&amp;gt; ???
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;actor-dsl&#34;&gt;Actor DSL&lt;/h3&gt;
+
+&lt;p&gt;To create anonymous actoes we can use &lt;a href=&#34;http://doc.akka.io/docs/akka/2.3.0-RC1/scala/actordsl.html&#34;&gt;Actor DSL&lt;/a&gt;. Here, &lt;code&gt;actor&lt;/code&gt; takes the role of either &lt;code&gt;system.actorOf&lt;/code&gt; or &lt;code&gt;context.actorOf&lt;/code&gt;. It takes an implicit &lt;code&gt;ActorRefFactory&lt;/code&gt; and creates the new &lt;code&gt;Actor&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;import akka.actor.ActorDSL._
+ 
+val a = actor(new Act {
+  become {
+    case &amp;quot;hello&amp;quot; =&amp;gt; sender() ! &amp;quot;hi&amp;quot;
+  }
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;best-practices&#34;&gt;Best practices&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Always create &lt;code&gt;Props&lt;/code&gt; factory - the best place for that is in companion object (see: &lt;a href=&#34;http://doc.akka.io/docs/akka/snapshot/scala/actors.html&#34;&gt;Actors — Akka Documentation&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;Put Companion Object before you class.&lt;/li&gt;
+&lt;li&gt;Use &lt;code&gt;sender()&lt;/code&gt; &lt;strong&gt;with&lt;/strong&gt; parentheses. It is function, not val and you have to rember about it. It can be very tricky when &lt;code&gt;sender()&lt;/code&gt; will be execute in other thread - in example in &lt;code&gt;Future&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-scala&#34;&gt;class WrongWayActor extends Actor {
+  override def receive: Receive = {
+    case _ =&amp;gt; Future {
+      val result = doSomeHeavyComputation
+      sender() ! result // if you reacive other message in meantime, it will send the response to WRONG actor
+    }
+  }
+}
+ 
+class GoodWayActor extends Actor {
+  override def receive: Receive = {
+    case _ =&amp;gt;
+      val originalSender = sender()
+      Future {
+        val result = doSomeHeavyComputation
+        originalSender ! result  // it closes clouser over - it will send response to right actor
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

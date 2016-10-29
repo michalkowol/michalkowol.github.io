@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>&#34;Classes&#34; and Singletions in JavaScript &middot; Michał Kowol | Tech Blog</title>
+  
+
+  <link rel="stylesheet" href="https://michalkowol.github.iocss/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.iocss/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.iocss/hyde.css">
+  <link rel="stylesheet" href="https://michalkowol.github.iocss/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  <link href="" rel="alternate" type="application/rss+xml" title="Michał Kowol | Tech Blog" />
+</head>
+
+<body class="theme-base-0d ">
+  
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://michalkowol.github.io"><h1>Michał Kowol</h1></a>
+      <p class="lead">
+       Tech Blog 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/posts"> Blog </a></li>
+      
+        <li><a href="/categories/development"> Development </a></li>
+      
+    </ul>
+  </div>
+</div>
+
+
+  <div class="content container">
+    <div class="post">
+      <h1>&#34;Classes&#34; and Singletions in JavaScript</h1>
+      <span class="post-date">2014-04-24</span>
+      
+        <div class="post-categories">
+        
+          <a class="post-category post-category-development" href="https://michalkowol.github.iocategories/development">development</a>
+        
+          <a class="post-category post-category-javascript" href="https://michalkowol.github.iocategories/javascript">javascript</a>
+        
+        </div>
+      
+      <article><p>In JS there are a lot of way to simulate classes. Here are examples:</p>
+
+<pre><code class="language-javascript">var com = com || {};
+
+com.MTVClass1 = function (videoID) {
+    &quot;use strict&quot;;
+    var self = {};
+ 
+    function bar() {
+        return &quot;bar&quot; + videoID;
+    }
+ 
+    self.foo = function () {
+        return &quot;foo&quot; + bar() + videoID;
+    };
+ 
+    return self;
+};
+</code></pre>
+
+<pre><code class="language-javascript">com.MTVClass1(&quot;123&quot;).foo();
+view rawMTVClass1.js hosted with ❤ by GitHub
+var com = com || {};
+ 
+(function () {
+    'use strict';
+ 
+    com.MTVClass2 = function (videoID) {
+        this.videoID = videoID;
+    };
+ 
+    function bar() {
+        return &quot;bar&quot;; // does not have access to videoID
+    }
+ 
+    com.MTVClass2.prototype.foo = function () {
+        return &quot;foo&quot; + bar() + this.videoID;
+    };
+}());
+</code></pre>
+
+<pre><code class="language-javascript">new com.MTVClass2(&quot;1234&quot;).foo();
+view rawMTVClass2.js hosted with ❤ by GitHub
+var com = com || {};
+ 
+com.MTVClass3 = (function () {
+    'use strict';
+ 
+    function MTVClass3(videoID) {
+        this.videoID = videoID;
+    }
+ 
+    function bar() {
+        return &quot;bar&quot;;  // does not have access to videoID
+    }
+ 
+    MTVClass3.prototype.foo = function () {
+        return &quot;foo&quot; + bar() + this.videoID;
+    };
+ 
+    return MTVClass3;
+}());
+</code></pre>
+
+<pre><code class="language-javascript">new com.MTVClass3(&quot;123&quot;).foo();
+view rawMTVClass3.js hosted with ❤ by GitHub
+var com = com || {};
+ 
+com.MTVClass4 = (function () {
+    'use strict';
+ 
+    function MTVClass4(videoID) {
+        this.videoID = videoID;
+    }
+ 
+    function bar(self) {
+        return &quot;bar&quot; + self.videoID;
+    }
+ 
+    MTVClass4.prototype.foo = function () {
+        return &quot;foo&quot; + bar(this) + this.videoID;
+    };
+ 
+    return MTVClass4;
+}());
+</code></pre>
+
+<pre><code class="language-javascript">new com.MTVClass4(&quot;123&quot;).foo();
+view rawMTVClass4.js hosted with ❤ by GitHub
+var com = com || {};
+ 
+com.MTVObject = (function () {
+    &quot;use strict&quot;;
+    var self = {};
+ 
+    function bar() {
+        return &quot;bar&quot;;
+    }
+ 
+    self.foo = function () {
+        return &quot;foo&quot; + bar();
+    };
+ 
+    return self;
+}());
+</code></pre>
+
+<pre><code>com.MTVObject.foo();
+</code></pre>
+
+<p>In my option <code>MTVClass1.js</code> approach is the best one. <code>MTVClass1.js</code> has similar concept like <code>MTVObject.js</code>. In <code>MTVClass2.js</code> and <code>MTVClass3.js</code> you do not have access to class fields. <code>MTVClass1.js</code> has some small performance issue, but remeber:</p>
+
+<blockquote>
+<p>Premature optimization is the root of all evil.</p>
+</blockquote>
+</article>
+      
+        <div class="post-tags">
+        Tagged 
+        
+          <a class="post-tags post-tags-development" href="https://michalkowol.github.iotags/development">development</a>
+        
+          <a class="post-tags post-tags-javascript" href="https://michalkowol.github.iotags/javascript">javascript</a>
+        
+          <a class="post-tags post-tags-trait" href="https://michalkowol.github.iotags/trait">trait</a>
+        
+        </div>
+      
+    </div>
+
+    
+      <h2>Comments</h2>
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+   
+  var disqus_shortname = 'michalkowol'; 
+
+   
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    
+  </div>
+  <script src="https://michalkowol.github.iojs/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

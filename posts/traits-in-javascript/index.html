@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Scala traits in javascript &middot; Michał Kowol | Tech Blog</title>
+  
+
+  <link rel="stylesheet" href="https://michalkowol.github.iocss/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.iocss/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.iocss/hyde.css">
+  <link rel="stylesheet" href="https://michalkowol.github.iocss/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  <link href="" rel="alternate" type="application/rss+xml" title="Michał Kowol | Tech Blog" />
+</head>
+
+<body class="theme-base-0d ">
+  
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://michalkowol.github.io"><h1>Michał Kowol</h1></a>
+      <p class="lead">
+       Tech Blog 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/posts"> Blog </a></li>
+      
+        <li><a href="/categories/development"> Development </a></li>
+      
+    </ul>
+  </div>
+</div>
+
+
+  <div class="content container">
+    <div class="post">
+      <h1>Scala traits in javascript</h1>
+      <span class="post-date">2014-10-23</span>
+      
+        <div class="post-categories">
+        
+          <a class="post-category post-category-development" href="https://michalkowol.github.iocategories/development">development</a>
+        
+          <a class="post-category post-category-javascript" href="https://michalkowol.github.iocategories/javascript">javascript</a>
+        
+        </div>
+      
+      <article><p>Traits:</p>
+
+<pre><code class="language-javascript">function _extend(object, source) {
+    for (var key in source) {
+        if (source.hasOwnProperty(key)) {
+            object[key] = source[key];
+        }
+    }
+    return object;
+}
+</code></pre>
+
+<pre><code class="language-javascript">function _with() {
+    var self = {};
+    var args = Array.prototype.slice.call(arguments);
+    for (var i = 0; i &lt; args.length; i++) {
+        args[i](self);
+    }
+    self.super = _extend({}, self);
+    return self;
+}
+</code></pre>
+
+<p>Traits example:</p>
+
+<pre><code class="language-javascript">var mtv = (function (mtv) {
+    'use strict';
+ 
+    mtv.TraitA = function (self) {
+        self.functionA = function () {
+            console.log('[start]: TraitA.functionA');
+            console.log(self.getModel());
+            console.log('[end]: TraitA.functionA');
+        };
+ 
+        self.dummyModel = function () {
+            console.log('[start]: TraitA.dummyModel');
+            console.log('[end]: TraitA.dummyModel');
+        };
+    };
+ 
+    mtv.TraitB = function (self) {
+        self.functionB = function () {
+            console.log('[start]: TraitB.functionB');
+            console.log(self.getModel());
+            console.log('[end]: TraitB.functionB');
+        };
+ 
+        self.dummyModel = function () {
+            console.log('[start]: TraitB.dummyModel');
+            console.log('[end]: TraitB.dummyModel');
+        };
+ 
+        self.onlyB = function () {
+            console.log('[start]: TraitB.onlyB');
+            console.log('[end]: TraitB.onlyB');
+        };
+    };
+ 
+    mtv.classWithTraitATraitB = function (model) {
+        var self = _with(mtv.TraitA, mtv.TraitB);
+ 
+        self.getModel = function () {
+            console.log('[start]: classWithTraitATraitB.getModel');
+            console.log('[end]: classWithTraitATraitB.getModel');
+            return model;
+        };
+ 
+        self.functionB = function () {
+            console.log('[start]: classWithTraitATraitB.functionB');
+            self.super.functionB();
+            self.functionA();
+            console.log('[end]: classWithTraitATraitB.functionB');
+        };
+ 
+        return self;
+    };
+ 
+    var classA = mtv.classWithTraitATraitB('model');
+    classA.functionA();
+    classA.functionB();
+    classA.dummyModel();
+    return mtv;
+})(mtv || {});
+</code></pre>
+
+<p>Result:</p>
+
+<pre><code>[start]: TraitA.functionA
+[start]: classWithTraitATraitB.getModel
+[end]: classWithTraitATraitB.getModel
+model
+[end]: TraitA.functionA
+[start]: classWithTraitATraitB.functionB
+[start]: TraitB.functionB
+[start]: classWithTraitATraitB.getModel
+[end]: classWithTraitATraitB.getModel
+model
+[end]: TraitB.functionB
+[start]: TraitA.functionA
+[start]: classWithTraitATraitB.getModel
+[end]: classWithTraitATraitB.getModel
+model
+[end]: TraitA.functionA
+[end]: classWithTraitATraitB.functionB
+[start]: TraitB.dummyModel
+[end]: TraitB.dummyModel
+</code></pre>
+</article>
+      
+        <div class="post-tags">
+        Tagged 
+        
+          <a class="post-tags post-tags-development" href="https://michalkowol.github.iotags/development">development</a>
+        
+          <a class="post-tags post-tags-javascript" href="https://michalkowol.github.iotags/javascript">javascript</a>
+        
+          <a class="post-tags post-tags-scala" href="https://michalkowol.github.iotags/scala">scala</a>
+        
+        </div>
+      
+    </div>
+
+    
+      <h2>Comments</h2>
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+   
+  var disqus_shortname = 'michalkowol'; 
+
+   
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    
+  </div>
+  <script src="https://michalkowol.github.iojs/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
