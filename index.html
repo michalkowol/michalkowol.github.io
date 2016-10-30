@@ -41,6 +41,8 @@
       
         <li><a href="/categories/development"> Development </a></li>
       
+        <li><a href="https://github.com/michalkowol"> GitHub Projects </a></li>
+      
     </ul>
   </div>
 </div>
@@ -49,6 +51,30 @@
       <div class="content container">
   <div class="posts">
         
+    <div class="post">
+      <h1 class="post-title">
+        <a href="https://michalkowol.github.io/posts/rsync-how-to/">
+          How to: rsync
+        </a>
+      </h1>
+
+      <div class="post-date">2016-10-30</div>
+      
+        <div class="post-categories">
+        
+          <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
+        
+        </div>
+      
+
+      <article class="post-summary">
+         How to use rsync with ssh on diffrent port. 
+      </article>
+      <div class="read-more-link">
+          <a href="/posts/rsync-how-to/"></span>Read More...</a>
+      </div>
+    </div>
+    
     <div class="post">
       <h1 class="post-title">
         <a href="https://michalkowol.github.io/posts/synology/">
@@ -60,18 +86,16 @@
       
         <div class="post-categories">
         
-          <a class="post-category post-category-random" href="https://michalkowol.github.io/categories/random">random</a>
-        
           <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
         
         </div>
       
 
       <article class="post-summary">
-          First of all generate ssh private and public key on your local machine.
+         First of all generate ssh private and public key on your local machine.
 local&gt; ssh-keygen -t rsa -b 4096 -C &quot;yourmail@example.com&quot;  It is good idea to create dedicated user for rsync.
 synology&gt; adduser rsync  By default Synology sets home directory rights to 777. sshd is very picky and its needs different home directory rights.
-synology&gt; chmod 755 /var/services/homes/rsync  Now, you need to modify /etc/ssh/sshd_config on Synlogy. Make sure it has the following line uncommented.
+synology&gt; chmod 755 /var/services/homes/rsync  Now, you need to modify /etc/ssh/sshd_config on Synlogy. Make sure it has the following line uncommented. 
       </article>
       <div class="read-more-link">
           <a href="/posts/synology/"></span>Read More...</a>
@@ -97,8 +121,8 @@ synology&gt; chmod 755 /var/services/homes/rsync  Now, you need to modify /etc/s
       
 
       <article class="post-summary">
-          Akka traits Akka has 4 main traits. Those are:
- Responsive - the system responds very fast. Resilient - the system stays responsive in the face of failure. Elastic - the system stays responsive under varying workload. You can easily add/remove nodes (machines) to/from system. Message Driven - object talks through messages. Objects are loosely coupled. There is a big diffrence between event and message - every message has recipient address, but events don&rsquo;t have to have it.
+         Akka traits Akka has 4 main traits. Those are:
+ Responsive - the system responds very fast. Resilient - the system stays responsive in the face of failure. Elastic - the system stays responsive under varying workload. You can easily add/remove nodes (machines) to/from system. Message Driven - object talks through messages. Objects are loosely coupled. There is a big diffrence between event and message - every message has recipient address, but events don&rsquo;t have to have it. 
       </article>
       <div class="read-more-link">
           <a href="/posts/akka-notes-part-1/"></span>Read More...</a>
@@ -124,8 +148,8 @@ synology&gt; chmod 755 /var/services/homes/rsync  Now, you need to modify /etc/s
       
 
       <article class="post-summary">
-          Functions without parameters def foo: String = ??? def bar(): String = ???  The first one is better, bacause you can easly replace it with val. In fact, otheres developers shouldn&rsquo;t know if you use val or def. It should be transparent (you shouldn&rsquo;t use parentheses).
-Default parameters class Welcome(message: String = &quot;default&quot;)  Public API If we define public API, all methods and parameters should have explicite type.
+         Functions without parameters def foo: String = ??? def bar(): String = ???  The first one is better, bacause you can easly replace it with val. In fact, otheres developers shouldn&rsquo;t know if you use val or def. It should be transparent (you shouldn&rsquo;t use parentheses).
+Default parameters class Welcome(message: String = &quot;default&quot;)  Public API If we define public API, all methods and parameters should have explicite type. 
       </article>
       <div class="read-more-link">
           <a href="/posts/scala-notes/"></span>Read More...</a>
@@ -151,9 +175,9 @@ Default parameters class Welcome(message: String = &quot;default&quot;)  Public 
       
 
       <article class="post-summary">
-          Traits:
+         Traits:
 function _extend(object, source) { for (var key in source) { if (source.hasOwnProperty(key)) { object[key] = source[key]; } } return object; }  function _with() { var self = {}; var args = Array.prototype.slice.call(arguments); for (var i = 0; i &lt; args.length; i++) { args[i](self); } self.super = _extend({}, self); return self; }  Traits example:
-var mtv = (function (mtv) { 'use strict'; mtv.TraitA = function (self) { self.functionA = function () { console.
+var mtv = (function (mtv) { 'use strict'; mtv.TraitA = function (self) { self.functionA = function () { console. 
       </article>
       <div class="read-more-link">
           <a href="/posts/traits-in-javascript/"></span>Read More...</a>
@@ -179,8 +203,8 @@ var mtv = (function (mtv) { 'use strict'; mtv.TraitA = function (self) { self.fu
       
 
       <article class="post-summary">
-          Closures in JS can simulate classes. Polymorphism, encapsulation and inheritance are avilable in this aproach.
-function _extend(object, source) { for (var key in source) { if (source.hasOwnProperty(key)) { object[key] = source[key]; } } return object; }  var mtv = (function (mtv) { 'use strict'; mtv.ClassA = function (a) { var self = {}; self.a = a; function privateInA () { console.log('ClassA.privateInA.start'); console.log(self.a); console.log('ClassA.privateInA.end'); } self.bar = function () { console.
+         Closures in JS can simulate classes. Polymorphism, encapsulation and inheritance are avilable in this aproach.
+function _extend(object, source) { for (var key in source) { if (source.hasOwnProperty(key)) { object[key] = source[key]; } } return object; }  var mtv = (function (mtv) { 'use strict'; mtv.ClassA = function (a) { var self = {}; self.a = a; function privateInA () { console.log('ClassA.privateInA.start'); console.log(self.a); console.log('ClassA.privateInA.end'); } self.bar = function () { console. 
       </article>
       <div class="read-more-link">
           <a href="/posts/closures-in-javascript/"></span>Read More...</a>
@@ -206,8 +230,8 @@ function _extend(object, source) { for (var key in source) { if (source.hasOwnPr
       
 
       <article class="post-summary">
-          In JS there are a lot of way to simulate classes. Here are examples:
-var com = com || {}; com.MTVClass1 = function (videoID) { &quot;use strict&quot;; var self = {}; function bar() { return &quot;bar&quot; + videoID; } self.foo = function () { return &quot;foo&quot; + bar() + videoID; }; return self; }; com.MTVClass1(&quot;123&quot;).foo();  var com = com || {}; (function () { 'use strict'; com.MTVClass2 = function (videoID) { this.
+         In JS there are a lot of way to simulate classes. Here are examples:
+var com = com || {}; com.MTVClass1 = function (videoID) { &quot;use strict&quot;; var self = {}; function bar() { return &quot;bar&quot; + videoID; } self.foo = function () { return &quot;foo&quot; + bar() + videoID; }; return self; }; com.MTVClass1(&quot;123&quot;).foo();  var com = com || {}; (function () { 'use strict'; com.MTVClass2 = function (videoID) { this. 
       </article>
       <div class="read-more-link">
           <a href="/posts/classes-and-singletions-in-javascript/"></span>Read More...</a>
@@ -233,7 +257,7 @@ var com = com || {}; com.MTVClass1 = function (videoID) { &quot;use strict&quot;
       
 
       <article class="post-summary">
-          Simple example: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt; &lt;bean id=&quot;apple&quot; class=&quot;Apple&quot; /&gt; &lt;bean id=&quot;juicer&quot; class=&quot;Juicer&quot;&gt; &lt;constructor-arg ref=&quot;apple&quot; /&gt; &lt;constructor-arg ref=&quot;peeler&quot; /&gt; &lt;/bean&gt; &lt;bean id=&quot;peeler&quot; class=&quot;Peeler&quot;&gt; &lt;constructor-arg ref=&quot;apple&quot; /&gt; &lt;/bean&gt; &lt;/beans&gt;  &lt;!-- ... --&gt; &lt;bean id=&quot;juicer&quot; class=&quot;Juicer&quot; scope=&quot;prototype&quot;&gt; &lt;!-- ... --&gt;  public interface Fruit { void eat(); String getName(); } public interface Peelable { void peel(); } public class Apple implements Fruit, Peelable { public void peel() { } public void eat() { } String getName() { return &quot;apple&quot;; } } public class Peeler { private final Peelable peelable; public Peeler(Peelable peelable) { this.
+         Simple example: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt; &lt;bean id=&quot;apple&quot; class=&quot;Apple&quot; /&gt; &lt;bean id=&quot;juicer&quot; class=&quot;Juicer&quot;&gt; &lt;constructor-arg ref=&quot;apple&quot; /&gt; &lt;constructor-arg ref=&quot;peeler&quot; /&gt; &lt;/bean&gt; &lt;bean id=&quot;peeler&quot; class=&quot;Peeler&quot;&gt; &lt;constructor-arg ref=&quot;apple&quot; /&gt; &lt;/bean&gt; &lt;/beans&gt;  &lt;!-- ... --&gt; &lt;bean id=&quot;juicer&quot; class=&quot;Juicer&quot; scope=&quot;prototype&quot;&gt; &lt;!-- ... --&gt;  public interface Fruit { void eat(); String getName(); } public interface Peelable { void peel(); } public class Apple implements Fruit, Peelable { public void peel() { } public void eat() { } String getName() { return &quot;apple&quot;; } } public class Peeler { private final Peelable peelable; public Peeler(Peelable peelable) { this. 
       </article>
       <div class="read-more-link">
           <a href="/posts/java-with-spring/"></span>Read More...</a>
@@ -259,10 +283,10 @@ var com = com || {}; com.MTVClass1 = function (videoID) { &quot;use strict&quot;
       
 
       <article class="post-summary">
-          Let&rsquo;s consider code bellow
+         Let&rsquo;s consider code bellow
 class ClassMain { private val mainVar = &quot;Main&quot; showMeTheMain() protected def showMeTheMain() { println(mainVar) } } class ClassA extends ClassMain { private val a = &quot;qwerty&quot; showMeTheMain() override def showMeTheMain() { println(&quot;not main anymore&quot; + a.toUpperCase()) } }  Result of this code is NullPointerException. This is because we override method showMeTheMain, but we want to use a parameter.
 This is how program is executed:
- Constructor of ClassMain Method ClassA.
+ Constructor of ClassMain Method ClassA. 
       </article>
       <div class="read-more-link">
           <a href="/posts/java-puzzle/"></span>Read More...</a>

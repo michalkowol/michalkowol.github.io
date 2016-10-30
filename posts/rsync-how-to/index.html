@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
   
-  <title>Synology ssh with public key &middot; Michał Kowol | Tech Blog</title>
+  <title>How to: rsync &middot; Michał Kowol | Tech Blog</title>
   
 
   <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
@@ -50,8 +50,8 @@
 
   <div class="content container">
     <div class="post">
-      <h1>Synology ssh with public key</h1>
-      <span class="post-date">2016-10-29</span>
+      <h1>How to: rsync</h1>
+      <span class="post-date">2016-10-30</span>
       
         <div class="post-categories">
         
@@ -61,79 +61,66 @@
       
       <article>
 
-<p>First of all generate ssh private and public key on your local machine.</p>
+<h3 id="documentation">Documentation</h3>
 
-<pre><code class="language-bash">local&gt; ssh-keygen -t rsa -b 4096 -C &quot;yourmail@example.com&quot;
+<p>rsync selected options</p>
+
+<pre><code>-a, --archive It is more commonly used than -r (recursive) and is usually what you want to use.
+-z, --compress With this option, rsync compresses the file data as it is sent to the destination machine
+-v, --verbose This option increases the amount of information the daemon logs during its startup phase.
+-x, --one-file-system This tells rsync to avoid crossing a filesystem boundary when recursing.
+-A, --acls Preserve ACLs (implies -p).
+-H, --hard-links This tells rsync to look for hard-linked files.
+-X, --xattrs This option causes rsync to update the remote extended attributes to be the same as the local ones.
+-e, --rsh=COMMAND Specify the remote shell to use.
+--delete-after Receiver deletes after transfer, not before.
+-n, --dry-run This makes rsync perform a trial run that doesn't make any changes.
+--progress This option tells rsync to print information showing the progress of the transfer.
+--human-readable Output numbers in a more human-readable format.
 </code></pre>
 
-<p>It is good idea to create dedicated user for <code>rsync</code>.</p>
+<h3 id="examples">Examples</h3>
 
-<pre><code class="language-bash">synology&gt; adduser rsync
+<p>Simple examples</p>
+
+<pre><code class="language-bash"># without ssh
+rsync -avzx . user@hostname::NetBackup/owncloud
+# with ssh
+rsync -avzx -e ssh . user@hostname:~/tmp
+# with ssh (from server to client)
+rsync -avzx -e ssh user@hostname:~/tmp .
+
 </code></pre>
 
-<p>By default Synology sets home directory rights to <code>777</code>. <code>sshd</code> is very picky and its needs different home directory rights.</p>
+<p>More advanced examples</p>
 
-<pre><code class="language-bash">synology&gt; chmod 755 /var/services/homes/rsync
+<pre><code class="language-bash"># with dry run (no changes - files would be deleted on server after success)
+rsync -avzx --dry-run --delete-after -e ssh . user@hostname:~/tmp
+# files will be deleted on server after success
+rsync -avzx --delete-after -e ssh . user@hostname:~/tmp
+# with ssh on port 48419
+rsync -avzx -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
+# full example
+rsync -avzx --progress --human-readable -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
+# full example (with delete after)
+rsync -avzx --delete-after --progress --human-readable -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
 </code></pre>
 
-<p>Now, you need to modify <code>/etc/ssh/sshd_config</code> on Synlogy. Make sure it has the following line uncommented.</p>
+<p>On windows (<a href="https://www.itefix.net/cwrsync">cwRsync</a>)</p>
 
-<pre><code># ...
-PubkeyAuthentication yes
-# ...
+<pre><code class="language-bash">rsync -avzx --progress --human-readable -e &quot;ssh -p 48419 -i c:\ssh\id_rsa&quot; &quot;c/dir/dir&quot; user@hostname:~/tmp
 </code></pre>
-
-<p>Then you need to create the <code>authorized_keys</code> file on Synlogy. To this file remote users add their public keys. File permissions are crucial here and if they are wrong ssh will refuse you.</p>
-
-<pre><code>synology&gt; su -s rsync
-synology&gt; cd
-synology&gt; pwd # make sure you are in /var/services/homes/rsync
-synology&gt; mkdir .ssh
-synology&gt; chmod 700 .ssh
-synology&gt; touch .ssh/authorized_keys
-synology&gt; chmod 600 .ssh/authorized_keys
-</code></pre>
-
-<p>Typically you want the <code>.ssh</code> directory permissions to be <code>700 (drwx------)</code>, home directory to be <code>755 (drwxr-xr-x)</code> and the public key (<code>.pub file</code>) to be <code>644 (-rw-r--r--)</code>. Your private key (<code>id_rsa</code>) should be <code>600 (-rw-------)</code>. <code>authorized_keys</code> should be <code>600 (-rw-------)</code>.</p>
-
-<p>Then add public key corresponding to a private key in one line in <code>authorized_keys</code>. You can use this command.</p>
-
-<pre><code class="language-bash">local&gt; cat ~/.ssh/id_rsa.pub | ssh user@hostname 'cat &gt;&gt; .ssh/authorized_keys'
-</code></pre>
-
-<p>Now restart Synology or quicker just force the ssh deamon to reload its config</p>
-
-<pre><code>synology&gt; ps | grep sshd
-</code></pre>
-
-<pre><code>synology&gt; kill -HUP $PID
-</code></pre>
-
-<p>You should now be able ssh to Synology as rsync with no password.</p>
-
-<pre><code>local&gt; ssh rsync@synology
-</code></pre>
-
-<p>Note: How to change shell for user?</p>
-
-<pre><code>chsh -s /usr/local/bin/bash username
-</code></pre>
-
-<p><code>/sbin/nologin</code> disables login.</p>
 
 <h3 id="references">References</h3>
 
 <ul>
-<li><a href="http://karlcode.owtelse.com/blog/2015/06/27/passwordless-ssh-on-synology/">Passwordless Ssh on Synology</a></li>
+<li><a href="http://linux.die.net/man/1/rsync">rsync man</a></li>
+<li><a href="https://www.itefix.net/cwrsync">cwRsync</a></li>
 </ul>
 </article>
       
         <div class="post-tags">
         Tagged 
-        
-          <a class="post-tags post-tags-synology" href="https://michalkowol.github.io/tags/synology">synology</a>
-        
-          <a class="post-tags post-tags-ssh" href="https://michalkowol.github.io/tags/ssh">ssh</a>
         
           <a class="post-tags post-tags-rsync" href="https://michalkowol.github.io/tags/rsync">rsync</a>
         
