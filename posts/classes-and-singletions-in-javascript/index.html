@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
   <link rel="stylesheet" href="https://michalkowol.github.io/css/hyde.css">
   <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700&amp;subset=latin-ext|Abril+Fatface&amp;subset=latin-ext" rel="stylesheet">
 
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
   <link rel="shortcut icon" href="/favicon.png">
@@ -77,11 +77,11 @@ com.MTVClass1 = function (videoID) {
  
     return self;
 };
+
+com.MTVClass1(&quot;123&quot;).foo();
 </code></pre>
 
-<pre><code class="language-javascript">com.MTVClass1(&quot;123&quot;).foo();
-view rawMTVClass1.js hosted with ❤ by GitHub
-var com = com || {};
+<pre><code class="language-javascipt">var com = com || {};
  
 (function () {
     'use strict';
@@ -98,11 +98,11 @@ var com = com || {};
         return &quot;foo&quot; + bar() + this.videoID;
     };
 }());
+
+new com.MTVClass2(&quot;1234&quot;).foo();
 </code></pre>
 
-<pre><code class="language-javascript">new com.MTVClass2(&quot;1234&quot;).foo();
-view rawMTVClass2.js hosted with ❤ by GitHub
-var com = com || {};
+<pre><code class="language-javascipt">var com = com || {};
  
 com.MTVClass3 = (function () {
     'use strict';
@@ -121,11 +121,11 @@ com.MTVClass3 = (function () {
  
     return MTVClass3;
 }());
+
+new com.MTVClass3(&quot;123&quot;).foo();
 </code></pre>
 
-<pre><code class="language-javascript">new com.MTVClass3(&quot;123&quot;).foo();
-view rawMTVClass3.js hosted with ❤ by GitHub
-var com = com || {};
+<pre><code class="language-javascript">var com = com || {};
  
 com.MTVClass4 = (function () {
     'use strict';
@@ -144,11 +144,11 @@ com.MTVClass4 = (function () {
  
     return MTVClass4;
 }());
+
+new com.MTVClass4(&quot;123&quot;).foo();
 </code></pre>
 
-<pre><code class="language-javascript">new com.MTVClass4(&quot;123&quot;).foo();
-view rawMTVClass4.js hosted with ❤ by GitHub
-var com = com || {};
+<pre><code class="language-javascript">var com = com || {};
  
 com.MTVObject = (function () {
     &quot;use strict&quot;;
@@ -164,9 +164,8 @@ com.MTVObject = (function () {
  
     return self;
 }());
-</code></pre>
 
-<pre><code>com.MTVObject.foo();
+com.MTVObject.foo();
 </code></pre>
 
 <p>In my option <code>MTVClass1.js</code> approach is the best one. <code>MTVClass1.js</code> has similar concept like <code>MTVObject.js</code>. In <code>MTVClass2.js</code> and <code>MTVClass3.js</code> you do not have access to class fields. <code>MTVClass1.js</code> has some small performance issue, but remeber:</p>

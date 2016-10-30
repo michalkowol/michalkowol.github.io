@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
   <link rel="stylesheet" href="https://michalkowol.github.io/css/hyde.css">
   <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700&amp;subset=latin-ext|Abril+Fatface&amp;subset=latin-ext" rel="stylesheet">
 
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
   <link rel="shortcut icon" href="/favicon.png">
@@ -49,6 +49,35 @@
       <div class="content container">
   <div class="posts">
         
+    <div class="post">
+      <h1 class="post-title">
+        <a href="https://michalkowol.github.io/posts/synology/">
+          Synology ssh with public key
+        </a>
+      </h1>
+
+      <div class="post-date">2016-10-29</div>
+      
+        <div class="post-categories">
+        
+          <a class="post-category post-category-random" href="https://michalkowol.github.io/categories/random">random</a>
+        
+          <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
+        
+        </div>
+      
+
+      <article class="post-summary">
+          First of all generate ssh private and public key on your local machine.
+local&gt; ssh-keygen -t rsa -b 4096 -C &quot;yourmail@example.com&quot;  It is good idea to create dedicated user for rsync.
+synology&gt; adduser rsync  By default Synology sets home directory rights to 777. sshd is very picky and its needs different home directory rights.
+synology&gt; chmod 755 /var/services/homes/rsync  Now, you need to modify /etc/ssh/sshd_config on Synlogy. Make sure it has the following line uncommented.
+      </article>
+      <div class="read-more-link">
+          <a href="/posts/synology/"></span>Read More...</a>
+      </div>
+    </div>
+    
     <div class="post">
       <h1 class="post-title">
         <a href="https://michalkowol.github.io/posts/akka-notes-part-1/">
@@ -178,7 +207,7 @@ function _extend(object, source) { for (var key in source) { if (source.hasOwnPr
 
       <article class="post-summary">
           In JS there are a lot of way to simulate classes. Here are examples:
-var com = com || {}; com.MTVClass1 = function (videoID) { &quot;use strict&quot;; var self = {}; function bar() { return &quot;bar&quot; + videoID; } self.foo = function () { return &quot;foo&quot; + bar() + videoID; }; return self; };  com.MTVClass1(&quot;123&quot;).foo(); view rawMTVClass1.js hosted with ❤ by GitHub var com = com || {}; (function () { 'use strict'; com.
+var com = com || {}; com.MTVClass1 = function (videoID) { &quot;use strict&quot;; var self = {}; function bar() { return &quot;bar&quot; + videoID; } self.foo = function () { return &quot;foo&quot; + bar() + videoID; }; return self; }; com.MTVClass1(&quot;123&quot;).foo();  var com = com || {}; (function () { 'use strict'; com.MTVClass2 = function (videoID) { this.
       </article>
       <div class="read-more-link">
           <a href="/posts/classes-and-singletions-in-javascript/"></span>Read More...</a>

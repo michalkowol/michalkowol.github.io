@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Synology ssh with public key &middot; Michał Kowol | Tech Blog</title>
+  
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hyde.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700&amp;subset=latin-ext|Abril+Fatface&amp;subset=latin-ext" rel="stylesheet">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  <link href="" rel="alternate" type="application/rss+xml" title="Michał Kowol | Tech Blog" />
+</head>
+
+<body class="theme-base-0d ">
+  
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://michalkowol.github.io/"><h1>Michał Kowol</h1></a>
+      <p class="lead">
+       Tech Blog 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+        <li><a href="/posts"> Blog </a></li>
+      
+        <li><a href="/categories/development"> Development </a></li>
+      
+    </ul>
+  </div>
+</div>
+
+
+  <div class="content container">
+    <div class="post">
+      <h1>Synology ssh with public key</h1>
+      <span class="post-date">2016-10-29</span>
+      
+        <div class="post-categories">
+        
+          <a class="post-category post-category-random" href="https://michalkowol.github.io/categories/random">random</a>
+        
+          <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
+        
+        </div>
+      
+      <article>
+
+<p>First of all generate ssh private and public key on your local machine.</p>
+
+<pre><code class="language-bash">local&gt; ssh-keygen -t rsa -b 4096 -C &quot;yourmail@example.com&quot;
+</code></pre>
+
+<p>It is good idea to create dedicated user for <code>rsync</code>.</p>
+
+<pre><code class="language-bash">synology&gt; adduser rsync
+</code></pre>
+
+<p>By default Synology sets home directory rights to <code>777</code>. <code>sshd</code> is very picky and its needs different home directory rights.</p>
+
+<pre><code class="language-bash">synology&gt; chmod 755 /var/services/homes/rsync
+</code></pre>
+
+<p>Now, you need to modify <code>/etc/ssh/sshd_config</code> on Synlogy. Make sure it has the following line uncommented.</p>
+
+<pre><code># ...
+PubkeyAuthentication yes
+# ...
+</code></pre>
+
+<p>Then you need to create the <code>authorized_keys</code> file on Synlogy. To this file remote users add their public keys. File permissions are crucial here and if they are wrong ssh will refuse you.</p>
+
+<pre><code>synology&gt; su -s rsync
+synology&gt; cd
+synology&gt; pwd # make sure you are in /var/services/homes/rsync
+synology&gt; mkdir .ssh
+synology&gt; chmod 700 .ssh
+synology&gt; touch .ssh/authorized_keys
+synology&gt; chmod 600 .ssh/authorized_keys
+</code></pre>
+
+<p>Typically you want the <code>.ssh</code> directory permissions to be <code>700 (drwx------)</code>, home directory to be <code>755 (drwxr-xr-x)</code> and the public key (<code>.pub file</code>) to be <code>644 (-rw-r--r--)</code>. Your private key (<code>id_rsa</code>) should be <code>600 (-rw-------)</code>. <code>authorized_keys</code> should be <code>600 (-rw-------)</code>.</p>
+
+<p>Then add public key corresponding to a private key in one line in <code>authorized_keys</code>. You can use this command.</p>
+
+<pre><code class="language-bash">local&gt; cat ~/.ssh/id_rsa.pub | ssh user@hostname 'cat &gt;&gt; .ssh/authorized_keys'
+</code></pre>
+
+<p>Now restart Synology or quicker just force the ssh deamon to reload its config</p>
+
+<pre><code>synology&gt; ps | grep sshd
+</code></pre>
+
+<pre><code>synology&gt; kill -HUP $PID
+</code></pre>
+
+<p>You should now be able ssh to Synology as rsync with no password.</p>
+
+<pre><code>local&gt; ssh rsync@synology
+</code></pre>
+
+<p>Note: How to change shell for user?</p>
+
+<pre><code>chsh -s /usr/local/bin/bash username
+</code></pre>
+
+<p><code>/sbin/nologin</code> disables login.</p>
+
+<h3 id="references">References</h3>
+
+<ul>
+<li><a href="http://karlcode.owtelse.com/blog/2015/06/27/passwordless-ssh-on-synology/">Passwordless Ssh on Synology</a></li>
+</ul>
+</article>
+      
+        <div class="post-tags">
+        Tagged 
+        
+          <a class="post-tags post-tags-synology" href="https://michalkowol.github.io/tags/synology">synology</a>
+        
+          <a class="post-tags post-tags-ssh" href="https://michalkowol.github.io/tags/ssh">ssh</a>
+        
+          <a class="post-tags post-tags-rsync" href="https://michalkowol.github.io/tags/rsync">rsync</a>
+        
+        </div>
+      
+    </div>
+
+    
+      <h2>Comments</h2>
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+   
+  var disqus_shortname = 'michalkowol'; 
+
+   
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    
+  </div>
+  <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
