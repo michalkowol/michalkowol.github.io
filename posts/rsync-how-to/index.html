@@ -1,65 +1,107 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
-<head>
+
+  <head>
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  
-  <title>How to: rsync &middot; Michał Kowol | Tech Blog</title>
-  
+  <title>
+    
+      How to: rsync &middot; Michał Kowol
+    
+  </title>
 
-  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
   <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
-  <link rel="stylesheet" href="https://michalkowol.github.io/css/hyde.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
   <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700&amp;subset=latin-ext|Abril+Fatface&amp;subset=latin-ext" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
 
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
 
-  <link href="" rel="alternate" type="application/rss+xml" title="Michał Kowol | Tech Blog" />
+  
 </head>
 
-<body class="theme-base-0d ">
-  
-  <div class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-      <a href="https://michalkowol.github.io/"><h1>Michał Kowol</h1></a>
-      <p class="lead">
-       Tech Blog 
-      </p>
-    </div>
 
-    <ul class="sidebar-nav">
-      <li><a href="/">Home</a> </li>
-      
-        <li><a href="/posts"> Blog </a></li>
-      
-        <li><a href="/categories/development"> Development </a></li>
-      
-        <li><a href="https://github.com/michalkowol"> GitHub Projects </a></li>
-      
-    </ul>
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
   </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="">GitHub</a>
+  </nav>
 </div>
 
 
-  <div class="content container">
-    <div class="post">
-      <h1>How to: rsync</h1>
-      <span class="post-date">2016-10-30</span>
-      
-        <div class="post-categories">
-        
-          <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
-        
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
         </div>
-      
-      <article>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">How to: rsync</h1>
+  <span class="post-date">2016/10/30</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
+    
+      <a class="post-category post-category-howto" href="https://michalkowol.github.io/categories/howto">howto</a>
+    
+    </div>
+  
+  <div class="content">
+  
 
 <h3 id="documentation">Documentation</h3>
 
@@ -77,6 +119,7 @@
 -n, --dry-run This makes rsync perform a trial run that doesn't make any changes.
 --progress This option tells rsync to print information showing the progress of the transfer.
 --human-readable Output numbers in a more human-readable format.
+--append-verify Append w/old data in file checksum
 </code></pre>
 
 <h3 id="examples">Examples</h3>
@@ -104,12 +147,37 @@ rsync -avzx -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
 rsync -avzx --progress --human-readable -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
 # full example (with delete after)
 rsync -avzx --delete-after --progress --human-readable -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
+# with mac to linux file change encoding
+rsync -avzx --iconv=utf-8-mac,utf-8 --progress --human-readable -e ssh . user@hostname:~/tmp
+# with append w/old data in file checksum
+rsync -avzx --append-verify --progress --human-readable -e ssh . user@hostname:~/tmp
+</code></pre>
+
+<p>Combined</p>
+
+<pre><code>rsync -avzx --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
 </code></pre>
 
 <p>On windows (<a href="https://www.itefix.net/cwrsync">cwRsync</a>)</p>
 
-<pre><code class="language-bash">rsync -avzx --progress --human-readable -e &quot;ssh -p 48419 -i c:\ssh\id_rsa&quot; &quot;c/dir/dir&quot; user@hostname:~/tmp
+<pre><code class="language-bash">rsync -avzx --progress --human-readable -e &quot;ssh -p 48419 -i c:\ssh\id_rsa&quot; &quot;c/dir/dir/&quot; user@hostname:~/tmp/
 </code></pre>
+
+<h3 id="notes">Notes</h3>
+
+<ul>
+<li>trailing <code>/</code> in directory name is <strong>very</strong> important - there is a big difference between <code>rsync dir1 dir2</code> and <code>rsync dir1/ dir2/</code></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps">https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps</a></li>
+<li>always use <code>--iconv=utf-8-mac,utf-8</code> when initialising the rsync from the mac</li>
+<li>always use <code>--iconv=utf-8,utf-8-mac</code> when initialising the rsync from the linux</li>
+<li>the <code>--iconv</code> argument cam with <code>rsync</code> version 3.0.0 (release notes) OSX provides only version 2.6.9</li>
+<li>upgrade rsync on mac <code>brew update &amp;&amp; brew tap homebrew/dupes &amp;&amp; brew install rsync</code></li>
+<li><code>--append-verify</code> isn&rsquo;t dangerous: It will always read and compare the data on both ends and not just assume they&rsquo;re equal. It does this using checksums, so it&rsquo;s easy on the network, but it does require reading the shared amount of data on both ends of the wire before it can actually resume the transfer by appending to the target.</li>
+</ul>
+
+<p>Thus you need to get a newer version latest is 3.1.1 (2.6.9 was released in 2006)</p>
+
+<p>I would also get a newer version rsync as xattr copying was also introduced after 2.6.9</p>
 
 <h3 id="references">References</h3>
 
@@ -117,20 +185,29 @@ rsync -avzx --delete-after --progress --human-readable -e &quot;ssh -p 48419&quo
 <li><a href="http://linux.die.net/man/1/rsync">rsync man</a></li>
 <li><a href="https://www.itefix.net/cwrsync">cwRsync</a></li>
 </ul>
-</article>
-      
-        <div class="post-tags">
-        Tagged 
-        
-          <a class="post-tags post-tags-rsync" href="https://michalkowol.github.io/tags/rsync">rsync</a>
-        
-        </div>
-      
-    </div>
 
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
     
-      <h2>Comments</h2>
-      <div id="disqus_thread"></div>
+      <a class="post-tags post-tags-tech" href="https://michalkowol.github.io/tags/tech">tech</a>
+    
+      <a class="post-tags post-tags-howto" href="https://michalkowol.github.io/tags/howto">howto</a>
+    
+      <a class="post-tags post-tags-rsync" href="https://michalkowol.github.io/tags/rsync">rsync</a>
+    
+      <a class="post-tags post-tags-backup" href="https://michalkowol.github.io/tags/backup">backup</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
 <script type="text/javascript">
    
   var disqus_shortname = 'michalkowol'; 
@@ -144,9 +221,16 @@ rsync -avzx --delete-after --progress --human-readable -e &quot;ssh -p 48419&quo
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-    
-  </div>
-  <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-</body>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
 </html>
+

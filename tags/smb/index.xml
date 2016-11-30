@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>https://michalkowol.github.io/tags/smb/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://michalkowol.github.io/tags/smb/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>How to server cifi shared folder using nginx</title>
+      <link>https://michalkowol.github.io/posts/cifs/</link>
+      <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/cifs/</guid>
+      <description>
+
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;Create folder &lt;code&gt;/media/storage/dir/&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mkdir -p /media/storage/dir/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next, mount shared directory. &lt;code&gt;uid&lt;/code&gt; and &lt;code&gt;gid&lt;/code&gt; are very important because without this you will get &lt;code&gt;403 Forbidden&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo mount -t cifs -o uid=www-data,gid=www-data,ro,username=username,password=password //10.0.0.2/shared/ /media/storage/dir/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-t cifs&lt;/code&gt; - type of fs (&lt;code&gt;cifs&lt;/code&gt; - Common Internet File System, also known as &lt;code&gt;smb&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;uid&lt;/code&gt; - specific user&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gid&lt;/code&gt; - specific groutp&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ro&lt;/code&gt; - read-only&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;rw&lt;/code&gt; - read-write&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - shared directory username&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - shared directory password&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Modify &lt;code&gt;nginx&lt;/code&gt; config (&lt;code&gt;/etc/nginx/sites-available/somefile&lt;/code&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;location /{ 
+   root /media/storage/dir/; 
+   autoindex on;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;password-protecion&#34;&gt;Password protecion&lt;/h3&gt;
+
+&lt;p&gt;Add user &lt;code&gt;bob&lt;/code&gt; to &lt;code&gt;.htpasswd&lt;/code&gt; file using this command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo sh -c &amp;quot;echo -n &#39;bob:&#39; &amp;gt;&amp;gt; /etc/nginx/.htpasswd&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add an encrypted password for the username:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo sh -c &amp;quot;openssl passwd -apr1 &amp;gt;&amp;gt; /etc/nginx/.htpasswd&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add this to &lt;code&gt;ngnix&lt;/code&gt; config:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;location / { 
+  root /media/storage/dir/;
+  autoindex on;
+  auth_basic &amp;quot;Restricted Content&amp;quot;;
+  auth_basic_user_file /etc/nginx/.htpasswd;
+  disable_symlinks off;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-nginx-on-ubuntu-14-04&#34;&gt;How To Set Up Password Authentication with Nginx&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-16-04&#34;&gt;How To Set Up an NFS Mount&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.qnap.com/wiki/Mounting_an_NFS_share_on_Ubuntu&#34;&gt;Mounting an NFS share on Ubuntu&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://superuser.com/questions/320415/linux-mount-device-with-specific-user-rights&#34;&gt;Linux - Mount device with specific user rights&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://unix.stackexchange.com/questions/68079/mount-cifs-network-drive-write-permissions-and-chown&#34;&gt;Mount cifs Network Drive: write permissions and chown&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Samba (smb)</title>
+      <link>https://michalkowol.github.io/posts/smb-howto/</link>
+      <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/smb-howto/</guid>
+      <description>
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;On Ubuntu configuration file is located in &lt;code&gt;/etc/samba/smb.conf&lt;/code&gt;. You need &lt;code&gt;root&lt;/code&gt; privileges to edit it.&lt;/p&gt;
+
+&lt;h3 id=&#34;sample-file&#34;&gt;Sample file&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nohighlight&#34;&gt;[global]
+  workgroup = WORKGROUP
+  server string = servername
+  unix password sync = yes
+
+[homes]
+  comment = Home Directories
+  browseable = no
+  read only = no
+  writable = yes
+  guest ok = no
+  create mask = 0600
+  directory mask = 0700
+  security = user
+
+[accounting]
+  comment = Accounting Department Directory
+  writable = yes
+  valid users = @account
+  path = /media/storage/accounting
+  create mask = 0660
+  directory mode = 0770
+  force group = account
+
+[public]
+  comment = Public
+  browsable = yes
+  path = /media/storage/public
+  public = yes
+  read only = no
+  writable = yes
+  guest ok = yes
+  create mask = 0666
+  directory mode = 0777
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You need to set public storage directory permissions to be &lt;code&gt;777 (drwxrwxrwx)&lt;/code&gt; and for directories shared in group &lt;code&gt;770 (drwxrwx---)&lt;/code&gt;. Don&amp;rsquo;t forget to change group of shared directories with &lt;code&gt;chown -R :groupname path&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is how we can create group &lt;code&gt;account&lt;/code&gt; and add &lt;code&gt;bob&lt;/code&gt; to &lt;code&gt;account&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;groupadd account
+adduser bob
+usermod -a -G account bob
+smbpasswd -a bob
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;configuring-anonymous-public-shares&#34;&gt;Configuring anonymous public shares&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nohighlight&#34;&gt;[public]
+  comment = Public
+  browsable = yes
+  path = /media/storage/public
+  public = yes
+  read only = no
+  writable = no
+  write list = bob
+  guest ok = yes
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This sets up a share named &lt;code&gt;public&lt;/code&gt; which is shown when browsing the server to any user with rights to do so. You can see it is public, but not writable except for &lt;code&gt;bob&lt;/code&gt; and that it is ok for guests to login.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nohighlight&#34;&gt;[global]
+  # ...
+  guest account = nobody
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which defines the account to use when authenticating guests. Don’t forget to create this user using &lt;code&gt;smbpasswd -an nobody&lt;/code&gt;. This will create the user with no password.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nohighlight&#34;&gt;[global]
+  #...
+  map to guest = bad user
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This maps any unknown username to the specified guest user, so login always succeeds.&lt;/p&gt;
+
+&lt;h2 id=&#34;useful-commands&#34;&gt;Useful commands&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sudo service smbd restart&lt;/code&gt; - restarts samba server (reloads config)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;smbpasswd -an nobody&lt;/code&gt; - creates user with no password in smb&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;addgroup groupname&lt;/code&gt; - creates new group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;adduser username&lt;/code&gt; - creates new user&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;usermod -a -G groupname username&lt;/code&gt; - adds existing user to existing group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deluser username&lt;/code&gt; - deletes user&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;chown -R :groupname path&lt;/code&gt; - changes group of file/directory&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.samba.org/samba/docs/using_samba/ch09.html&#34;&gt;Samba&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://micheljansen.org/blog/entry/182&#34;&gt;Configuring anonymous public shares with Samba 3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.computerhope.com/unix/groupadd.htm&#34;&gt;Linux and Unix groupadd command&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.cyberciti.biz/faq/howto-linux-add-user-to-group/&#34;&gt;Howto: Linux Add User To Group&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.cyberciti.biz/faq/how-to-use-chmod-and-chown-command/&#34;&gt;Howto: Use chmod and chown Command&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

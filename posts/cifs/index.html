@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      How to server cifi shared folder using nginx &middot; Michał Kowol
+    
+  </title>
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
+
+  
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="">GitHub</a>
+  </nav>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">How to server cifi shared folder using nginx</h1>
+  <span class="post-date">2016/11/07</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
+    
+      <a class="post-category post-category-howto" href="https://michalkowol.github.io/categories/howto">howto</a>
+    
+    </div>
+  
+  <div class="content">
+  
+
+<h2 id="setup">Setup</h2>
+
+<p>Create folder <code>/media/storage/dir/</code></p>
+
+<pre><code>mkdir -p /media/storage/dir/
+</code></pre>
+
+<p>Next, mount shared directory. <code>uid</code> and <code>gid</code> are very important because without this you will get <code>403 Forbidden</code>.</p>
+
+<pre><code>sudo mount -t cifs -o uid=www-data,gid=www-data,ro,username=username,password=password //10.0.0.2/shared/ /media/storage/dir/
+</code></pre>
+
+<ul>
+<li><code>-t cifs</code> - type of fs (<code>cifs</code> - Common Internet File System, also known as <code>smb</code>)</li>
+<li><code>uid</code> - specific user</li>
+<li><code>gid</code> - specific groutp</li>
+<li><code>ro</code> - read-only</li>
+<li><code>rw</code> - read-write</li>
+<li><code>username</code> - shared directory username</li>
+<li><code>password</code> - shared directory password</li>
+</ul>
+
+<p>Modify <code>nginx</code> config (<code>/etc/nginx/sites-available/somefile</code>)</p>
+
+<pre><code>location /{ 
+   root /media/storage/dir/; 
+   autoindex on;
+}
+</code></pre>
+
+<h3 id="password-protecion">Password protecion</h3>
+
+<p>Add user <code>bob</code> to <code>.htpasswd</code> file using this command:</p>
+
+<pre><code>sudo sh -c &quot;echo -n 'bob:' &gt;&gt; /etc/nginx/.htpasswd&quot;
+</code></pre>
+
+<p>Add an encrypted password for the username:</p>
+
+<pre><code>sudo sh -c &quot;openssl passwd -apr1 &gt;&gt; /etc/nginx/.htpasswd&quot;
+</code></pre>
+
+<p>Add this to <code>ngnix</code> config:</p>
+
+<pre><code>location / { 
+  root /media/storage/dir/;
+  autoindex on;
+  auth_basic &quot;Restricted Content&quot;;
+  auth_basic_user_file /etc/nginx/.htpasswd;
+  disable_symlinks off;
+}
+</code></pre>
+
+<h2 id="links">Links</h2>
+
+<ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-nginx-on-ubuntu-14-04">How To Set Up Password Authentication with Nginx</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-16-04">How To Set Up an NFS Mount</a></li>
+<li><a href="https://wiki.qnap.com/wiki/Mounting_an_NFS_share_on_Ubuntu">Mounting an NFS share on Ubuntu</a></li>
+<li><a href="http://superuser.com/questions/320415/linux-mount-device-with-specific-user-rights">Linux - Mount device with specific user rights</a></li>
+<li><a href="http://unix.stackexchange.com/questions/68079/mount-cifs-network-drive-write-permissions-and-chown">Mount cifs Network Drive: write permissions and chown</a></li>
+</ul>
+
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
+    
+      <a class="post-tags post-tags-tech" href="https://michalkowol.github.io/tags/tech">tech</a>
+    
+      <a class="post-tags post-tags-howto" href="https://michalkowol.github.io/tags/howto">howto</a>
+    
+      <a class="post-tags post-tags-cifi" href="https://michalkowol.github.io/tags/cifi">cifi</a>
+    
+      <a class="post-tags post-tags-linux" href="https://michalkowol.github.io/tags/linux">linux</a>
+    
+      <a class="post-tags post-tags-smb" href="https://michalkowol.github.io/tags/smb">smb</a>
+    
+      <a class="post-tags post-tags-samba" href="https://michalkowol.github.io/tags/samba">samba</a>
+    
+      <a class="post-tags post-tags-nginx" href="https://michalkowol.github.io/tags/nginx">nginx</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+   
+  var disqus_shortname = 'michalkowol'; 
+
+   
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+
