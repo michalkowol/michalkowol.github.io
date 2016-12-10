@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>https://michalkowol.github.io/categories/sql/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://michalkowol.github.io/categories/sql/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>MySQL notes</title>
+      <link>https://michalkowol.github.io/posts/2016-11-25-mysql/</link>
+      <pubDate>Fri, 25 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-11-25-mysql/</guid>
+      <description>
+
+&lt;h3 id=&#34;notes&#34;&gt;Notes&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You are not allowed transactions inside stored &lt;code&gt;function&lt;/code&gt;s. You are allowed transactions inside stored &lt;code&gt;procedure&lt;/code&gt;s only.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RETURNS tinyint(1)&lt;/code&gt; - what is returned from function&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;example&#34;&gt;Example&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DELIMITER $$
+DROP PROCEDURE IF EXISTS new_channel_config;
+CREATE PROCEDURE new_channel_config(
+  _system_id INT(11),
+  _searchname VARCHAR(100)
+) RETURNS tinyint(1) -- CREATE PROCEDURE if does not return any value
+BEGIN
+  DECLARE ID INT(11);
+  DECLARE bitmap_systemid VARCHAR(14) DEFAULT &#39;11011100100000&#39;;
+  DECLARE datemodified TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+  DECLARE exit handler for sqlexception
+  BEGIN
+    -- ERROR
+    ROLLBACK;
+  END;
+
+  DECLARE exit handler for sqlwarning
+  BEGIN
+    -- WARNING
+    ROLLBACK;
+  END;
+
+
+  START TRANSACTION;
+  -- some ops
+  SET system_id = (SELECT authorities.ID, authorities.searchname
+   FROM authorities
+   LEFT JOIN authoritytype ON authorities.searchtypeid = authoritytype.ID
+   WHERE authoritytype.searchtype = &#39;SYSTEM&#39; AND authorities.searchname = systemname
+  );
+  IF (system_id IS NULL) THEN
+  END IF;
+  SET ID = LAST_INSERT_ID();
+  RETURN ID;
+  COMMIT;
+END;
+$$
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DROP PROCEDURE IF EXISTS new_channel_config;
+CREATE PROCEDURE new_channel_config(
+  systemname VARCHAR(100) CHARACTER SET &#39;utf8&#39;
+)
+BEGIN
+  DECLARE systemid INT(11);
+  DECLARE systemtypeid INT(11);
+  DECLARE exit handler for sqlexception
+  BEGIN
+    ROLLBACK;
+  END;
+  DECLARE exit handler for sqlwarning
+  BEGIN
+    ROLLBACK;
+  END;
+
+  START TRANSACTION;
+  -- new system
+  SET systemtypeid = (SELECT ID FROM authoritytype WHERE searchtype = &#39;SYSTEM&#39;);
+  SET systemid = (SELECT authorities.ID
+   FROM authorities
+   LEFT JOIN authoritytype ON authorities.searchtypeid = authoritytype.ID
+   WHERE authoritytype.ID = systemtypeid AND authorities.searchname = systemname COLLATE utf8_unicode_ci
+  );
+  IF (systemid IS NULL) THEN
+    INSERT INTO authorities (searchname, searchtypeid, datecreated, `desc`) VALUE (systemname, systemtypeid, CURRENT_DATE(), systemname);
+    SET systemid = LAST_INSERT_ID();
+  END IF;
+  COMMIT;
+END;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

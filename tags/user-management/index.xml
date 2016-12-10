@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>https://michalkowol.github.io/tags/user-management/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://michalkowol.github.io/tags/user-management/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>User management in Linux</title>
+      <link>https://michalkowol.github.io/posts/2016-12-12-user-management/</link>
+      <pubDate>Sat, 10 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-12-12-user-management/</guid>
+      <description>
+
+&lt;h2 id=&#34;add-delete-users-and-groups&#34;&gt;Add, delete users and groups&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;addgroup groupname&lt;/code&gt; - creates new group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;adduser username&lt;/code&gt; - creates new user&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;usermod -a -G groupname username&lt;/code&gt; - adds existing user to existing group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deluser username&lt;/code&gt; - deletes user&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;groups username&lt;/code&gt; - list all groups for user&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;chmod&#34;&gt;chmod&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Mode&lt;/th&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;r&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;read&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;w&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;write&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;x&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;execute&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;X&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;special execute&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;s&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;setuid/gid&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;t&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;sticky&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Reference&lt;/th&gt;
+&lt;th&gt;Class&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;u&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;owner&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;g&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;group&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;o&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;others&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;a&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;all&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Operator&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;+&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;adds the specified modes to the specified classes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;-&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;removes the specified modes from the specified classes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;=&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;the modes specified are to be made the exact modes for the specified classes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;files-permissions&#34;&gt;Files permissions&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;chown -R username:groupname path&lt;/code&gt; - changes file/directory owner and its group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;chown -R :groupname path&lt;/code&gt; - changes file/directory group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;chmod -R a-x+X path&lt;/code&gt; - remove the execute permission on all files in a directory tree, while allowing for directory browsing&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;chmod -R a+X directory&lt;/code&gt; - allowing for directory browsing for all&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;style&gt;
+table { width: auto; }
+&lt;/style&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

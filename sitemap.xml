@@ -3,66 +3,86 @@
   
   <url>
     <loc>https://michalkowol.github.io/</loc>
+    <lastmod>2016-12-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/posts/2016-12-12-user-management/</loc>
+    <lastmod>2016-12-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/posts/2016-12-01-java-simple-http-servers/</loc>
+    <lastmod>2016-12-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/posts/2016-11-07-linux-headers/</loc>
     <lastmod>2016-11-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/posts/linux-headers/</loc>
+    <loc>https://michalkowol.github.io/posts/2016-11-07-cifs/</loc>
     <lastmod>2016-11-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/posts/cifs/</loc>
+    <loc>https://michalkowol.github.io/posts/2016-11-07-locale/</loc>
     <lastmod>2016-11-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/posts/smb-howto/</loc>
+    <loc>https://michalkowol.github.io/posts/2016-11-04-smb-howto/</loc>
     <lastmod>2016-11-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/posts/rsync-how-to/</loc>
-    <lastmod>2016-10-30T20:36:56+01:00</lastmod>
+    <loc>https://michalkowol.github.io/posts/2016-11-03-nmap/</loc>
+    <lastmod>2016-11-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/posts/synology/</loc>
+    <loc>https://michalkowol.github.io/posts/2016-10-30-rsync-how-to/</loc>
+    <lastmod>2016-10-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/posts/2016-10-29-synology/</loc>
     <lastmod>2016-10-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/posts/akka-notes-part-1/</loc>
+    <loc>https://michalkowol.github.io/posts/2014-12-01-akka-notes-part-1/</loc>
     <lastmod>2014-12-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/posts/scala-notes/</loc>
+    <loc>https://michalkowol.github.io/posts/2014-11-28-scala-notes/</loc>
     <lastmod>2014-11-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/posts/traits-in-javascript/</loc>
+    <loc>https://michalkowol.github.io/posts/2014-10-23-traits-in-javascript/</loc>
     <lastmod>2014-10-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/posts/closures-in-javascript/</loc>
+    <loc>https://michalkowol.github.io/posts/2014-07-22-closures-in-javascript/</loc>
     <lastmod>2014-07-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/posts/classes-and-singletions-in-javascript/</loc>
+    <loc>https://michalkowol.github.io/posts/2014-04-24-classes-and-singletions-in-javascript/</loc>
     <lastmod>2014-04-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/posts/java-with-spring/</loc>
+    <loc>https://michalkowol.github.io/posts/2013-12-05-java-with-spring/</loc>
     <lastmod>2013-12-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/posts/java-puzzle/</loc>
+    <loc>https://michalkowol.github.io/posts/2013-11-22-java-puzzle/</loc>
     <lastmod>2013-11-22T00:00:00+00:00</lastmod>
   </url>
   

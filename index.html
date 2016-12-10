@@ -71,6 +71,14 @@
     
       
     
+      
+    
+      
+    
+      
+    
+      
+    
 
     <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
   </nav>
@@ -94,7 +102,47 @@
 <div class="posts">
   
     <article class="post">
-      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/linux-headers/">/boot 100% and can&#39;t purge</a></h1>
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2016-12-12-user-management/">User management in Linux</a></h1>
+      <span class="post-date">2016-12-10</span>
+      
+      <div class="post-categories">
+      
+        <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
+      
+        <a class="post-category post-category-linux" href="https://michalkowol.github.io/categories/linux">linux</a>
+      
+      </div>
+      
+      <div class="post-summary">
+         Add and delete users, groups in linux. Add user to group. Files and directories permissions. 
+      </div>
+      <div class="read-more-link">
+        <a href="https://michalkowol.github.io/posts/2016-12-12-user-management/"></span>Read More...</a>
+      </div>
+    </article>
+  
+    <article class="post">
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2016-12-01-java-simple-http-servers/">Simple HTTP servers in Java</a></h1>
+      <span class="post-date">2016-12-01</span>
+      
+      <div class="post-categories">
+      
+        <a class="post-category post-category-development" href="https://michalkowol.github.io/categories/development">development</a>
+      
+        <a class="post-category post-category-java" href="https://michalkowol.github.io/categories/java">java</a>
+      
+      </div>
+      
+      <div class="post-summary">
+         How to create simple http endpoints using Java build-in solution and lightweight library/framework Spark 
+      </div>
+      <div class="read-more-link">
+        <a href="https://michalkowol.github.io/posts/2016-12-01-java-simple-http-servers/"></span>Read More...</a>
+      </div>
+    </article>
+  
+    <article class="post">
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2016-11-07-linux-headers/">/boot 100% and can&#39;t purge</a></h1>
       <span class="post-date">2016-11-07</span>
       
       <div class="post-categories">
@@ -106,15 +154,15 @@
       </div>
       
       <div class="post-summary">
-         Solution  sudo apt-get install &ndash;fix-broken should fail but list unused packets free them one by one using sudo dpkg --purge .... If a packet refuse to uninstall due to dependencies, just advance to the next one. After uninstalling everything you could, sudo apt-get install --fix-broken again, and this time it should work.  So, after upgrading kernels and rebooting to test it, you can remove all other kernels with: 
+         Hot to fix problem with full /boot. 
       </div>
       <div class="read-more-link">
-        <a href="https://michalkowol.github.io/posts/linux-headers/"></span>Read More...</a>
+        <a href="https://michalkowol.github.io/posts/2016-11-07-linux-headers/"></span>Read More...</a>
       </div>
     </article>
   
     <article class="post">
-      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/cifs/">How to server cifi shared folder using nginx</a></h1>
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2016-11-07-cifs/">How to server cifi shared folder using nginx.</a></h1>
       <span class="post-date">2016-11-07</span>
       
       <div class="post-categories">
@@ -131,12 +179,35 @@ mkdir -p /media/storage/dir/  Next, mount shared directory. uid and gid are very
 sudo mount -t cifs -o uid=www-data,gid=www-data,ro,username=username,password=password //10.0.0.2/shared/ /media/storage/dir/   -t cifs - type of fs (cifs - Common Internet File System, also known as smb) uid - specific user gid - specific groutp ro - read-only rw - read-write username - shared directory username password - shared directory password  Modify nginx config (/etc/nginx/sites-available/somefile) 
       </div>
       <div class="read-more-link">
-        <a href="https://michalkowol.github.io/posts/cifs/"></span>Read More...</a>
+        <a href="https://michalkowol.github.io/posts/2016-11-07-cifs/"></span>Read More...</a>
       </div>
     </article>
   
     <article class="post">
-      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/smb-howto/">Samba (smb)</a></h1>
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2016-11-07-locale/">Set locale on your linux</a></h1>
+      <span class="post-date">2016-11-07</span>
+      
+      <div class="post-categories">
+      
+        <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
+      
+        <a class="post-category post-category-howto" href="https://michalkowol.github.io/categories/howto">howto</a>
+      
+      </div>
+      
+      <div class="post-summary">
+         Locale check which locales are supported:
+locale -a  add the locales you want (for example ru):
+sudo locale-gen ru_RU sudo locale-gen ru_RU.UTF-8  run this update comand
+sudo update-locale  How do I add locale to ubuntu server? 
+      </div>
+      <div class="read-more-link">
+        <a href="https://michalkowol.github.io/posts/2016-11-07-locale/"></span>Read More...</a>
+      </div>
+    </article>
+  
+    <article class="post">
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2016-11-04-smb-howto/">Samba (smb)</a></h1>
       <span class="post-date">2016-11-04</span>
       
       <div class="post-categories">
@@ -153,12 +224,34 @@ sudo mount -t cifs -o uid=www-data,gid=www-data,ro,username=username,password=pa
          How to configure Samba inside your network. 
       </div>
       <div class="read-more-link">
-        <a href="https://michalkowol.github.io/posts/smb-howto/"></span>Read More...</a>
+        <a href="https://michalkowol.github.io/posts/2016-11-04-smb-howto/"></span>Read More...</a>
       </div>
     </article>
   
     <article class="post">
-      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/rsync-how-to/">How to: rsync</a></h1>
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2016-11-03-nmap/">nmap</a></h1>
+      <span class="post-date">2016-11-03</span>
+      
+      <div class="post-categories">
+      
+        <a class="post-category post-category-random" href="https://michalkowol.github.io/categories/random">random</a>
+      
+        <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
+      
+        <a class="post-category post-category-howto" href="https://michalkowol.github.io/categories/howto">howto</a>
+      
+      </div>
+      
+      <div class="post-summary">
+         nmap - how to use. 
+      </div>
+      <div class="read-more-link">
+        <a href="https://michalkowol.github.io/posts/2016-11-03-nmap/"></span>Read More...</a>
+      </div>
+    </article>
+  
+    <article class="post">
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2016-10-30-rsync-how-to/">How to: rsync</a></h1>
       <span class="post-date">2016-10-30</span>
       
       <div class="post-categories">
@@ -173,12 +266,12 @@ sudo mount -t cifs -o uid=www-data,gid=www-data,ro,username=username,password=pa
          How to use rsync with ssh on diffrent port. 
       </div>
       <div class="read-more-link">
-        <a href="https://michalkowol.github.io/posts/rsync-how-to/"></span>Read More...</a>
+        <a href="https://michalkowol.github.io/posts/2016-10-30-rsync-how-to/"></span>Read More...</a>
       </div>
     </article>
   
     <article class="post">
-      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/synology/">Synology ssh with public key</a></h1>
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2016-10-29-synology/">Synology ssh with public key</a></h1>
       <span class="post-date">2016-10-29</span>
       
       <div class="post-categories">
@@ -188,18 +281,15 @@ sudo mount -t cifs -o uid=www-data,gid=www-data,ro,username=username,password=pa
       </div>
       
       <div class="post-summary">
-         First of all generate ssh private and public key on your local machine.
-local&gt; ssh-keygen -t rsa -b 4096 -C &quot;yourmail@example.com&quot;  It is good idea to create dedicated user for rsync.
-synology&gt; adduser rsync  By default Synology sets home directory rights to 777. sshd is very picky and its needs different home directory rights.
-synology&gt; chmod 755 /var/services/homes/rsync  Now, you need to modify /etc/ssh/sshd_config on Synlogy. Make sure it has the following line uncommented. 
+         How to configure Synology DS215J to use public key ssh. 
       </div>
       <div class="read-more-link">
-        <a href="https://michalkowol.github.io/posts/synology/"></span>Read More...</a>
+        <a href="https://michalkowol.github.io/posts/2016-10-29-synology/"></span>Read More...</a>
       </div>
     </article>
   
     <article class="post">
-      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/akka-notes-part-1/">Akka (notes, part 1)</a></h1>
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2014-12-01-akka-notes-part-1/">Akka (notes, part 1)</a></h1>
       <span class="post-date">2014-12-01</span>
       
       <div class="post-categories">
@@ -211,16 +301,15 @@ synology&gt; chmod 755 /var/services/homes/rsync  Now, you need to modify /etc/s
       </div>
       
       <div class="post-summary">
-         Akka traits Akka has 4 main traits. Those are:
- Responsive - the system responds very fast. Resilient - the system stays responsive in the face of failure. Elastic - the system stays responsive under varying workload. You can easily add/remove nodes (machines) to/from system. Message Driven - object talks through messages. Objects are loosely coupled. There is a big diffrence between event and message - every message has recipient address, but events don&rsquo;t have to have it. 
+         Notes from &#34;Fast Track to Akka&#34;. 
       </div>
       <div class="read-more-link">
-        <a href="https://michalkowol.github.io/posts/akka-notes-part-1/"></span>Read More...</a>
+        <a href="https://michalkowol.github.io/posts/2014-12-01-akka-notes-part-1/"></span>Read More...</a>
       </div>
     </article>
   
     <article class="post">
-      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/scala-notes/">Scala (notes)</a></h1>
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2014-11-28-scala-notes/">Scala (notes)</a></h1>
       <span class="post-date">2014-11-28</span>
       
       <div class="post-categories">
@@ -232,16 +321,15 @@ synology&gt; chmod 755 /var/services/homes/rsync  Now, you need to modify /etc/s
       </div>
       
       <div class="post-summary">
-         Functions without parameters def foo: String = ??? def bar(): String = ???  The first one is better, bacause you can easly replace it with val. In fact, otheres developers shouldn&rsquo;t know if you use val or def. It should be transparent (you shouldn&rsquo;t use parentheses).
-Default parameters class Welcome(message: String = &quot;default&quot;)  Public API If we define public API, all methods and parameters should have explicite type. 
+         Notes from &#34;Fast Track to Scala&#34;. 
       </div>
       <div class="read-more-link">
-        <a href="https://michalkowol.github.io/posts/scala-notes/"></span>Read More...</a>
+        <a href="https://michalkowol.github.io/posts/2014-11-28-scala-notes/"></span>Read More...</a>
       </div>
     </article>
   
     <article class="post">
-      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/traits-in-javascript/">Scala traits in javascript</a></h1>
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2014-10-23-traits-in-javascript/">Scala Traits in JavaScript</a></h1>
       <span class="post-date">2014-10-23</span>
       
       <div class="post-categories">
@@ -253,17 +341,15 @@ Default parameters class Welcome(message: String = &quot;default&quot;)  Public 
       </div>
       
       <div class="post-summary">
-         Traits:
-function _extend(object, source) { for (var key in source) { if (source.hasOwnProperty(key)) { object[key] = source[key]; } } return object; }  function _with() { var self = {}; var args = Array.prototype.slice.call(arguments); for (var i = 0; i &lt; args.length; i++) { args[i](self); } self.super = _extend({}, self); return self; }  Traits example:
-var mtv = (function (mtv) { 'use strict'; mtv.TraitA = function (self) { self.functionA = function () { console. 
+         How to simulate Scala Traits in JavaScript. 
       </div>
       <div class="read-more-link">
-        <a href="https://michalkowol.github.io/posts/traits-in-javascript/"></span>Read More...</a>
+        <a href="https://michalkowol.github.io/posts/2014-10-23-traits-in-javascript/"></span>Read More...</a>
       </div>
     </article>
   
     <article class="post">
-      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/closures-in-javascript/">&#34;Closures&#34; in JavaScript</a></h1>
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2014-07-22-closures-in-javascript/">&#34;Closures&#34; in JavaScript</a></h1>
       <span class="post-date">2014-07-22</span>
       
       <div class="post-categories">
@@ -275,16 +361,15 @@ var mtv = (function (mtv) { 'use strict'; mtv.TraitA = function (self) { self.fu
       </div>
       
       <div class="post-summary">
-         Closures in JS can simulate classes. Polymorphism, encapsulation and inheritance are avilable in this aproach.
-function _extend(object, source) { for (var key in source) { if (source.hasOwnProperty(key)) { object[key] = source[key]; } } return object; }  var mtv = (function (mtv) { 'use strict'; mtv.ClassA = function (a) { var self = {}; self.a = a; function privateInA () { console.log('ClassA.privateInA.start'); console.log(self.a); console.log('ClassA.privateInA.end'); } self.bar = function () { console. 
+         Closures in JS can simulate classes. Polymorphism, encapsulation and inheritance are avilable in this aproach. 
       </div>
       <div class="read-more-link">
-        <a href="https://michalkowol.github.io/posts/closures-in-javascript/"></span>Read More...</a>
+        <a href="https://michalkowol.github.io/posts/2014-07-22-closures-in-javascript/"></span>Read More...</a>
       </div>
     </article>
   
     <article class="post">
-      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/classes-and-singletions-in-javascript/">&#34;Classes&#34; and Singletions in JavaScript</a></h1>
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2014-04-24-classes-and-singletions-in-javascript/">&#34;Classes&#34; and Singletions in JavaScript</a></h1>
       <span class="post-date">2014-04-24</span>
       
       <div class="post-categories">
@@ -296,16 +381,15 @@ function _extend(object, source) { for (var key in source) { if (source.hasOwnPr
       </div>
       
       <div class="post-summary">
-         In JS there are a lot of way to simulate classes. Here are examples:
-var com = com || {}; com.MTVClass1 = function (videoID) { &quot;use strict&quot;; var self = {}; function bar() { return &quot;bar&quot; + videoID; } self.foo = function () { return &quot;foo&quot; + bar() + videoID; }; return self; }; com.MTVClass1(&quot;123&quot;).foo();  var com = com || {}; (function () { 'use strict'; com.MTVClass2 = function (videoID) { this. 
+         How to simulate Object Oriented programming in JavaScript. 
       </div>
       <div class="read-more-link">
-        <a href="https://michalkowol.github.io/posts/classes-and-singletions-in-javascript/"></span>Read More...</a>
+        <a href="https://michalkowol.github.io/posts/2014-04-24-classes-and-singletions-in-javascript/"></span>Read More...</a>
       </div>
     </article>
   
     <article class="post">
-      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/java-with-spring/">Java with Spring</a></h1>
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2013-12-05-java-with-spring/">Java with Spring</a></h1>
       <span class="post-date">2013-12-05</span>
       
       <div class="post-categories">
@@ -317,15 +401,15 @@ var com = com || {}; com.MTVClass1 = function (videoID) { &quot;use strict&quot;
       </div>
       
       <div class="post-summary">
-         Simple example: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt; &lt;bean id=&quot;apple&quot; class=&quot;Apple&quot; /&gt; &lt;bean id=&quot;juicer&quot; class=&quot;Juicer&quot;&gt; &lt;constructor-arg ref=&quot;apple&quot; /&gt; &lt;constructor-arg ref=&quot;peeler&quot; /&gt; &lt;/bean&gt; &lt;bean id=&quot;peeler&quot; class=&quot;Peeler&quot;&gt; &lt;constructor-arg ref=&quot;apple&quot; /&gt; &lt;/bean&gt; &lt;/beans&gt;  &lt;!-- ... --&gt; &lt;bean id=&quot;juicer&quot; class=&quot;Juicer&quot; scope=&quot;prototype&quot;&gt; &lt;!-- ... --&gt;  public interface Fruit { void eat(); String getName(); } public interface Peelable { void peel(); } public class Apple implements Fruit, Peelable { public void peel() { } public void eat() { } String getName() { return &quot;apple&quot;; } } public class Peeler { private final Peelable peelable; public Peeler(Peelable peelable) { this. 
+         How to use Spring for Dependency Injection. XML Beans. Different DI scopes. 
       </div>
       <div class="read-more-link">
-        <a href="https://michalkowol.github.io/posts/java-with-spring/"></span>Read More...</a>
+        <a href="https://michalkowol.github.io/posts/2013-12-05-java-with-spring/"></span>Read More...</a>
       </div>
     </article>
   
     <article class="post">
-      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/java-puzzle/">Java puzzle</a></h1>
+      <h1 class="post-title"><a href="https://michalkowol.github.io/posts/2013-11-22-java-puzzle/">Java puzzle</a></h1>
       <span class="post-date">2013-11-22</span>
       
       <div class="post-categories">
@@ -337,13 +421,10 @@ var com = com || {}; com.MTVClass1 = function (videoID) { &quot;use strict&quot;
       </div>
       
       <div class="post-summary">
-         Let&rsquo;s consider code bellow
-class ClassMain { private val mainVar = &quot;Main&quot; showMeTheMain() protected def showMeTheMain() { println(mainVar) } } class ClassA extends ClassMain { private val a = &quot;qwerty&quot; showMeTheMain() override def showMeTheMain() { println(&quot;not main anymore&quot; + a.toUpperCase()) } }  Result of this code is NullPointerException. This is because we override method showMeTheMain, but we want to use a parameter.
-This is how program is executed:
- Constructor of ClassMain Method ClassA. 
+         Java Puzzles. Initialization order. 
       </div>
       <div class="read-more-link">
-        <a href="https://michalkowol.github.io/posts/java-puzzle/"></span>Read More...</a>
+        <a href="https://michalkowol.github.io/posts/2013-11-22-java-puzzle/"></span>Read More...</a>
       </div>
     </article>
   

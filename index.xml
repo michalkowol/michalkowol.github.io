@@ -6,15 +6,250 @@
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 07 Nov 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 10 Dec 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://michalkowol.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>User management in Linux</title>
+      <link>https://michalkowol.github.io/posts/2016-12-12-user-management/</link>
+      <pubDate>Sat, 10 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-12-12-user-management/</guid>
+      <description>
+
+&lt;h2 id=&#34;add-delete-users-and-groups&#34;&gt;Add, delete users and groups&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;addgroup groupname&lt;/code&gt; - creates new group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;adduser username&lt;/code&gt; - creates new user&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;usermod -a -G groupname username&lt;/code&gt; - adds existing user to existing group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deluser username&lt;/code&gt; - deletes user&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;groups username&lt;/code&gt; - list all groups for user&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;chmod&#34;&gt;chmod&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Mode&lt;/th&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;r&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;read&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;w&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;write&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;x&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;execute&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;X&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;special execute&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;s&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;setuid/gid&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;t&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;sticky&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Reference&lt;/th&gt;
+&lt;th&gt;Class&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;u&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;owner&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;g&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;group&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;o&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;others&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;a&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;all&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Operator&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;+&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;adds the specified modes to the specified classes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;-&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;removes the specified modes from the specified classes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;=&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;the modes specified are to be made the exact modes for the specified classes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;files-permissions&#34;&gt;Files permissions&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;chown -R username:groupname path&lt;/code&gt; - changes file/directory owner and its group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;chown -R :groupname path&lt;/code&gt; - changes file/directory group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;chmod -R a-x+X path&lt;/code&gt; - remove the execute permission on all files in a directory tree, while allowing for directory browsing&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;chmod -R a+X directory&lt;/code&gt; - allowing for directory browsing for all&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;style&gt;
+table { width: auto; }
+&lt;/style&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Simple HTTP servers in Java</title>
+      <link>https://michalkowol.github.io/posts/2016-12-01-java-simple-http-servers/</link>
+      <pubDate>Thu, 01 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-12-01-java-simple-http-servers/</guid>
+      <description>
+
+&lt;h2 id=&#34;java-build-in&#34;&gt;Java build-in&lt;/h2&gt;
+
+&lt;p&gt;Since Java SE 6, there&amp;rsquo;s a builtin HTTP server in &lt;del&gt;Sun&lt;/del&gt; Oracle JRE. The com.sun.net.httpserver package summary outlines the involved classes and contains examples.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+import lombok.SneakyThrows;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+
+public class BootSunHttp {
+
+    public static void main(String[] args) {
+        new BootSunHttp().bootServer();
+    }
+
+    @SneakyThrows
+    private void bootServer() {
+        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        server.createContext(&amp;quot;/test&amp;quot;, new SimpleHandler());
+        server.setExecutor(null); // creates a default executor
+        server.start();
+    }
+
+    private static class SimpleHandler implements HttpHandler {
+
+        @Override
+        public void handle(HttpExchange t) throws IOException {
+            String response = &amp;quot;This is the response&amp;quot;;
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Noted should be that the response.length() part in their example is bad, it should have been response.getBytes().length. Even then, the getBytes() method must explicitly specify the charset which you then specify in the response header. Alas, albeit misguiding to starters, it&amp;rsquo;s after all just a basic kickoff example.&lt;/p&gt;
+
+&lt;p&gt;As to using &lt;code&gt;com.sun.*&lt;/code&gt; classes, do note that this is, in contrary to what some developers think, absolutely not forbidden by the well known FAQ &lt;a href=&#34;http://www.oracle.com/technetwork/java/faq-sun-packages-142232.html&#34;&gt;Why Developers Should Not Write Programs That Call &amp;lsquo;sun&amp;rsquo; Packages&lt;/a&gt;. That FAQ concerns the sun.* package (such as sun.misc.BASE64Encoder) for internal usage by the Oracle JRE (which would thus kill your application when you run it on a different JRE), not the com.sun.* package. Sun/Oracle also just develop software on top of the Java SE API themselves like as every other company such as Apache and so on. Using com.sun.* classes is only discouraged (but not forbidden) when it concerns an implementation of a certain Java API, such as GlassFish (Java EE impl), Mojarra (JSF impl), Jersey (JAX-RS impl), etc.&lt;/p&gt;
+
+&lt;h2 id=&#34;spark&#34;&gt;Spark&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import spark.Request;
+import spark.Response;
+import spark.Route;
+
+import static spark.Spark.get;
+import static spark.Spark.port;
+
+public class BootSparkHttp {
+
+    private final BarHandler barHandler = new BarHandler();
+
+    public static void main(String[] args) {
+        new BootSparkHttp().run();
+    }
+
+    private void run() {
+        port(8080);
+        get(&amp;quot;/hello&amp;quot;, (request, response) -&amp;gt; &amp;quot;Hello World!&amp;quot;);
+        get(&amp;quot;/foo/:id&amp;quot;, this::foo);
+        get(&amp;quot;/bar/:id&amp;quot;, barHandler);
+    }
+
+    private String foo(Request request, Response response) throws Exception {
+        String id = request.params(&amp;quot;:id&amp;quot;);
+        response.type(&amp;quot;application/json&amp;quot;);
+        return &amp;quot;{\&amp;quot;foo\&amp;quot;: \&amp;quot;&amp;quot; + id + &amp;quot;\&amp;quot;}&amp;quot;;
+    }
+
+    private static class BarHandler implements Route {
+        @Override
+        public String handle(Request request, Response response) throws Exception {
+            String id = request.params(&amp;quot;:id&amp;quot;);
+            return &amp;quot;bar=&amp;quot; + id;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/3732109/simple-http-server-in-java-using-only-java-se-api&#34;&gt;simple HTTP server in Java using only Java SE API&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://sparkjava.com/&#34;&gt;Spark Framework - A tiny Java web framework&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>/boot 100% and can&#39;t purge</title>
-      <link>https://michalkowol.github.io/posts/linux-headers/</link>
+      <link>https://michalkowol.github.io/posts/2016-11-07-linux-headers/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/linux-headers/</guid>
+      <guid>https://michalkowol.github.io/posts/2016-11-07-linux-headers/</guid>
       <description>
 
 &lt;h2 id=&#34;solution&#34;&gt;Solution&lt;/h2&gt;
@@ -53,11 +288,11 @@ dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $
     </item>
     
     <item>
-      <title>How to server cifi shared folder using nginx</title>
-      <link>https://michalkowol.github.io/posts/cifs/</link>
+      <title>How to server cifi shared folder using nginx.</title>
+      <link>https://michalkowol.github.io/posts/2016-11-07-cifs/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/cifs/</guid>
+      <guid>https://michalkowol.github.io/posts/2016-11-07-cifs/</guid>
       <description>
 
 &lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
@@ -126,11 +361,41 @@ dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $
     </item>
     
     <item>
+      <title>Set locale on your linux</title>
+      <link>https://michalkowol.github.io/posts/2016-11-07-locale/</link>
+      <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-11-07-locale/</guid>
+      <description>
+
+&lt;h3 id=&#34;locale&#34;&gt;Locale&lt;/h3&gt;
+
+&lt;p&gt;check which locales are supported:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;locale -a
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;add the locales you want (for example ru):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo locale-gen ru_RU
+sudo locale-gen ru_RU.UTF-8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;run this update comand&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo update-locale 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://askubuntu.com/questions/76013/how-do-i-add-locale-to-ubuntu-server&#34;&gt;How do I add locale to ubuntu server?&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Samba (smb)</title>
-      <link>https://michalkowol.github.io/posts/smb-howto/</link>
+      <link>https://michalkowol.github.io/posts/2016-11-04-smb-howto/</link>
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/smb-howto/</guid>
+      <guid>https://michalkowol.github.io/posts/2016-11-04-smb-howto/</guid>
       <description>
 
 &lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
@@ -143,6 +408,7 @@ dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $
   workgroup = WORKGROUP
   server string = servername
   unix password sync = yes
+  access based share enum = yes
 
 [homes]
   comment = Home Directories
@@ -220,11 +486,6 @@ smbpasswd -a bob
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;sudo service smbd restart&lt;/code&gt; - restarts samba server (reloads config)&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;smbpasswd -an nobody&lt;/code&gt; - creates user with no password in smb&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;addgroup groupname&lt;/code&gt; - creates new group&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;adduser username&lt;/code&gt; - creates new user&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;usermod -a -G groupname username&lt;/code&gt; - adds existing user to existing group&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;deluser username&lt;/code&gt; - deletes user&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;chown -R :groupname path&lt;/code&gt; - changes group of file/directory&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
@@ -240,11 +501,39 @@ smbpasswd -a bob
     </item>
     
     <item>
-      <title>How to: rsync</title>
-      <link>https://michalkowol.github.io/posts/rsync-how-to/</link>
-      <pubDate>Sun, 30 Oct 2016 20:36:56 +0100</pubDate>
+      <title>nmap</title>
+      <link>https://michalkowol.github.io/posts/2016-11-03-nmap/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/rsync-how-to/</guid>
+      <guid>https://michalkowol.github.io/posts/2016-11-03-nmap/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/16981128/nmap-ip-range-specification&#34;&gt;http://stackoverflow.com/questions/16981128/nmap-ip-range-specification&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://hackertarget.com/nmap-cheatsheet-a-quick-reference-guide/&#34;&gt;https://hackertarget.com/nmap-cheatsheet-a-quick-reference-guide/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.garron.me/en/go2linux/nmap-command-graph-front-end-port-scan.html&#34;&gt;https://www.garron.me/en/go2linux/nmap-command-graph-front-end-port-scan.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;namp nmap 192.168.0.0/24&lt;/code&gt; Scan a subnet&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap 192.168.0.0/24&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap 192.168.0.1-20&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap 192.168.0.1-20 192.168.0.30-40&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap -sS 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap -sS 192.168.0.1-20&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan a single Port &lt;code&gt;nmap -p 22 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan a range of ports &lt;code&gt;nmap -p 1-100 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan 100 most common ports (Fast) &lt;code&gt;nmap -F 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan all 65535 ports &lt;code&gt;nmap -p- 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan using TCP connect &lt;code&gt;nmap -sT 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan using TCP SYN scan (default) &lt;code&gt;nmap -sS 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan UDP ports &lt;code&gt;nmap -sU -p 123,161,162 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Heartbleed Testing &lt;code&gt;nmap -sV -p 443 --script=ssl-heartbleed 192.168.1.0/24&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to: rsync</title>
+      <link>https://michalkowol.github.io/posts/2016-10-30-rsync-how-to/</link>
+      <pubDate>Sun, 30 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-10-30-rsync-how-to/</guid>
       <description>
 
 &lt;h3 id=&#34;documentation&#34;&gt;Documentation&lt;/h3&gt;
@@ -334,10 +623,10 @@ rsync -avzx --append-verify --progress --human-readable -e ssh . user@hostname:~
     
     <item>
       <title>Synology ssh with public key</title>
-      <link>https://michalkowol.github.io/posts/synology/</link>
+      <link>https://michalkowol.github.io/posts/2016-10-29-synology/</link>
       <pubDate>Sat, 29 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/synology/</guid>
+      <guid>https://michalkowol.github.io/posts/2016-10-29-synology/</guid>
       <description>
 
 &lt;p&gt;First of all generate ssh private and public key on your local machine.&lt;/p&gt;
@@ -410,10 +699,10 @@ synology&amp;gt; chmod 600 .ssh/authorized_keys
     
     <item>
       <title>Akka (notes, part 1)</title>
-      <link>https://michalkowol.github.io/posts/akka-notes-part-1/</link>
+      <link>https://michalkowol.github.io/posts/2014-12-01-akka-notes-part-1/</link>
       <pubDate>Mon, 01 Dec 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/akka-notes-part-1/</guid>
+      <guid>https://michalkowol.github.io/posts/2014-12-01-akka-notes-part-1/</guid>
       <description>
 
 &lt;h3 id=&#34;akka-traits&#34;&gt;Akka traits&lt;/h3&gt;
@@ -570,10 +859,10 @@ class GoodWayActor extends Actor {
     
     <item>
       <title>Scala (notes)</title>
-      <link>https://michalkowol.github.io/posts/scala-notes/</link>
+      <link>https://michalkowol.github.io/posts/2014-11-28-scala-notes/</link>
       <pubDate>Fri, 28 Nov 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/scala-notes/</guid>
+      <guid>https://michalkowol.github.io/posts/2014-11-28-scala-notes/</guid>
       <description>
 
 &lt;h3 id=&#34;functions-without-parameters&#34;&gt;Functions without parameters&lt;/h3&gt;
@@ -833,11 +1122,11 @@ pattern(&amp;quot;3&amp;quot;, &amp;quot;xxx&amp;quot;) // ???
     </item>
     
     <item>
-      <title>Scala traits in javascript</title>
-      <link>https://michalkowol.github.io/posts/traits-in-javascript/</link>
+      <title>Scala Traits in JavaScript</title>
+      <link>https://michalkowol.github.io/posts/2014-10-23-traits-in-javascript/</link>
       <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/traits-in-javascript/</guid>
+      <guid>https://michalkowol.github.io/posts/2014-10-23-traits-in-javascript/</guid>
       <description>&lt;p&gt;Traits:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function _extend(object, source) {
@@ -951,10 +1240,10 @@ model
     
     <item>
       <title>&#34;Closures&#34; in JavaScript</title>
-      <link>https://michalkowol.github.io/posts/closures-in-javascript/</link>
+      <link>https://michalkowol.github.io/posts/2014-07-22-closures-in-javascript/</link>
       <pubDate>Tue, 22 Jul 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/closures-in-javascript/</guid>
+      <guid>https://michalkowol.github.io/posts/2014-07-22-closures-in-javascript/</guid>
       <description>&lt;p&gt;Closures in JS can simulate classes. Polymorphism, encapsulation and inheritance are avilable in this aproach.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function _extend(object, source) {
@@ -1063,10 +1352,10 @@ classB.bar();       // ClassA.bar.start
     
     <item>
       <title>&#34;Classes&#34; and Singletions in JavaScript</title>
-      <link>https://michalkowol.github.io/posts/classes-and-singletions-in-javascript/</link>
+      <link>https://michalkowol.github.io/posts/2014-04-24-classes-and-singletions-in-javascript/</link>
       <pubDate>Thu, 24 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/classes-and-singletions-in-javascript/</guid>
+      <guid>https://michalkowol.github.io/posts/2014-04-24-classes-and-singletions-in-javascript/</guid>
       <description>&lt;p&gt;In JS there are a lot of way to simulate classes. Here are examples:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var com = com || {};
@@ -1089,7 +1378,7 @@ com.MTVClass1 = function (videoID) {
 com.MTVClass1(&amp;quot;123&amp;quot;).foo();
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascipt&#34;&gt;var com = com || {};
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var com = com || {};
  
 (function () {
     &#39;use strict&#39;;
@@ -1110,7 +1399,7 @@ com.MTVClass1(&amp;quot;123&amp;quot;).foo();
 new com.MTVClass2(&amp;quot;1234&amp;quot;).foo();
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascipt&#34;&gt;var com = com || {};
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var com = com || {};
  
 com.MTVClass3 = (function () {
     &#39;use strict&#39;;
@@ -1186,10 +1475,10 @@ com.MTVObject.foo();
     
     <item>
       <title>Java with Spring</title>
-      <link>https://michalkowol.github.io/posts/java-with-spring/</link>
+      <link>https://michalkowol.github.io/posts/2013-12-05-java-with-spring/</link>
       <pubDate>Thu, 05 Dec 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/java-with-spring/</guid>
+      <guid>https://michalkowol.github.io/posts/2013-12-05-java-with-spring/</guid>
       <description>
 
 &lt;h2 id=&#34;simple-example&#34;&gt;Simple example:&lt;/h2&gt;
@@ -1248,8 +1537,9 @@ public class Juicer {
         this.peeler = peeler;
     }
 }
-view rawClasses.java hosted with ❤ by GitHub
-public class MainAppPrototype {
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MainAppPrototype {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext(&amp;quot;beans_prototype.xml&amp;quot;);
         Juicer j1 = context.getBean(Juicer.class);
@@ -1257,8 +1547,9 @@ public class MainAppPrototype {
         System.out.println(j1 == j2);
     }
 }
-view rawMainAppPrototype.java hosted with ❤ by GitHub
-public class MainAppSingleton {
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MainAppSingleton {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext(&amp;quot;beans.xml&amp;quot;);
         Juicer j1 = context.getBean(Juicer.class);
@@ -1406,10 +1697,16 @@ Test.password= xhajs
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;newPlum&amp;quot;&amp;gt;
     &amp;lt;constructor-arg value=&amp;quot;sliwka&amp;quot;&amp;gt;&amp;lt;/constructor-arg&amp;gt;
 &amp;lt;/bean&amp;gt;
-view rawbeans.xml hosted with ❤ by GitHub
-Eating a plum sliwka: omomom
-Plum by name using createFruit method:
-&amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;createFruit&amp;quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Eating a plum sliwka: omomom
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Plum by name using createFruit method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;createFruit&amp;quot;&amp;gt;
     &amp;lt;constructor-arg value=&amp;quot;sliwka&amp;quot;&amp;gt;&amp;lt;/constructor-arg&amp;gt;
 &amp;lt;/bean&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -1418,49 +1715,6 @@ Plum by name using createFruit method:
 
 &lt;pre&gt;&lt;code&gt;Eating a plum defaultName: omomom
 &lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Java puzzle</title>
-      <link>https://michalkowol.github.io/posts/java-puzzle/</link>
-      <pubDate>Fri, 22 Nov 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://michalkowol.github.io/posts/java-puzzle/</guid>
-      <description>&lt;p&gt;Let&amp;rsquo;s consider code bellow&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;class ClassMain {
- 
-  private val mainVar = &amp;quot;Main&amp;quot;
-  showMeTheMain()
- 
-  protected def showMeTheMain() {
-    println(mainVar)
-  }
-}
- 
-class ClassA extends ClassMain {
- 
-  private val a = &amp;quot;qwerty&amp;quot;
-  showMeTheMain()
- 
-  override def showMeTheMain() {
-    println(&amp;quot;not main anymore&amp;quot; + a.toUpperCase())
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Result of this code is &lt;code&gt;NullPointerException&lt;/code&gt;. This is because we override method &lt;code&gt;showMeTheMain&lt;/code&gt;, but we want to use &lt;code&gt;a&lt;/code&gt; parameter.&lt;/p&gt;
-
-&lt;p&gt;This is how program is executed:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Constructor of &lt;code&gt;ClassMain&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Method &lt;code&gt;ClassA.showMeTheMain&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Constructor of &lt;code&gt;ClassA&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In this example we changed access qualification from protected to public. We can increase access qualification, but we cannot make it more restrict.&lt;/p&gt;
 </description>
     </item>
     

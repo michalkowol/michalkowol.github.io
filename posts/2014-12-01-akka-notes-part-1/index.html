@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Akka (notes, part 1) &middot; Michał Kowol
+    
+  </title>
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
+
+  
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
+  </nav>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">Akka (notes, part 1)</h1>
+  <span class="post-date">2014-12-01</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-development" href="https://michalkowol.github.io/categories/development">development</a>
+    
+      <a class="post-category post-category-scala" href="https://michalkowol.github.io/categories/scala">scala</a>
+    
+    </div>
+  
+  <div class="content">
+  
+
+<h3 id="akka-traits">Akka traits</h3>
+
+<p><img src="https://michalkowol.github.io/img/akka-notes/reactive-traits.svg" alt="akka traits" /></p>
+
+<p>Akka has 4 main traits. Those are:</p>
+
+<ul>
+<li>Responsive - the system responds very fast.</li>
+<li>Resilient - the system stays responsive in the face of failure.</li>
+<li>Elastic - the system stays responsive under varying workload. You can easily add/remove nodes (machines) to/from system.</li>
+<li>Message Driven - object talks through messages. Objects are loosely coupled. There is a big diffrence between event and message - every message has recipient address, but events don&rsquo;t have to have it.</li>
+</ul>
+
+<p>Please see <a href="http://www.reactivemanifesto.org/">Reactive Manifesto</a> for more information.</p>
+
+<h3 id="concurrency-vs-parallelism">Concurrency vs parallelism</h3>
+
+<ul>
+<li>Definition 1
+
+<ul>
+<li><strong>Concurrency</strong> is when two tasks can start, run, and complete in overlapping time periods. It doesn&rsquo;t necessarily mean they&rsquo;ll ever both be running at the same instant. Eg. multitasking on a single-core machine.</li>
+<li><strong>Parallelism</strong> is when tasks literally run at the same time, eg. on a multicore processor.</li>
+</ul></li>
+<li>Definition 2
+
+<ul>
+<li><strong>Concurrency</strong> A condition that exists when at least two threads are making progress. A more generalized form of parallelism that can include time-slicing as a form of virtual parallelism.</li>
+<li><strong>Parallelism</strong> A condition that arises when at least two threads are executing simultaneously.</li>
+</ul></li>
+</ul>
+
+<p>Ref: <a href="http://stackoverflow.com/questions/1050222/concurrency-vs-parallelism-what-is-the-difference">stackoverflow.com</a>.</p>
+
+<p>Example</p>
+
+<ul>
+<li>Concurrency - two queues, one coffee machine</li>
+<li>Parallelism - two queues, two coffee machines</li>
+</ul>
+
+<p><img src="https://michalkowol.github.io/img/akka-notes/con_and_par.jpg" alt="Concurrency vs Parallelism" /></p>
+
+<p>Source: <a href="http://joearms.github.io/2013/04/05/concurrent-and-parallel-programming.html">joearms.github.io</a>.</p>
+
+<h3 id="actor-actorref">Actor, ActorRef</h3>
+
+<p><img src="https://michalkowol.github.io/img/akka-notes/actor-ref.png" alt="Actor with Mailbox" /></p>
+
+<ul>
+<li>Each actor has dispatcher and mailbox.</li>
+<li>If we send message to actor, it will add message to its mailbox and it will return <strong>immediately</strong> - this is not blocking operation.</li>
+<li>If we create actor, <code>actorOf</code> will return <strong>immediately</strong> <code>ActorRef</code>. It does not wait to create an instance. If we send messages to actor that is &ldquo;not started&rdquo;, messages will be added to mailbox and will be processed when actor is inicialized - we will not lose any message.</li>
+<li><code>Dispatcher</code> assigns (schedules) thread to process the message.</li>
+<li>Many actors have the same dispatcher - it is some kind of thread pool.</li>
+<li>One message is passed to the actor</li>
+<li>Only <strong>one</strong> thread can be in <strong>receive</strong> block (&ldquo;single-threaded illusion&rdquo;).</li>
+<li>Actors could have mutable state (but rember not to share mutable state!).</li>
+<li>Messages must be immutable.</li>
+</ul>
+
+<h3 id="how-to-handle-unhandled-messages">How to handle &ldquo;unhandled&rdquo; messages</h3>
+
+<p>If in receive block we do not handle some message, this message will be dropped (and maybe logged). We can use <code>unhandled</code> method to do something with messages not handled in receive block.</p>
+
+<pre><code class="language-scala">override def unhandled(message: Any): Unit = ???
+</code></pre>
+
+<h3 id="top-level-actor">Top-Level Actor</h3>
+
+<p>If you create top-level actors, use factory methods - it will simplify testing. Always give name to your top-level actors.</p>
+
+<pre><code class="language-scala">val topLevelActor = createTopLevelActor()
+def createTopLevelActor(): ActorRef = system.actorOf(TopLevel.props, &quot;top-level&quot;)
+</code></pre>
+
+<h3 id="message-protocol">Message protocol</h3>
+
+<ul>
+<li>Defince your message protocol in the companion object of the actor.</li>
+<li>If you use message protocol from other actor, use actor name as prefix to this message - this will make code more readable.</li>
+</ul>
+
+<pre><code class="language-scala">object FooActor {
+  case object FooMessage
+}
+class FooActor extends Actor {
+  import FooActor._
+  override def receive: Receive = {
+    case FooMessage =&gt; ???
+    case BarActor.BarMessage =&gt; ???
+  }
+}
+
+object BarActor {
+  case object BarMessage
+}
+class BarActor extends Actor {
+  import BarActor._
+  override def receive: Receive = {
+    case FooActor.FooMessage =&gt; ???
+    case BarMessage =&gt; ???
+  }
+}
+</code></pre>
+
+<h3 id="actor-dsl">Actor DSL</h3>
+
+<p>To create anonymous actoes we can use <a href="http://doc.akka.io/docs/akka/2.3.0-RC1/scala/actordsl.html">Actor DSL</a>. Here, <code>actor</code> takes the role of either <code>system.actorOf</code> or <code>context.actorOf</code>. It takes an implicit <code>ActorRefFactory</code> and creates the new <code>Actor</code>.</p>
+
+<pre><code class="language-scala">import akka.actor.ActorDSL._
+ 
+val a = actor(new Act {
+  become {
+    case &quot;hello&quot; =&gt; sender() ! &quot;hi&quot;
+  }
+})
+</code></pre>
+
+<h3 id="best-practices">Best practices</h3>
+
+<ul>
+<li>Always create <code>Props</code> factory - the best place for that is in companion object (see: <a href="http://doc.akka.io/docs/akka/snapshot/scala/actors.html">Actors — Akka Documentation</a>).</li>
+<li>Put Companion Object before you class.</li>
+<li>Use <code>sender()</code> <strong>with</strong> parentheses. It is function, not val and you have to rember about it. It can be very tricky when <code>sender()</code> will be execute in other thread - in example in <code>Future</code>.</li>
+</ul>
+
+<p>Example:</p>
+
+<pre><code class="language-scala">class WrongWayActor extends Actor {
+  override def receive: Receive = {
+    case _ =&gt; Future {
+      val result = doSomeHeavyComputation
+      sender() ! result // if you reacive other message in meantime, it will send the response to WRONG actor
+    }
+  }
+}
+ 
+class GoodWayActor extends Actor {
+  override def receive: Receive = {
+    case _ =&gt;
+      val originalSender = sender()
+      Future {
+        val result = doSomeHeavyComputation
+        originalSender ! result  // it closes clouser over - it will send response to right actor
+    }
+  }
+}
+</code></pre>
+
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
+    
+      <a class="post-tags post-tags-development" href="https://michalkowol.github.io/tags/development">development</a>
+    
+      <a class="post-tags post-tags-scala" href="https://michalkowol.github.io/tags/scala">scala</a>
+    
+      <a class="post-tags post-tags-akka" href="https://michalkowol.github.io/tags/akka">akka</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+   
+  var disqus_shortname = 'michalkowol'; 
+
+   
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

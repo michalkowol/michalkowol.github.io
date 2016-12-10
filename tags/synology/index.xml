@@ -10,10 +10,10 @@
     
     <item>
       <title>Synology ssh with public key</title>
-      <link>https://michalkowol.github.io/posts/synology/</link>
+      <link>https://michalkowol.github.io/posts/2016-10-29-synology/</link>
       <pubDate>Sat, 29 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/synology/</guid>
+      <guid>https://michalkowol.github.io/posts/2016-10-29-synology/</guid>
       <description>
 
 &lt;p&gt;First of all generate ssh private and public key on your local machine.&lt;/p&gt;

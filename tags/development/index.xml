@@ -9,11 +9,113 @@
     <atom:link href="https://michalkowol.github.io/tags/development/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Simple HTTP servers in Java</title>
+      <link>https://michalkowol.github.io/posts/2016-12-01-java-simple-http-servers/</link>
+      <pubDate>Thu, 01 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-12-01-java-simple-http-servers/</guid>
+      <description>
+
+&lt;h2 id=&#34;java-build-in&#34;&gt;Java build-in&lt;/h2&gt;
+
+&lt;p&gt;Since Java SE 6, there&amp;rsquo;s a builtin HTTP server in &lt;del&gt;Sun&lt;/del&gt; Oracle JRE. The com.sun.net.httpserver package summary outlines the involved classes and contains examples.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+import lombok.SneakyThrows;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+
+public class BootSunHttp {
+
+    public static void main(String[] args) {
+        new BootSunHttp().bootServer();
+    }
+
+    @SneakyThrows
+    private void bootServer() {
+        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        server.createContext(&amp;quot;/test&amp;quot;, new SimpleHandler());
+        server.setExecutor(null); // creates a default executor
+        server.start();
+    }
+
+    private static class SimpleHandler implements HttpHandler {
+
+        @Override
+        public void handle(HttpExchange t) throws IOException {
+            String response = &amp;quot;This is the response&amp;quot;;
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Noted should be that the response.length() part in their example is bad, it should have been response.getBytes().length. Even then, the getBytes() method must explicitly specify the charset which you then specify in the response header. Alas, albeit misguiding to starters, it&amp;rsquo;s after all just a basic kickoff example.&lt;/p&gt;
+
+&lt;p&gt;As to using &lt;code&gt;com.sun.*&lt;/code&gt; classes, do note that this is, in contrary to what some developers think, absolutely not forbidden by the well known FAQ &lt;a href=&#34;http://www.oracle.com/technetwork/java/faq-sun-packages-142232.html&#34;&gt;Why Developers Should Not Write Programs That Call &amp;lsquo;sun&amp;rsquo; Packages&lt;/a&gt;. That FAQ concerns the sun.* package (such as sun.misc.BASE64Encoder) for internal usage by the Oracle JRE (which would thus kill your application when you run it on a different JRE), not the com.sun.* package. Sun/Oracle also just develop software on top of the Java SE API themselves like as every other company such as Apache and so on. Using com.sun.* classes is only discouraged (but not forbidden) when it concerns an implementation of a certain Java API, such as GlassFish (Java EE impl), Mojarra (JSF impl), Jersey (JAX-RS impl), etc.&lt;/p&gt;
+
+&lt;h2 id=&#34;spark&#34;&gt;Spark&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import spark.Request;
+import spark.Response;
+import spark.Route;
+
+import static spark.Spark.get;
+import static spark.Spark.port;
+
+public class BootSparkHttp {
+
+    private final BarHandler barHandler = new BarHandler();
+
+    public static void main(String[] args) {
+        new BootSparkHttp().run();
+    }
+
+    private void run() {
+        port(8080);
+        get(&amp;quot;/hello&amp;quot;, (request, response) -&amp;gt; &amp;quot;Hello World!&amp;quot;);
+        get(&amp;quot;/foo/:id&amp;quot;, this::foo);
+        get(&amp;quot;/bar/:id&amp;quot;, barHandler);
+    }
+
+    private String foo(Request request, Response response) throws Exception {
+        String id = request.params(&amp;quot;:id&amp;quot;);
+        response.type(&amp;quot;application/json&amp;quot;);
+        return &amp;quot;{\&amp;quot;foo\&amp;quot;: \&amp;quot;&amp;quot; + id + &amp;quot;\&amp;quot;}&amp;quot;;
+    }
+
+    private static class BarHandler implements Route {
+        @Override
+        public String handle(Request request, Response response) throws Exception {
+            String id = request.params(&amp;quot;:id&amp;quot;);
+            return &amp;quot;bar=&amp;quot; + id;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/3732109/simple-http-server-in-java-using-only-java-se-api&#34;&gt;simple HTTP server in Java using only Java SE API&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://sparkjava.com/&#34;&gt;Spark Framework - A tiny Java web framework&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Akka (notes, part 1)</title>
-      <link>https://michalkowol.github.io/posts/akka-notes-part-1/</link>
+      <link>https://michalkowol.github.io/posts/2014-12-01-akka-notes-part-1/</link>
       <pubDate>Mon, 01 Dec 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/akka-notes-part-1/</guid>
+      <guid>https://michalkowol.github.io/posts/2014-12-01-akka-notes-part-1/</guid>
       <description>
 
 &lt;h3 id=&#34;akka-traits&#34;&gt;Akka traits&lt;/h3&gt;
@@ -170,10 +272,10 @@ class GoodWayActor extends Actor {
     
     <item>
       <title>Scala (notes)</title>
-      <link>https://michalkowol.github.io/posts/scala-notes/</link>
+      <link>https://michalkowol.github.io/posts/2014-11-28-scala-notes/</link>
       <pubDate>Fri, 28 Nov 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/scala-notes/</guid>
+      <guid>https://michalkowol.github.io/posts/2014-11-28-scala-notes/</guid>
       <description>
 
 &lt;h3 id=&#34;functions-without-parameters&#34;&gt;Functions without parameters&lt;/h3&gt;
@@ -433,11 +535,11 @@ pattern(&amp;quot;3&amp;quot;, &amp;quot;xxx&amp;quot;) // ???
     </item>
     
     <item>
-      <title>Scala traits in javascript</title>
-      <link>https://michalkowol.github.io/posts/traits-in-javascript/</link>
+      <title>Scala Traits in JavaScript</title>
+      <link>https://michalkowol.github.io/posts/2014-10-23-traits-in-javascript/</link>
       <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/traits-in-javascript/</guid>
+      <guid>https://michalkowol.github.io/posts/2014-10-23-traits-in-javascript/</guid>
       <description>&lt;p&gt;Traits:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function _extend(object, source) {
@@ -551,10 +653,10 @@ model
     
     <item>
       <title>&#34;Closures&#34; in JavaScript</title>
-      <link>https://michalkowol.github.io/posts/closures-in-javascript/</link>
+      <link>https://michalkowol.github.io/posts/2014-07-22-closures-in-javascript/</link>
       <pubDate>Tue, 22 Jul 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/closures-in-javascript/</guid>
+      <guid>https://michalkowol.github.io/posts/2014-07-22-closures-in-javascript/</guid>
       <description>&lt;p&gt;Closures in JS can simulate classes. Polymorphism, encapsulation and inheritance are avilable in this aproach.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function _extend(object, source) {
@@ -663,10 +765,10 @@ classB.bar();       // ClassA.bar.start
     
     <item>
       <title>&#34;Classes&#34; and Singletions in JavaScript</title>
-      <link>https://michalkowol.github.io/posts/classes-and-singletions-in-javascript/</link>
+      <link>https://michalkowol.github.io/posts/2014-04-24-classes-and-singletions-in-javascript/</link>
       <pubDate>Thu, 24 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/classes-and-singletions-in-javascript/</guid>
+      <guid>https://michalkowol.github.io/posts/2014-04-24-classes-and-singletions-in-javascript/</guid>
       <description>&lt;p&gt;In JS there are a lot of way to simulate classes. Here are examples:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var com = com || {};
@@ -689,7 +791,7 @@ com.MTVClass1 = function (videoID) {
 com.MTVClass1(&amp;quot;123&amp;quot;).foo();
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascipt&#34;&gt;var com = com || {};
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var com = com || {};
  
 (function () {
     &#39;use strict&#39;;
@@ -710,7 +812,7 @@ com.MTVClass1(&amp;quot;123&amp;quot;).foo();
 new com.MTVClass2(&amp;quot;1234&amp;quot;).foo();
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-javascipt&#34;&gt;var com = com || {};
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var com = com || {};
  
 com.MTVClass3 = (function () {
     &#39;use strict&#39;;
@@ -786,10 +888,10 @@ com.MTVObject.foo();
     
     <item>
       <title>Java with Spring</title>
-      <link>https://michalkowol.github.io/posts/java-with-spring/</link>
+      <link>https://michalkowol.github.io/posts/2013-12-05-java-with-spring/</link>
       <pubDate>Thu, 05 Dec 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/java-with-spring/</guid>
+      <guid>https://michalkowol.github.io/posts/2013-12-05-java-with-spring/</guid>
       <description>
 
 &lt;h2 id=&#34;simple-example&#34;&gt;Simple example:&lt;/h2&gt;
@@ -848,8 +950,9 @@ public class Juicer {
         this.peeler = peeler;
     }
 }
-view rawClasses.java hosted with ❤ by GitHub
-public class MainAppPrototype {
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MainAppPrototype {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext(&amp;quot;beans_prototype.xml&amp;quot;);
         Juicer j1 = context.getBean(Juicer.class);
@@ -857,8 +960,9 @@ public class MainAppPrototype {
         System.out.println(j1 == j2);
     }
 }
-view rawMainAppPrototype.java hosted with ❤ by GitHub
-public class MainAppSingleton {
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MainAppSingleton {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext(&amp;quot;beans.xml&amp;quot;);
         Juicer j1 = context.getBean(Juicer.class);
@@ -1006,10 +1110,16 @@ Test.password= xhajs
 &lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;newPlum&amp;quot;&amp;gt;
     &amp;lt;constructor-arg value=&amp;quot;sliwka&amp;quot;&amp;gt;&amp;lt;/constructor-arg&amp;gt;
 &amp;lt;/bean&amp;gt;
-view rawbeans.xml hosted with ❤ by GitHub
-Eating a plum sliwka: omomom
-Plum by name using createFruit method:
-&amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;createFruit&amp;quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Eating a plum sliwka: omomom
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Plum by name using createFruit method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;createFruit&amp;quot;&amp;gt;
     &amp;lt;constructor-arg value=&amp;quot;sliwka&amp;quot;&amp;gt;&amp;lt;/constructor-arg&amp;gt;
 &amp;lt;/bean&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -1023,10 +1133,10 @@ Plum by name using createFruit method:
     
     <item>
       <title>Java puzzle</title>
-      <link>https://michalkowol.github.io/posts/java-puzzle/</link>
+      <link>https://michalkowol.github.io/posts/2013-11-22-java-puzzle/</link>
       <pubDate>Fri, 22 Nov 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/java-puzzle/</guid>
+      <guid>https://michalkowol.github.io/posts/2013-11-22-java-puzzle/</guid>
       <description>&lt;p&gt;Let&amp;rsquo;s consider code bellow&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;class ClassMain {

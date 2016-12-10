@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Samba (smb) &middot; Michał Kowol
+    
+  </title>
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
+
+  
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
+  </nav>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">Samba (smb)</h1>
+  <span class="post-date">2016-11-04</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-random" href="https://michalkowol.github.io/categories/random">random</a>
+    
+      <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
+    
+      <a class="post-category post-category-howto" href="https://michalkowol.github.io/categories/howto">howto</a>
+    
+    </div>
+  
+  <div class="content">
+  
+
+<h2 id="configuration">Configuration</h2>
+
+<p>On Ubuntu configuration file is located in <code>/etc/samba/smb.conf</code>. You need <code>root</code> privileges to edit it.</p>
+
+<h3 id="sample-file">Sample file</h3>
+
+<pre><code class="language-nohighlight">[global]
+  workgroup = WORKGROUP
+  server string = servername
+  unix password sync = yes
+  access based share enum = yes
+
+[homes]
+  comment = Home Directories
+  browseable = no
+  read only = no
+  writable = yes
+  guest ok = no
+  create mask = 0600
+  directory mask = 0700
+  security = user
+
+[accounting]
+  comment = Accounting Department Directory
+  writable = yes
+  valid users = @account
+  path = /media/storage/accounting
+  create mask = 0660
+  directory mode = 0770
+  force group = account
+
+[public]
+  comment = Public
+  browsable = yes
+  path = /media/storage/public
+  public = yes
+  read only = no
+  writable = yes
+  guest ok = yes
+  create mask = 0666
+  directory mode = 0777
+</code></pre>
+
+<p>You need to set public storage directory permissions to be <code>777 (drwxrwxrwx)</code> and for directories shared in group <code>770 (drwxrwx---)</code>. Don&rsquo;t forget to change group of shared directories with <code>chown -R :groupname path</code>.</p>
+
+<p>This is how we can create group <code>account</code> and add <code>bob</code> to <code>account</code>.</p>
+
+<pre><code class="language-bash">groupadd account
+adduser bob
+usermod -a -G account bob
+smbpasswd -a bob
+
+</code></pre>
+
+<h4 id="configuring-anonymous-public-shares">Configuring anonymous public shares</h4>
+
+<pre><code class="language-nohighlight">[public]
+  comment = Public
+  browsable = yes
+  path = /media/storage/public
+  public = yes
+  read only = no
+  writable = no
+  write list = bob
+  guest ok = yes
+</code></pre>
+
+<p>This sets up a share named <code>public</code> which is shown when browsing the server to any user with rights to do so. You can see it is public, but not writable except for <code>bob</code> and that it is ok for guests to login.</p>
+
+<pre><code class="language-nohighlight">[global]
+  # ...
+  guest account = nobody
+</code></pre>
+
+<p>Which defines the account to use when authenticating guests. Don’t forget to create this user using <code>smbpasswd -an nobody</code>. This will create the user with no password.</p>
+
+<pre><code class="language-nohighlight">[global]
+  #...
+  map to guest = bad user
+</code></pre>
+
+<p>This maps any unknown username to the specified guest user, so login always succeeds.</p>
+
+<h2 id="useful-commands">Useful commands</h2>
+
+<ul>
+<li><code>sudo service smbd restart</code> - restarts samba server (reloads config)</li>
+<li><code>smbpasswd -an nobody</code> - creates user with no password in smb</li>
+</ul>
+
+<h2 id="links">Links</h2>
+
+<ul>
+<li><a href="https://www.samba.org/samba/docs/using_samba/ch09.html">Samba</a></li>
+<li><a href="https://micheljansen.org/blog/entry/182">Configuring anonymous public shares with Samba 3</a></li>
+<li><a href="http://www.computerhope.com/unix/groupadd.htm">Linux and Unix groupadd command</a></li>
+<li><a href="http://www.cyberciti.biz/faq/howto-linux-add-user-to-group/">Howto: Linux Add User To Group</a></li>
+<li><a href="http://www.cyberciti.biz/faq/how-to-use-chmod-and-chown-command/">Howto: Use chmod and chown Command</a></li>
+</ul>
+
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
+    
+      <a class="post-tags post-tags-random" href="https://michalkowol.github.io/tags/random">random</a>
+    
+      <a class="post-tags post-tags-tech" href="https://michalkowol.github.io/tags/tech">tech</a>
+    
+      <a class="post-tags post-tags-howto" href="https://michalkowol.github.io/tags/howto">howto</a>
+    
+      <a class="post-tags post-tags-smb" href="https://michalkowol.github.io/tags/smb">smb</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+   
+  var disqus_shortname = 'michalkowol'; 
+
+   
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Simple HTTP servers in Java &middot; Michał Kowol
+    
+  </title>
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
+
+  
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
+  </nav>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">Simple HTTP servers in Java</h1>
+  <span class="post-date">2016-12-01</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-development" href="https://michalkowol.github.io/categories/development">development</a>
+    
+      <a class="post-category post-category-java" href="https://michalkowol.github.io/categories/java">java</a>
+    
+    </div>
+  
+  <div class="content">
+  
+
+<h2 id="java-build-in">Java build-in</h2>
+
+<p>Since Java SE 6, there&rsquo;s a builtin HTTP server in <del>Sun</del> Oracle JRE. The com.sun.net.httpserver package summary outlines the involved classes and contains examples.</p>
+
+<pre><code class="language-java">import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+import lombok.SneakyThrows;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+
+public class BootSunHttp {
+
+    public static void main(String[] args) {
+        new BootSunHttp().bootServer();
+    }
+
+    @SneakyThrows
+    private void bootServer() {
+        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        server.createContext(&quot;/test&quot;, new SimpleHandler());
+        server.setExecutor(null); // creates a default executor
+        server.start();
+    }
+
+    private static class SimpleHandler implements HttpHandler {
+
+        @Override
+        public void handle(HttpExchange t) throws IOException {
+            String response = &quot;This is the response&quot;;
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        }
+    }
+}
+</code></pre>
+
+<p>Noted should be that the response.length() part in their example is bad, it should have been response.getBytes().length. Even then, the getBytes() method must explicitly specify the charset which you then specify in the response header. Alas, albeit misguiding to starters, it&rsquo;s after all just a basic kickoff example.</p>
+
+<p>As to using <code>com.sun.*</code> classes, do note that this is, in contrary to what some developers think, absolutely not forbidden by the well known FAQ <a href="http://www.oracle.com/technetwork/java/faq-sun-packages-142232.html">Why Developers Should Not Write Programs That Call &lsquo;sun&rsquo; Packages</a>. That FAQ concerns the sun.* package (such as sun.misc.BASE64Encoder) for internal usage by the Oracle JRE (which would thus kill your application when you run it on a different JRE), not the com.sun.* package. Sun/Oracle also just develop software on top of the Java SE API themselves like as every other company such as Apache and so on. Using com.sun.* classes is only discouraged (but not forbidden) when it concerns an implementation of a certain Java API, such as GlassFish (Java EE impl), Mojarra (JSF impl), Jersey (JAX-RS impl), etc.</p>
+
+<h2 id="spark">Spark</h2>
+
+<pre><code class="language-java">import spark.Request;
+import spark.Response;
+import spark.Route;
+
+import static spark.Spark.get;
+import static spark.Spark.port;
+
+public class BootSparkHttp {
+
+    private final BarHandler barHandler = new BarHandler();
+
+    public static void main(String[] args) {
+        new BootSparkHttp().run();
+    }
+
+    private void run() {
+        port(8080);
+        get(&quot;/hello&quot;, (request, response) -&gt; &quot;Hello World!&quot;);
+        get(&quot;/foo/:id&quot;, this::foo);
+        get(&quot;/bar/:id&quot;, barHandler);
+    }
+
+    private String foo(Request request, Response response) throws Exception {
+        String id = request.params(&quot;:id&quot;);
+        response.type(&quot;application/json&quot;);
+        return &quot;{\&quot;foo\&quot;: \&quot;&quot; + id + &quot;\&quot;}&quot;;
+    }
+
+    private static class BarHandler implements Route {
+        @Override
+        public String handle(Request request, Response response) throws Exception {
+            String id = request.params(&quot;:id&quot;);
+            return &quot;bar=&quot; + id;
+        }
+    }
+}
+</code></pre>
+
+<h2 id="references">References</h2>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/3732109/simple-http-server-in-java-using-only-java-se-api">simple HTTP server in Java using only Java SE API</a></li>
+<li><a href="http://sparkjava.com/">Spark Framework - A tiny Java web framework</a></li>
+</ul>
+
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
+    
+      <a class="post-tags post-tags-development" href="https://michalkowol.github.io/tags/development">development</a>
+    
+      <a class="post-tags post-tags-java" href="https://michalkowol.github.io/tags/java">java</a>
+    
+      <a class="post-tags post-tags-spark" href="https://michalkowol.github.io/tags/spark">spark</a>
+    
+      <a class="post-tags post-tags-http" href="https://michalkowol.github.io/tags/http">http</a>
+    
+      <a class="post-tags post-tags-web" href="https://michalkowol.github.io/tags/web">web</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+   
+  var disqus_shortname = 'michalkowol'; 
+
+   
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

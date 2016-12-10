@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      MySQL notes &middot; Michał Kowol
+    
+  </title>
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
+
+  
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
+  </nav>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">MySQL notes</h1>
+  <span class="post-date">2016-11-25</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-development" href="https://michalkowol.github.io/categories/development">development</a>
+    
+      <a class="post-category post-category-sql" href="https://michalkowol.github.io/categories/sql">sql</a>
+    
+    </div>
+  
+  <div class="content">
+  
+
+<h3 id="notes">Notes</h3>
+
+<ul>
+<li>You are not allowed transactions inside stored <code>function</code>s. You are allowed transactions inside stored <code>procedure</code>s only.</li>
+<li><code>RETURNS tinyint(1)</code> - what is returned from function</li>
+</ul>
+
+<h3 id="example">Example</h3>
+
+<pre><code class="language-sql">DELIMITER $$
+DROP PROCEDURE IF EXISTS new_channel_config;
+CREATE PROCEDURE new_channel_config(
+  _system_id INT(11),
+  _searchname VARCHAR(100)
+) RETURNS tinyint(1) -- CREATE PROCEDURE if does not return any value
+BEGIN
+  DECLARE ID INT(11);
+  DECLARE bitmap_systemid VARCHAR(14) DEFAULT '11011100100000';
+  DECLARE datemodified TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+  DECLARE exit handler for sqlexception
+  BEGIN
+    -- ERROR
+    ROLLBACK;
+  END;
+
+  DECLARE exit handler for sqlwarning
+  BEGIN
+    -- WARNING
+    ROLLBACK;
+  END;
+
+
+  START TRANSACTION;
+  -- some ops
+  SET system_id = (SELECT authorities.ID, authorities.searchname
+   FROM authorities
+   LEFT JOIN authoritytype ON authorities.searchtypeid = authoritytype.ID
+   WHERE authoritytype.searchtype = 'SYSTEM' AND authorities.searchname = systemname
+  );
+  IF (system_id IS NULL) THEN
+  END IF;
+  SET ID = LAST_INSERT_ID();
+  RETURN ID;
+  COMMIT;
+END;
+$$
+</code></pre>
+
+<pre><code class="language-sql">DROP PROCEDURE IF EXISTS new_channel_config;
+CREATE PROCEDURE new_channel_config(
+  systemname VARCHAR(100) CHARACTER SET 'utf8'
+)
+BEGIN
+  DECLARE systemid INT(11);
+  DECLARE systemtypeid INT(11);
+  DECLARE exit handler for sqlexception
+  BEGIN
+    ROLLBACK;
+  END;
+  DECLARE exit handler for sqlwarning
+  BEGIN
+    ROLLBACK;
+  END;
+
+  START TRANSACTION;
+  -- new system
+  SET systemtypeid = (SELECT ID FROM authoritytype WHERE searchtype = 'SYSTEM');
+  SET systemid = (SELECT authorities.ID
+   FROM authorities
+   LEFT JOIN authoritytype ON authorities.searchtypeid = authoritytype.ID
+   WHERE authoritytype.ID = systemtypeid AND authorities.searchname = systemname COLLATE utf8_unicode_ci
+  );
+  IF (systemid IS NULL) THEN
+    INSERT INTO authorities (searchname, searchtypeid, datecreated, `desc`) VALUE (systemname, systemtypeid, CURRENT_DATE(), systemname);
+    SET systemid = LAST_INSERT_ID();
+  END IF;
+  COMMIT;
+END;
+</code></pre>
+
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
+    
+      <a class="post-tags post-tags-development" href="https://michalkowol.github.io/tags/development">development</a>
+    
+      <a class="post-tags post-tags-sql" href="https://michalkowol.github.io/tags/sql">sql</a>
+    
+      <a class="post-tags post-tags-mysql" href="https://michalkowol.github.io/tags/mysql">mysql</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+   
+  var disqus_shortname = 'michalkowol'; 
+
+   
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

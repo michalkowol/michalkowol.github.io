@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>https://michalkowol.github.io/tags/jaxb/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://michalkowol.github.io/tags/jaxb/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>XSD (TODO)</title>
+      <link>https://michalkowol.github.io/posts/xsd/</link>
+      <pubDate>Thu, 17 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/xsd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>https://michalkowol.github.io/posts/java/</link>
+      <pubDate>Tue, 08 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/java/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.intertech.com/Blog/jaxb-tutorial-customized-namespace-prefixes-example-using-namespaceprefixmapper/&#34;&gt;https://www.intertech.com/Blog/jaxb-tutorial-customized-namespace-prefixes-example-using-namespaceprefixmapper/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

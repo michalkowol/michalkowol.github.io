@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>https://michalkowol.github.io/tags/mvn/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://michalkowol.github.io/tags/mvn/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Maven Release Plugin (TODO)</title>
+      <link>https://michalkowol.github.io/posts/maven-release/</link>
+      <pubDate>Thu, 17 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/maven-release/</guid>
+      <description>
+
+&lt;h3 id=&#34;configuration&#34;&gt;Configuration&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;pom.xml&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;version&amp;gt;0.4.4-SNAPSHOT&amp;lt;/version&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!--...--&amp;gt;
+&amp;lt;plugin&amp;gt;
+  &amp;lt;artifactId&amp;gt;maven-release-plugin&amp;lt;/artifactId&amp;gt;
+  &amp;lt;version&amp;gt;2.5.3&amp;lt;/version&amp;gt;
+  &amp;lt;configuration&amp;gt;
+    &amp;lt;tagNameFormat&amp;gt;v@{project.version}&amp;lt;/tagNameFormat&amp;gt;
+  &amp;lt;/configuration&amp;gt;
+  &amp;lt;dependencies&amp;gt;
+    &amp;lt;dependency&amp;gt;
+      &amp;lt;groupId&amp;gt;org.apache.maven.scm&amp;lt;/groupId&amp;gt;
+      &amp;lt;artifactId&amp;gt;maven-scm-provider-gitexe&amp;lt;/artifactId&amp;gt;
+      &amp;lt;version&amp;gt;1.9.4&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+  &amp;lt;/dependencies&amp;gt;
+&amp;lt;/plugin&amp;gt;
+&amp;lt;!--...--&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!--...--&amp;gt;
+&amp;lt;scm&amp;gt;
+  &amp;lt;connection&amp;gt;scm:git:ssh://git@github.com:username/reponame.git&amp;lt;/connection&amp;gt;
+  &amp;lt;developerConnection&amp;gt;scm:git:ssh://git@github.com:username/reponame.git&amp;lt;/developerConnection&amp;gt;
+  &amp;lt;url&amp;gt;https://github.com/username/reponame&amp;lt;/url&amp;gt;
+  &amp;lt;tag&amp;gt;HEAD&amp;lt;/tag&amp;gt;
+&amp;lt;/scm&amp;gt;
+&amp;lt;!--...--&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Maven goal will remove &lt;code&gt;-SNAPSHOT&lt;/code&gt; from &lt;code&gt;version&lt;/code&gt; and it the version without snapshot will be used to set &lt;code&gt;tagNameFormat&lt;/code&gt;. &lt;code&gt;tag&lt;/code&gt; from &lt;code&gt;scm&lt;/code&gt; will be replaced with &lt;code&gt;tagNameFormat&lt;/code&gt; (in case from example &lt;code&gt;v0.4.4&lt;/code&gt;). After successful release to SCM, maven release plugin will increase patch number and it will add &lt;code&gt;-SNAPSHOT&lt;/code&gt; postfix (in case from example &lt;code&gt;0.4.5-SNAPSHOT&lt;/code&gt;).&lt;/p&gt;
+
+&lt;h3 id=&#34;command&#34;&gt;Command&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mvn -e -B -DreleaseVersion=${releaseVersion} release:clean release:prepare release:perform
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-e&lt;/code&gt;, &lt;code&gt;--errors&lt;/code&gt; produce execution error messages&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-B&lt;/code&gt;, &lt;code&gt;--batch-mode&lt;/code&gt; run in non-interactive (batch) mode&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;release:clean&lt;/code&gt; clean up after a release preparation&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;release:prepare&lt;/code&gt; prepare for a release in SCM&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;release:perform&lt;/code&gt; perform a release from SCM&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-DreleaseVersion=${releaseVersion}&lt;/code&gt; release version&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-DdevelopmentVersion=${developmentVersion}&lt;/code&gt; next development version&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;links&#34;&gt;Links&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://maven.apache.org/maven-release/maven-release-plugin/&#34;&gt;http://maven.apache.org/maven-release/maven-release-plugin/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.baeldung.com/maven-release-nexus&#34;&gt;http://www.baeldung.com/maven-release-nexus&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;plugin&amp;gt;
+    &amp;lt;groupId&amp;gt;org.sonatype.plugins&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;nexus-staging-maven-plugin&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.6.7&amp;lt;/version&amp;gt;
+    &amp;lt;configuration&amp;gt;
+        &amp;lt;skipNexusStagingDeployMojo&amp;gt;true&amp;lt;/skipNexusStagingDeployMojo&amp;gt;
+    &amp;lt;/configuration&amp;gt;
+&amp;lt;/plugin&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;scm&amp;gt;
+   &amp;lt;connection&amp;gt;scm:git:git@github.com:user/project.git&amp;lt;/connection&amp;gt;
+   &amp;lt;url&amp;gt;scm:git:git@github.com:user/project.git&amp;lt;/url&amp;gt;
+   &amp;lt;developerConnection&amp;gt;scm:git:git@github.com:user/project.git&amp;lt;/developerConnection&amp;gt;
+&amp;lt;/scm&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;plugin&amp;gt;
+   &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+   &amp;lt;artifactId&amp;gt;maven-release-plugin&amp;lt;/artifactId&amp;gt;
+   &amp;lt;version&amp;gt;2.4.2&amp;lt;/version&amp;gt;
+   &amp;lt;configuration&amp;gt;
+      &amp;lt;tagNameFormat&amp;gt;v@{project.version}&amp;lt;/tagNameFormat&amp;gt;
+      &amp;lt;autoVersionSubmodules&amp;gt;true&amp;lt;/autoVersionSubmodules&amp;gt;
+      &amp;lt;releaseProfiles&amp;gt;releases&amp;lt;/releaseProfiles&amp;gt;
+   &amp;lt;/configuration&amp;gt;
+&amp;lt;/plugin&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Deploy file to Maven&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn deploy:deploy-file -DgroupId=com.somecompany -DartifactId=project -Dversion=1.0.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=nexus -Durl=http://localhost:8081/nexus/content/repositories/releases -Dfile=target/project-1.0.0.jar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Dowanlod file from Maven&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn org.apache.maven.plugins:maven-dependency-plugin:2.10:get -DremoteRepositories=http://download.java.net/maven/2 -Dartifact=org.dom4j:dom4j:2.0.0 -Ddest=.
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>XSD (TODO)</title>
+      <link>https://michalkowol.github.io/posts/xsd/</link>
+      <pubDate>Thu, 17 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/xsd/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

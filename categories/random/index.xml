@@ -10,10 +10,10 @@
     
     <item>
       <title>Samba (smb)</title>
-      <link>https://michalkowol.github.io/posts/smb-howto/</link>
+      <link>https://michalkowol.github.io/posts/2016-11-04-smb-howto/</link>
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/smb-howto/</guid>
+      <guid>https://michalkowol.github.io/posts/2016-11-04-smb-howto/</guid>
       <description>
 
 &lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
@@ -26,6 +26,7 @@
   workgroup = WORKGROUP
   server string = servername
   unix password sync = yes
+  access based share enum = yes
 
 [homes]
   comment = Home Directories
@@ -103,11 +104,6 @@ smbpasswd -a bob
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;sudo service smbd restart&lt;/code&gt; - restarts samba server (reloads config)&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;smbpasswd -an nobody&lt;/code&gt; - creates user with no password in smb&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;addgroup groupname&lt;/code&gt; - creates new group&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;adduser username&lt;/code&gt; - creates new user&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;usermod -a -G groupname username&lt;/code&gt; - adds existing user to existing group&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;deluser username&lt;/code&gt; - deletes user&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;chown -R :groupname path&lt;/code&gt; - changes group of file/directory&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
@@ -118,6 +114,34 @@ smbpasswd -a bob
 &lt;li&gt;&lt;a href=&#34;http://www.computerhope.com/unix/groupadd.htm&#34;&gt;Linux and Unix groupadd command&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.cyberciti.biz/faq/howto-linux-add-user-to-group/&#34;&gt;Howto: Linux Add User To Group&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.cyberciti.biz/faq/how-to-use-chmod-and-chown-command/&#34;&gt;Howto: Use chmod and chown Command&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>nmap</title>
+      <link>https://michalkowol.github.io/posts/2016-11-03-nmap/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-11-03-nmap/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/16981128/nmap-ip-range-specification&#34;&gt;http://stackoverflow.com/questions/16981128/nmap-ip-range-specification&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://hackertarget.com/nmap-cheatsheet-a-quick-reference-guide/&#34;&gt;https://hackertarget.com/nmap-cheatsheet-a-quick-reference-guide/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.garron.me/en/go2linux/nmap-command-graph-front-end-port-scan.html&#34;&gt;https://www.garron.me/en/go2linux/nmap-command-graph-front-end-port-scan.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;namp nmap 192.168.0.0/24&lt;/code&gt; Scan a subnet&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap 192.168.0.0/24&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap 192.168.0.1-20&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap 192.168.0.1-20 192.168.0.30-40&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap -sS 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap -sS 192.168.0.1-20&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan a single Port &lt;code&gt;nmap -p 22 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan a range of ports &lt;code&gt;nmap -p 1-100 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan 100 most common ports (Fast) &lt;code&gt;nmap -F 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan all 65535 ports &lt;code&gt;nmap -p- 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan using TCP connect &lt;code&gt;nmap -sT 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan using TCP SYN scan (default) &lt;code&gt;nmap -sS 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan UDP ports &lt;code&gt;nmap -sU -p 123,161,162 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Heartbleed Testing &lt;code&gt;nmap -sV -p 443 --script=ssl-heartbleed 192.168.1.0/24&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>

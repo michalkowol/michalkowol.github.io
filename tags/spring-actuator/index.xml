@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>https://michalkowol.github.io/tags/spring-actuator/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://michalkowol.github.io/tags/spring-actuator/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Topics</title>
+      <link>https://michalkowol.github.io/posts/kotlin/</link>
+      <pubDate>Mon, 31 Oct 2016 09:15:02 +0100</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/kotlin/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=sEm_95BPPiA&#34;&gt;VDB16 - Spring Boot and Kotlin, a match made in Heaven - Nicolas Frankel&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://natpryce.com/articles/000818.html&#34;&gt;A Whirlwind Tour of the Kotlin Type Hierarchy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready&#34;&gt;Spring Actuator (Monitoring)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://jakewharton.com/10-kotlin-tricks-in-10ish-minutes/&#34;&gt;http://jakewharton.com/10-kotlin-tricks-in-10ish-minutes/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

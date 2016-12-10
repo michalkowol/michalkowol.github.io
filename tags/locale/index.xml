@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>https://michalkowol.github.io/tags/locale/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://michalkowol.github.io/tags/locale/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Set locale on your linux</title>
+      <link>https://michalkowol.github.io/posts/2016-11-07-locale/</link>
+      <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-11-07-locale/</guid>
+      <description>
+
+&lt;h3 id=&#34;locale&#34;&gt;Locale&lt;/h3&gt;
+
+&lt;p&gt;check which locales are supported:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;locale -a
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;add the locales you want (for example ru):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo locale-gen ru_RU
+sudo locale-gen ru_RU.UTF-8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;run this update comand&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo update-locale 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://askubuntu.com/questions/76013/how-do-i-add-locale-to-ubuntu-server&#34;&gt;How do I add locale to ubuntu server?&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

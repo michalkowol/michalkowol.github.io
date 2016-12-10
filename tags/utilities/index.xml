@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>https://michalkowol.github.io/tags/utilities/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://michalkowol.github.io/tags/utilities/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>nmap</title>
+      <link>https://michalkowol.github.io/posts/2016-11-03-nmap/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-11-03-nmap/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/16981128/nmap-ip-range-specification&#34;&gt;http://stackoverflow.com/questions/16981128/nmap-ip-range-specification&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://hackertarget.com/nmap-cheatsheet-a-quick-reference-guide/&#34;&gt;https://hackertarget.com/nmap-cheatsheet-a-quick-reference-guide/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.garron.me/en/go2linux/nmap-command-graph-front-end-port-scan.html&#34;&gt;https://www.garron.me/en/go2linux/nmap-command-graph-front-end-port-scan.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;namp nmap 192.168.0.0/24&lt;/code&gt; Scan a subnet&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap 192.168.0.0/24&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap 192.168.0.1-20&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap 192.168.0.1-20 192.168.0.30-40&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap -sS 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nmap -sS 192.168.0.1-20&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan a single Port &lt;code&gt;nmap -p 22 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan a range of ports &lt;code&gt;nmap -p 1-100 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan 100 most common ports (Fast) &lt;code&gt;nmap -F 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan all 65535 ports &lt;code&gt;nmap -p- 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan using TCP connect &lt;code&gt;nmap -sT 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan using TCP SYN scan (default) &lt;code&gt;nmap -sS 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Scan UDP ports &lt;code&gt;nmap -sU -p 123,161,162 192.168.1.1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Heartbleed Testing &lt;code&gt;nmap -sV -p 443 --script=ssl-heartbleed 192.168.1.0/24&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

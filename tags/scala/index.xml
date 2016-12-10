@@ -10,10 +10,10 @@
     
     <item>
       <title>Akka (notes, part 1)</title>
-      <link>https://michalkowol.github.io/posts/akka-notes-part-1/</link>
+      <link>https://michalkowol.github.io/posts/2014-12-01-akka-notes-part-1/</link>
       <pubDate>Mon, 01 Dec 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/akka-notes-part-1/</guid>
+      <guid>https://michalkowol.github.io/posts/2014-12-01-akka-notes-part-1/</guid>
       <description>
 
 &lt;h3 id=&#34;akka-traits&#34;&gt;Akka traits&lt;/h3&gt;
@@ -170,10 +170,10 @@ class GoodWayActor extends Actor {
     
     <item>
       <title>Scala (notes)</title>
-      <link>https://michalkowol.github.io/posts/scala-notes/</link>
+      <link>https://michalkowol.github.io/posts/2014-11-28-scala-notes/</link>
       <pubDate>Fri, 28 Nov 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/scala-notes/</guid>
+      <guid>https://michalkowol.github.io/posts/2014-11-28-scala-notes/</guid>
       <description>
 
 &lt;h3 id=&#34;functions-without-parameters&#34;&gt;Functions without parameters&lt;/h3&gt;
@@ -433,11 +433,11 @@ pattern(&amp;quot;3&amp;quot;, &amp;quot;xxx&amp;quot;) // ???
     </item>
     
     <item>
-      <title>Scala traits in javascript</title>
-      <link>https://michalkowol.github.io/posts/traits-in-javascript/</link>
+      <title>Scala Traits in JavaScript</title>
+      <link>https://michalkowol.github.io/posts/2014-10-23-traits-in-javascript/</link>
       <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/traits-in-javascript/</guid>
+      <guid>https://michalkowol.github.io/posts/2014-10-23-traits-in-javascript/</guid>
       <description>&lt;p&gt;Traits:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function _extend(object, source) {

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Maven Release Plugin (TODO) &middot; Michał Kowol
+    
+  </title>
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
+
+  
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
+  </nav>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">Maven Release Plugin (TODO)</h1>
+  <span class="post-date">2016-11-17</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-development" href="https://michalkowol.github.io/categories/development">development</a>
+    
+      <a class="post-category post-category-java" href="https://michalkowol.github.io/categories/java">java</a>
+    
+    </div>
+  
+  <div class="content">
+  
+
+<h3 id="configuration">Configuration</h3>
+
+<p><code>pom.xml</code></p>
+
+<pre><code class="language-xml">&lt;version&gt;0.4.4-SNAPSHOT&lt;/version&gt;
+</code></pre>
+
+<pre><code class="language-xml">&lt;!--...--&gt;
+&lt;plugin&gt;
+  &lt;artifactId&gt;maven-release-plugin&lt;/artifactId&gt;
+  &lt;version&gt;2.5.3&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;tagNameFormat&gt;v@{project.version}&lt;/tagNameFormat&gt;
+  &lt;/configuration&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.apache.maven.scm&lt;/groupId&gt;
+      &lt;artifactId&gt;maven-scm-provider-gitexe&lt;/artifactId&gt;
+      &lt;version&gt;1.9.4&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/plugin&gt;
+&lt;!--...--&gt;
+</code></pre>
+
+<pre><code class="language-xml">&lt;!--...--&gt;
+&lt;scm&gt;
+  &lt;connection&gt;scm:git:ssh://git@github.com:username/reponame.git&lt;/connection&gt;
+  &lt;developerConnection&gt;scm:git:ssh://git@github.com:username/reponame.git&lt;/developerConnection&gt;
+  &lt;url&gt;https://github.com/username/reponame&lt;/url&gt;
+  &lt;tag&gt;HEAD&lt;/tag&gt;
+&lt;/scm&gt;
+&lt;!--...--&gt;
+</code></pre>
+
+<p>Maven goal will remove <code>-SNAPSHOT</code> from <code>version</code> and it the version without snapshot will be used to set <code>tagNameFormat</code>. <code>tag</code> from <code>scm</code> will be replaced with <code>tagNameFormat</code> (in case from example <code>v0.4.4</code>). After successful release to SCM, maven release plugin will increase patch number and it will add <code>-SNAPSHOT</code> postfix (in case from example <code>0.4.5-SNAPSHOT</code>).</p>
+
+<h3 id="command">Command</h3>
+
+<pre><code class="language-bash">mvn -e -B -DreleaseVersion=${releaseVersion} release:clean release:prepare release:perform
+</code></pre>
+
+<ul>
+<li><code>-e</code>, <code>--errors</code> produce execution error messages</li>
+<li><code>-B</code>, <code>--batch-mode</code> run in non-interactive (batch) mode</li>
+<li><code>release:clean</code> clean up after a release preparation</li>
+<li><code>release:prepare</code> prepare for a release in SCM</li>
+<li><code>release:perform</code> perform a release from SCM</li>
+<li><code>-DreleaseVersion=${releaseVersion}</code> release version</li>
+<li><code>-DdevelopmentVersion=${developmentVersion}</code> next development version</li>
+</ul>
+
+<h3 id="links">Links</h3>
+
+<ul>
+<li><a href="http://maven.apache.org/maven-release/maven-release-plugin/">http://maven.apache.org/maven-release/maven-release-plugin/</a></li>
+<li><a href="http://www.baeldung.com/maven-release-nexus">http://www.baeldung.com/maven-release-nexus</a></li>
+</ul>
+
+<pre><code class="language-xml">&lt;plugin&gt;
+    &lt;groupId&gt;org.sonatype.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;nexus-staging-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;1.6.7&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;skipNexusStagingDeployMojo&gt;true&lt;/skipNexusStagingDeployMojo&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
+
+<pre><code class="language-xml">&lt;scm&gt;
+   &lt;connection&gt;scm:git:git@github.com:user/project.git&lt;/connection&gt;
+   &lt;url&gt;scm:git:git@github.com:user/project.git&lt;/url&gt;
+   &lt;developerConnection&gt;scm:git:git@github.com:user/project.git&lt;/developerConnection&gt;
+&lt;/scm&gt;
+</code></pre>
+
+<pre><code class="language-xml">&lt;plugin&gt;
+   &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+   &lt;artifactId&gt;maven-release-plugin&lt;/artifactId&gt;
+   &lt;version&gt;2.4.2&lt;/version&gt;
+   &lt;configuration&gt;
+      &lt;tagNameFormat&gt;v@{project.version}&lt;/tagNameFormat&gt;
+      &lt;autoVersionSubmodules&gt;true&lt;/autoVersionSubmodules&gt;
+      &lt;releaseProfiles&gt;releases&lt;/releaseProfiles&gt;
+   &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
+
+<p>Deploy file to Maven</p>
+
+<pre><code>mvn deploy:deploy-file -DgroupId=com.somecompany -DartifactId=project -Dversion=1.0.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=nexus -Durl=http://localhost:8081/nexus/content/repositories/releases -Dfile=target/project-1.0.0.jar
+</code></pre>
+
+<p>Dowanlod file from Maven</p>
+
+<pre><code>mvn org.apache.maven.plugins:maven-dependency-plugin:2.10:get -DremoteRepositories=http://download.java.net/maven/2 -Dartifact=org.dom4j:dom4j:2.0.0 -Ddest=.
+</code></pre>
+
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
+    
+      <a class="post-tags post-tags-development" href="https://michalkowol.github.io/tags/development">development</a>
+    
+      <a class="post-tags post-tags-java" href="https://michalkowol.github.io/tags/java">java</a>
+    
+      <a class="post-tags post-tags-mvn" href="https://michalkowol.github.io/tags/mvn">mvn</a>
+    
+      <a class="post-tags post-tags-git" href="https://michalkowol.github.io/tags/git">git</a>
+    
+      <a class="post-tags post-tags-maven-plugin" href="https://michalkowol.github.io/tags/maven-plugin">maven plugin</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+   
+  var disqus_shortname = 'michalkowol'; 
+
+   
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

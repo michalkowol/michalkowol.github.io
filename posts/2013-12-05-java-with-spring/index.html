@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Java with Spring &middot; Michał Kowol
+    
+  </title>
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
+
+  
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
+  </nav>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">Java with Spring</h1>
+  <span class="post-date">2013-12-05</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-development" href="https://michalkowol.github.io/categories/development">development</a>
+    
+      <a class="post-category post-category-java" href="https://michalkowol.github.io/categories/java">java</a>
+    
+    </div>
+  
+  <div class="content">
+  
+
+<h2 id="simple-example">Simple example:</h2>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+ 
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt;
+ 
+    &lt;bean id=&quot;apple&quot; class=&quot;Apple&quot; /&gt;
+    &lt;bean id=&quot;juicer&quot; class=&quot;Juicer&quot;&gt;
+        &lt;constructor-arg ref=&quot;apple&quot; /&gt;
+        &lt;constructor-arg ref=&quot;peeler&quot; /&gt;
+    &lt;/bean&gt;
+    &lt;bean id=&quot;peeler&quot; class=&quot;Peeler&quot;&gt;
+        &lt;constructor-arg ref=&quot;apple&quot; /&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
+</code></pre>
+
+<pre><code class="language-xml">&lt;!-- ... --&gt;
+&lt;bean id=&quot;juicer&quot; class=&quot;Juicer&quot; scope=&quot;prototype&quot;&gt;
+&lt;!-- ... --&gt;
+</code></pre>
+
+<pre><code class="language-java">public interface Fruit {
+    void eat();
+    String getName();
+}
+
+public interface Peelable {
+    void peel();
+}
+
+public class Apple implements Fruit, Peelable {
+    public void peel() { }
+    public void eat() { }
+    String getName() { return &quot;apple&quot;; }
+}
+
+public class Peeler {
+    private final Peelable peelable;
+ 
+    public Peeler(Peelable peelable) {
+        this.peelable = peelable;
+    }
+}
+
+public class Juicer {
+    private final Peelable peelable;
+    private final Peeler peeler;
+ 
+    public Juicer(Peelable peelable, Peeler peeler) {
+        this.peelable = peelable;
+        this.peeler = peeler;
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">public class MainAppPrototype {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans_prototype.xml&quot;);
+        Juicer j1 = context.getBean(Juicer.class);
+        Juicer j2 = context.getBean(Juicer.class);
+        System.out.println(j1 == j2);
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">public class MainAppSingleton {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
+        Juicer j1 = context.getBean(Juicer.class);
+        Juicer j2 = context.getBean(Juicer.class);
+        System.out.println(j1 == j2);
+    }
+}
+</code></pre>
+
+<p><code>MainAppSingleton</code> execution result: <code>true</code>.</p>
+
+<p><code>MainAppPrototype</code> execution result: <code>false</code>.</p>
+
+<h2 id="resolving-conflicts-in-constructor-s-arguments">Resolving conflicts in constructor&rsquo;s arguments.</h2>
+
+<pre><code class="language-xml">&lt;bean id=&quot;test&quot; class=&quot;Test&quot;&gt;
+    &lt;constructor-arg value=&quot;xhajs&quot; /&gt;
+    &lt;constructor-arg value=&quot;md5&quot; /&gt;
+&lt;/bean&gt;
+</code></pre>
+
+<pre><code class="language-xml">&lt;bean id=&quot;test&quot; class=&quot;Test&quot;&gt;
+    &lt;constructor-arg name=&quot;password&quot; value=&quot;xhajs&quot; /&gt;
+    &lt;constructor-arg value=&quot;md5&quot; /&gt;
+&lt;/bean&gt;
+</code></pre>
+
+<pre><code class="language-java">public class Test {
+ 
+    private String type;
+    private String password;
+ 
+    public Test(String type, String password) {
+        this.type = type;
+        this.password = password;
+    }
+     
+    public String getPassword() {
+        return password;
+    }
+     
+    public String getType() {
+        return type;
+    }
+}
+</code></pre>
+
+<p>With <code>bean1.xml</code>:</p>
+
+<pre><code>Test.type = xhajs
+Test.password= md5
+</code></pre>
+
+<p>With <code>bean2.xml</code>:</p>
+
+<pre><code>Test.type = md5
+Test.password= xhajs
+</code></pre>
+
+<h2 id="factories">Factories</h2>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+ 
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt;
+ 
+    &lt;bean id=&quot;fruit&quot; class=&quot;Fruits&quot; factory-method=&quot;newBanana&quot; /&gt;
+&lt;/beans&gt;
+</code></pre>
+
+<pre><code class="language-java">public interface Fruit {
+    void eat();
+    String getName();
+}
+</code></pre>
+
+<pre><code class="language-java">public final class Fruits {
+ 
+    private Fruits() {
+    }
+     
+    public static Fruit createFruit(String fruitName) {
+        if (fruitName.equals(&quot;banana&quot;)) {
+            return newBanana();
+        } else {
+            return newPlum(&quot;defaultName&quot;);
+        }
+    }
+     
+    public static Fruit newBanana() {
+        return new Banana();
+    }
+     
+    public static Fruit newPlum(String name) {
+        return new Plum(name);
+    }
+     
+    private static class Banana implements Fruit {
+ 
+        public void eat() {
+            System.out.println(&quot;Eating a banana: omomom&quot;);
+        }
+ 
+        public String getName() {
+            return &quot;banana&quot;;
+        }
+    }
+     
+    private static class Plum implements Fruit {
+ 
+        private String name;
+ 
+        public Plum(String name) {
+            this.name = name;
+        }
+ 
+        public void eat() {
+            System.out.println(String.format(&quot;Eating a plum %s: omomom&quot;, name) );
+        }
+ 
+        public String getName() {
+            return &quot;plum&quot;;
+        }
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">public class MainApp {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
+        Fruit fruit = context.getBean(Fruit.class);
+        fruit.eat();
+    }
+}
+</code></pre>
+
+<p>Result:</p>
+
+<pre><code>Eating a banana: omomom
+</code></pre>
+
+<p>Plum with name:</p>
+
+<pre><code class="language-xml">&lt;bean id=&quot;fruit&quot; class=&quot;Fruits&quot; factory-method=&quot;newPlum&quot;&gt;
+    &lt;constructor-arg value=&quot;sliwka&quot;&gt;&lt;/constructor-arg&gt;
+&lt;/bean&gt;
+</code></pre>
+
+<p>Result:</p>
+
+<pre><code>Eating a plum sliwka: omomom
+</code></pre>
+
+<p>Plum by name using createFruit method:</p>
+
+<pre><code class="language-xml">&lt;bean id=&quot;fruit&quot; class=&quot;Fruits&quot; factory-method=&quot;createFruit&quot;&gt;
+    &lt;constructor-arg value=&quot;sliwka&quot;&gt;&lt;/constructor-arg&gt;
+&lt;/bean&gt;
+</code></pre>
+
+<p>Result:</p>
+
+<pre><code>Eating a plum defaultName: omomom
+</code></pre>
+
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
+    
+      <a class="post-tags post-tags-development" href="https://michalkowol.github.io/tags/development">development</a>
+    
+      <a class="post-tags post-tags-java" href="https://michalkowol.github.io/tags/java">java</a>
+    
+      <a class="post-tags post-tags-spring" href="https://michalkowol.github.io/tags/spring">spring</a>
+    
+      <a class="post-tags post-tags-bean" href="https://michalkowol.github.io/tags/bean">bean</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+  <h2>Comments</h2>
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+   
+  var disqus_shortname = 'michalkowol'; 
+
+   
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+
