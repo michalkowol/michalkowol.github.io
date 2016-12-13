@@ -10,6 +10,30 @@
     <atom:link href="https://michalkowol.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Photo to scan in Photoshop</title>
+      <link>https://michalkowol.github.io/posts/2016-12-10-photo-to-scan-in-photoshop/</link>
+      <pubDate>Sat, 10 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-12-10-photo-to-scan-in-photoshop/</guid>
+      <description>
+
+&lt;h2 id=&#34;photo-to-scan-in-photoshop&#34;&gt;Photo to scan in Photoshop&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;img src=&#34;https://michalkowol.github.io/img/photo-to-scan-in-photoshop/perspective-crop-tool.png&#34; alt=&#34;Perspective Crop Tool&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Layer &amp;gt; New Adjustment Layer &amp;gt; Gradient Map&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Layer &amp;gt; New Adjustment Layer &amp;gt; Levels&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://tricky-photoshop.com/make-document-looks-like-scanned-copy-photoshop/&#34;&gt;http://tricky-photoshop.com/make-document-looks-like-scanned-copy-photoshop/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>User management in Linux</title>
       <link>https://michalkowol.github.io/posts/2016-12-12-user-management/</link>
       <pubDate>Sat, 10 Dec 2016 00:00:00 +0000</pubDate>
@@ -27,7 +51,7 @@
 &lt;li&gt;&lt;code&gt;groups username&lt;/code&gt; - list all groups for user&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&#34;chmod&#34;&gt;chmod&lt;/h1&gt;
+&lt;h2 id=&#34;chmod&#34;&gt;chmod&lt;/h2&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -134,6 +158,12 @@
 &lt;li&gt;&lt;code&gt;chown -R :groupname path&lt;/code&gt; - changes file/directory group&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;chmod -R a-x+X path&lt;/code&gt; - remove the execute permission on all files in a directory tree, while allowing for directory browsing&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;chmod -R a+X directory&lt;/code&gt; - allowing for directory browsing for all&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://kb.iu.edu/d/abdb&#34;&gt;In Unix, how do I change the permissions for a file?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;style&gt;
@@ -553,47 +583,58 @@ smbpasswd -a bob
 --progress This option tells rsync to print information showing the progress of the transfer.
 --human-readable Output numbers in a more human-readable format.
 --append-verify Append w/old data in file checksum
+--protect-args This option sends all filenames and most options to the remote rsync without allowing the remote shell to interpret them. This means that spaces are not split in names, and any non-wildcard special characters are not translated (such as ~, $, ;, &amp;amp;, etc.). Wildcards are expanded on the remote host by rsync (instead of the shell doing it)
+--exclude-from Exclude files or directories from given file
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;examples&#34;&gt;Examples&lt;/h3&gt;
 
-&lt;p&gt;Simple examples&lt;/p&gt;
+&lt;h4 id=&#34;simple-examples&#34;&gt;Simple examples&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# without ssh
 rsync -avzx . user@hostname::NetBackup/owncloud
 # with ssh
 rsync -avzx -e ssh . user@hostname:~/tmp
-# with ssh (from server to client)
-rsync -avzx -e ssh user@hostname:~/tmp .
-
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;More advanced examples&lt;/p&gt;
+&lt;h4 id=&#34;more-advanced-examples&#34;&gt;More advanced examples&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# with dry run (no changes - files would be deleted on server after success)
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# with dry run (no changes - files are not deleted on server)
 rsync -avzx --dry-run --delete-after -e ssh . user@hostname:~/tmp
-# files will be deleted on server after success
-rsync -avzx --delete-after -e ssh . user@hostname:~/tmp
 # with ssh on port 48419
 rsync -avzx -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
-# full example
-rsync -avzx --progress --human-readable -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
-# full example (with delete after)
-rsync -avzx --delete-after --progress --human-readable -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
+# with progress information
+rsync -avzx --progress -e ssh . user@hostname:~/tmp
+# human readable format - kilk/mega/giga bytes instead of bytes
+rsync -avzx --human-readable -e ssh . user@hostname:~/tmp
+# delete files *after* sync is complete
+rsync -avzx --delete-after -e ssh . user@hostname:~/tmp
 # with mac to linux file change encoding
-rsync -avzx --iconv=utf-8-mac,utf-8 --progress --human-readable -e ssh . user@hostname:~/tmp
+rsync -avzx --iconv=utf-8-mac,utf-8 -e ssh . user@hostname:~/tmp
 # with append w/old data in file checksum
-rsync -avzx --append-verify --progress --human-readable -e ssh . user@hostname:~/tmp
+rsync -avzx --append-verify -e ssh . user@hostname:~/tmp
+# protect spaces
+rsync -avzx --protect-args -e ssh . &amp;quot;user@hostname:/homes/michal/tmp with space&amp;quot;
+# exclude files from &#39;exclude.txt&#39;
+rsync -avzx --exclude-from &#39;exclude.txt&#39; -e ssh . user@hostname:~/tmp
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Combined&lt;/p&gt;
+&lt;h4 id=&#34;sync-direction&#34;&gt;Sync direction&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# from server to laptop
+rsync [OPTION...] &amp;lt;server-path&amp;gt; &amp;lt;laptop-path&amp;gt;
+# form laptop to server
+rsync [OPTION...] &amp;lt;laptop-path&amp;gt; &amp;lt;server-path&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;full-example&#34;&gt;Full example&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code&gt;rsync -avzx --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;On windows (&lt;a href=&#34;https://www.itefix.net/cwrsync&#34;&gt;cwRsync&lt;/a&gt;)&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rsync -avzx --progress --human-readable -e &amp;quot;ssh -p 48419 -i c:\ssh\id_rsa&amp;quot; &amp;quot;c/dir/dir/&amp;quot; user@hostname:~/tmp/
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rsync -avzx --append-verify --progress --human-readable -e &amp;quot;ssh -p 48419 -i c:\ssh\id_rsa&amp;quot; &amp;quot;c/dir/dir/&amp;quot; user@hostname:~/tmp/
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;notes&#34;&gt;Notes&lt;/h3&gt;
@@ -1470,251 +1511,6 @@ com.MTVObject.foo();
 &lt;blockquote&gt;
 &lt;p&gt;Premature optimization is the root of all evil.&lt;/p&gt;
 &lt;/blockquote&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Java with Spring</title>
-      <link>https://michalkowol.github.io/posts/2013-12-05-java-with-spring/</link>
-      <pubDate>Thu, 05 Dec 2013 00:00:00 +0000</pubDate>
-      
-      <guid>https://michalkowol.github.io/posts/2013-12-05-java-with-spring/</guid>
-      <description>
-
-&lt;h2 id=&#34;simple-example&#34;&gt;Simple example:&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
- 
-&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
-    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
-    xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&amp;quot;&amp;gt;
- 
-    &amp;lt;bean id=&amp;quot;apple&amp;quot; class=&amp;quot;Apple&amp;quot; /&amp;gt;
-    &amp;lt;bean id=&amp;quot;juicer&amp;quot; class=&amp;quot;Juicer&amp;quot;&amp;gt;
-        &amp;lt;constructor-arg ref=&amp;quot;apple&amp;quot; /&amp;gt;
-        &amp;lt;constructor-arg ref=&amp;quot;peeler&amp;quot; /&amp;gt;
-    &amp;lt;/bean&amp;gt;
-    &amp;lt;bean id=&amp;quot;peeler&amp;quot; class=&amp;quot;Peeler&amp;quot;&amp;gt;
-        &amp;lt;constructor-arg ref=&amp;quot;apple&amp;quot; /&amp;gt;
-    &amp;lt;/bean&amp;gt;
-&amp;lt;/beans&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ... --&amp;gt;
-&amp;lt;bean id=&amp;quot;juicer&amp;quot; class=&amp;quot;Juicer&amp;quot; scope=&amp;quot;prototype&amp;quot;&amp;gt;
-&amp;lt;!-- ... --&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public interface Fruit {
-    void eat();
-    String getName();
-}
-
-public interface Peelable {
-    void peel();
-}
-
-public class Apple implements Fruit, Peelable {
-    public void peel() { }
-    public void eat() { }
-    String getName() { return &amp;quot;apple&amp;quot;; }
-}
-
-public class Peeler {
-    private final Peelable peelable;
- 
-    public Peeler(Peelable peelable) {
-        this.peelable = peelable;
-    }
-}
-
-public class Juicer {
-    private final Peelable peelable;
-    private final Peeler peeler;
- 
-    public Juicer(Peelable peelable, Peeler peeler) {
-        this.peelable = peelable;
-        this.peeler = peeler;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MainAppPrototype {
-    public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext(&amp;quot;beans_prototype.xml&amp;quot;);
-        Juicer j1 = context.getBean(Juicer.class);
-        Juicer j2 = context.getBean(Juicer.class);
-        System.out.println(j1 == j2);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MainAppSingleton {
-    public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext(&amp;quot;beans.xml&amp;quot;);
-        Juicer j1 = context.getBean(Juicer.class);
-        Juicer j2 = context.getBean(Juicer.class);
-        System.out.println(j1 == j2);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;MainAppSingleton&lt;/code&gt; execution result: &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;MainAppPrototype&lt;/code&gt; execution result: &lt;code&gt;false&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;resolving-conflicts-in-constructor-s-arguments&#34;&gt;Resolving conflicts in constructor&amp;rsquo;s arguments.&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;test&amp;quot; class=&amp;quot;Test&amp;quot;&amp;gt;
-    &amp;lt;constructor-arg value=&amp;quot;xhajs&amp;quot; /&amp;gt;
-    &amp;lt;constructor-arg value=&amp;quot;md5&amp;quot; /&amp;gt;
-&amp;lt;/bean&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;test&amp;quot; class=&amp;quot;Test&amp;quot;&amp;gt;
-    &amp;lt;constructor-arg name=&amp;quot;password&amp;quot; value=&amp;quot;xhajs&amp;quot; /&amp;gt;
-    &amp;lt;constructor-arg value=&amp;quot;md5&amp;quot; /&amp;gt;
-&amp;lt;/bean&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class Test {
- 
-    private String type;
-    private String password;
- 
-    public Test(String type, String password) {
-        this.type = type;
-        this.password = password;
-    }
-     
-    public String getPassword() {
-        return password;
-    }
-     
-    public String getType() {
-        return type;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;With &lt;code&gt;bean1.xml&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Test.type = xhajs
-Test.password= md5
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;With &lt;code&gt;bean2.xml&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Test.type = md5
-Test.password= xhajs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;factories&#34;&gt;Factories&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
- 
-&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
-    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
-    xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&amp;quot;&amp;gt;
- 
-    &amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;newBanana&amp;quot; /&amp;gt;
-&amp;lt;/beans&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public interface Fruit {
-    void eat();
-    String getName();
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public final class Fruits {
- 
-    private Fruits() {
-    }
-     
-    public static Fruit createFruit(String fruitName) {
-        if (fruitName.equals(&amp;quot;banana&amp;quot;)) {
-            return newBanana();
-        } else {
-            return newPlum(&amp;quot;defaultName&amp;quot;);
-        }
-    }
-     
-    public static Fruit newBanana() {
-        return new Banana();
-    }
-     
-    public static Fruit newPlum(String name) {
-        return new Plum(name);
-    }
-     
-    private static class Banana implements Fruit {
- 
-        public void eat() {
-            System.out.println(&amp;quot;Eating a banana: omomom&amp;quot;);
-        }
- 
-        public String getName() {
-            return &amp;quot;banana&amp;quot;;
-        }
-    }
-     
-    private static class Plum implements Fruit {
- 
-        private String name;
- 
-        public Plum(String name) {
-            this.name = name;
-        }
- 
-        public void eat() {
-            System.out.println(String.format(&amp;quot;Eating a plum %s: omomom&amp;quot;, name) );
-        }
- 
-        public String getName() {
-            return &amp;quot;plum&amp;quot;;
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MainApp {
-    public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext(&amp;quot;beans.xml&amp;quot;);
-        Fruit fruit = context.getBean(Fruit.class);
-        fruit.eat();
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Result:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Eating a banana: omomom
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Plum with name:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;newPlum&amp;quot;&amp;gt;
-    &amp;lt;constructor-arg value=&amp;quot;sliwka&amp;quot;&amp;gt;&amp;lt;/constructor-arg&amp;gt;
-&amp;lt;/bean&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Result:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Eating a plum sliwka: omomom
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Plum by name using createFruit method:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;createFruit&amp;quot;&amp;gt;
-    &amp;lt;constructor-arg value=&amp;quot;sliwka&amp;quot;&amp;gt;&amp;lt;/constructor-arg&amp;gt;
-&amp;lt;/bean&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Result:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Eating a plum defaultName: omomom
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

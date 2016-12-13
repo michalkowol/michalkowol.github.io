@@ -26,7 +26,7 @@
 &lt;li&gt;&lt;code&gt;groups username&lt;/code&gt; - list all groups for user&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&#34;chmod&#34;&gt;chmod&lt;/h1&gt;
+&lt;h2 id=&#34;chmod&#34;&gt;chmod&lt;/h2&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -133,6 +133,12 @@
 &lt;li&gt;&lt;code&gt;chown -R :groupname path&lt;/code&gt; - changes file/directory group&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;chmod -R a-x+X path&lt;/code&gt; - remove the execute permission on all files in a directory tree, while allowing for directory browsing&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;chmod -R a+X directory&lt;/code&gt; - allowing for directory browsing for all&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://kb.iu.edu/d/abdb&#34;&gt;In Unix, how do I change the permissions for a file?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;style&gt;

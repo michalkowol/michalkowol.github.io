@@ -33,47 +33,58 @@
 --progress This option tells rsync to print information showing the progress of the transfer.
 --human-readable Output numbers in a more human-readable format.
 --append-verify Append w/old data in file checksum
+--protect-args This option sends all filenames and most options to the remote rsync without allowing the remote shell to interpret them. This means that spaces are not split in names, and any non-wildcard special characters are not translated (such as ~, $, ;, &amp;amp;, etc.). Wildcards are expanded on the remote host by rsync (instead of the shell doing it)
+--exclude-from Exclude files or directories from given file
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;examples&#34;&gt;Examples&lt;/h3&gt;
 
-&lt;p&gt;Simple examples&lt;/p&gt;
+&lt;h4 id=&#34;simple-examples&#34;&gt;Simple examples&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# without ssh
 rsync -avzx . user@hostname::NetBackup/owncloud
 # with ssh
 rsync -avzx -e ssh . user@hostname:~/tmp
-# with ssh (from server to client)
-rsync -avzx -e ssh user@hostname:~/tmp .
-
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;More advanced examples&lt;/p&gt;
+&lt;h4 id=&#34;more-advanced-examples&#34;&gt;More advanced examples&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# with dry run (no changes - files would be deleted on server after success)
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# with dry run (no changes - files are not deleted on server)
 rsync -avzx --dry-run --delete-after -e ssh . user@hostname:~/tmp
-# files will be deleted on server after success
-rsync -avzx --delete-after -e ssh . user@hostname:~/tmp
 # with ssh on port 48419
 rsync -avzx -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
-# full example
-rsync -avzx --progress --human-readable -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
-# full example (with delete after)
-rsync -avzx --delete-after --progress --human-readable -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
+# with progress information
+rsync -avzx --progress -e ssh . user@hostname:~/tmp
+# human readable format - kilk/mega/giga bytes instead of bytes
+rsync -avzx --human-readable -e ssh . user@hostname:~/tmp
+# delete files *after* sync is complete
+rsync -avzx --delete-after -e ssh . user@hostname:~/tmp
 # with mac to linux file change encoding
-rsync -avzx --iconv=utf-8-mac,utf-8 --progress --human-readable -e ssh . user@hostname:~/tmp
+rsync -avzx --iconv=utf-8-mac,utf-8 -e ssh . user@hostname:~/tmp
 # with append w/old data in file checksum
-rsync -avzx --append-verify --progress --human-readable -e ssh . user@hostname:~/tmp
+rsync -avzx --append-verify -e ssh . user@hostname:~/tmp
+# protect spaces
+rsync -avzx --protect-args -e ssh . &amp;quot;user@hostname:/homes/michal/tmp with space&amp;quot;
+# exclude files from &#39;exclude.txt&#39;
+rsync -avzx --exclude-from &#39;exclude.txt&#39; -e ssh . user@hostname:~/tmp
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Combined&lt;/p&gt;
+&lt;h4 id=&#34;sync-direction&#34;&gt;Sync direction&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# from server to laptop
+rsync [OPTION...] &amp;lt;server-path&amp;gt; &amp;lt;laptop-path&amp;gt;
+# form laptop to server
+rsync [OPTION...] &amp;lt;laptop-path&amp;gt; &amp;lt;server-path&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;full-example&#34;&gt;Full example&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code&gt;rsync -avzx --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;On windows (&lt;a href=&#34;https://www.itefix.net/cwrsync&#34;&gt;cwRsync&lt;/a&gt;)&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rsync -avzx --progress --human-readable -e &amp;quot;ssh -p 48419 -i c:\ssh\id_rsa&amp;quot; &amp;quot;c/dir/dir/&amp;quot; user@hostname:~/tmp/
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rsync -avzx --append-verify --progress --human-readable -e &amp;quot;ssh -p 48419 -i c:\ssh\id_rsa&amp;quot; &amp;quot;c/dir/dir/&amp;quot; user@hostname:~/tmp/
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;notes&#34;&gt;Notes&lt;/h3&gt;

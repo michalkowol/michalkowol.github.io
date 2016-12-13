@@ -9,7 +9,7 @@
 
   <title>
     
-      /boot 100% and can&#39;t purge &middot; Michał Kowol
+      Photo to scan in Photoshop &middot; Michał Kowol
     
   </title>
 
@@ -99,51 +99,32 @@
 
 
 <article class="post">
-  <h1 class="post-title">/boot 100% and can&#39;t purge</h1>
-  <span class="post-date">2016-11-07</span>
+  <h1 class="post-title">Photo to scan in Photoshop</h1>
+  <span class="post-date">2016-12-10</span>
   
     <div class="post-categories">
     
-      <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
+      <a class="post-category post-category-random" href="https://michalkowol.github.io/categories/random">random</a>
     
-      <a class="post-category post-category-howto" href="https://michalkowol.github.io/categories/howto">howto</a>
+      <a class="post-category post-category-photoshop" href="https://michalkowol.github.io/categories/photoshop">photoshop</a>
     
     </div>
   
   <div class="content">
   
 
-<h2 id="solution">Solution</h2>
+<h2 id="photo-to-scan-in-photoshop">Photo to scan in Photoshop</h2>
 
 <ol>
-<li><code>sudo apt-get install</code> &ndash;fix-broken should fail but list unused packets</li>
-<li>free them one by one using sudo <code>dpkg --purge ...</code>. If a packet refuse to uninstall due to dependencies, just advance to the next one.</li>
-<li>After uninstalling everything you could, <code>sudo apt-get install --fix-broken</code> again, and this time it should work.</li>
+<li><img src="https://michalkowol.github.io/img/photo-to-scan-in-photoshop/perspective-crop-tool.png" alt="Perspective Crop Tool" /></li>
+<li><code>Layer &gt; New Adjustment Layer &gt; Gradient Map</code></li>
+<li><code>Layer &gt; New Adjustment Layer &gt; Levels</code></li>
 </ol>
-
-<p>So, after upgrading kernels and rebooting to test it, you can remove all other kernels with:</p>
-
-<p>To list all installed kernels, run:</p>
-
-<pre><code>dpkg -l linux-image-\* | grep ^ii
-</code></pre>
-
-<p>Command to show all kernels and headers that can be removed, excluding the current running kernel:</p>
-
-<pre><code>kernelver=$(uname -r | sed -r 's/-[a-z]+//')
-dpkg -l linux-{image,headers}-&quot;[0-9]*&quot; | awk '/ii/{print $2}' | grep -ve $kernelver
-</code></pre>
-
-<p>So, after upgrading kernels and rebooting to test it, you can remove all other kernels with:</p>
-
-<pre><code>sudo apt-get purge $(dpkg -l linux-{image,headers}-&quot;[0-9]*&quot; | awk '/ii/{print $2}' | grep -ve &quot;$(uname -r | sed -r 's/-[a-z]+//')&quot;)
-</code></pre>
 
 <h2 id="links">Links</h2>
 
 <ul>
-<li><a href="http://askubuntu.com/questions/89710/how-do-i-free-up-more-space-in-boot">How do I free up more space in /boot?</a></li>
-<li><a href="http://askubuntu.com/questions/337456/boot-100-and-cant-purge">/boot 100% and can&rsquo;t purge</a></li>
+<li><a href="http://tricky-photoshop.com/make-document-looks-like-scanned-copy-photoshop/">http://tricky-photoshop.com/make-document-looks-like-scanned-copy-photoshop/</a></li>
 </ul>
 
   </div>
@@ -152,15 +133,11 @@ dpkg -l linux-{image,headers}-&quot;[0-9]*&quot; | awk '/ii/{print $2}' | grep -
     <div class="post-tags">
     Tagged 
     
-      <a class="post-tags post-tags-tech" href="https://michalkowol.github.io/tags/tech">tech</a>
+      <a class="post-tags post-tags-random" href="https://michalkowol.github.io/tags/random">random</a>
     
-      <a class="post-tags post-tags-howto" href="https://michalkowol.github.io/tags/howto">howto</a>
+      <a class="post-tags post-tags-photoshop" href="https://michalkowol.github.io/tags/photoshop">photoshop</a>
     
-      <a class="post-tags post-tags-linux" href="https://michalkowol.github.io/tags/linux">linux</a>
-    
-      <a class="post-tags post-tags-boot" href="https://michalkowol.github.io/tags/boot">boot</a>
-    
-      <a class="post-tags post-tags-header" href="https://michalkowol.github.io/tags/header">header</a>
+      <a class="post-tags post-tags-scan" href="https://michalkowol.github.io/tags/scan">scan</a>
     
     </div>
   

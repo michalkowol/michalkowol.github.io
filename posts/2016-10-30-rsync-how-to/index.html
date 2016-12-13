@@ -76,6 +76,8 @@
     
       
     
+      
+    
 
     <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
   </nav>
@@ -128,47 +130,58 @@
 --progress This option tells rsync to print information showing the progress of the transfer.
 --human-readable Output numbers in a more human-readable format.
 --append-verify Append w/old data in file checksum
+--protect-args This option sends all filenames and most options to the remote rsync without allowing the remote shell to interpret them. This means that spaces are not split in names, and any non-wildcard special characters are not translated (such as ~, $, ;, &amp;, etc.). Wildcards are expanded on the remote host by rsync (instead of the shell doing it)
+--exclude-from Exclude files or directories from given file
 </code></pre>
 
 <h3 id="examples">Examples</h3>
 
-<p>Simple examples</p>
+<h4 id="simple-examples">Simple examples</h4>
 
 <pre><code class="language-bash"># without ssh
 rsync -avzx . user@hostname::NetBackup/owncloud
 # with ssh
 rsync -avzx -e ssh . user@hostname:~/tmp
-# with ssh (from server to client)
-rsync -avzx -e ssh user@hostname:~/tmp .
-
 </code></pre>
 
-<p>More advanced examples</p>
+<h4 id="more-advanced-examples">More advanced examples</h4>
 
-<pre><code class="language-bash"># with dry run (no changes - files would be deleted on server after success)
+<pre><code class="language-bash"># with dry run (no changes - files are not deleted on server)
 rsync -avzx --dry-run --delete-after -e ssh . user@hostname:~/tmp
-# files will be deleted on server after success
-rsync -avzx --delete-after -e ssh . user@hostname:~/tmp
 # with ssh on port 48419
 rsync -avzx -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
-# full example
-rsync -avzx --progress --human-readable -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
-# full example (with delete after)
-rsync -avzx --delete-after --progress --human-readable -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
+# with progress information
+rsync -avzx --progress -e ssh . user@hostname:~/tmp
+# human readable format - kilk/mega/giga bytes instead of bytes
+rsync -avzx --human-readable -e ssh . user@hostname:~/tmp
+# delete files *after* sync is complete
+rsync -avzx --delete-after -e ssh . user@hostname:~/tmp
 # with mac to linux file change encoding
-rsync -avzx --iconv=utf-8-mac,utf-8 --progress --human-readable -e ssh . user@hostname:~/tmp
+rsync -avzx --iconv=utf-8-mac,utf-8 -e ssh . user@hostname:~/tmp
 # with append w/old data in file checksum
-rsync -avzx --append-verify --progress --human-readable -e ssh . user@hostname:~/tmp
+rsync -avzx --append-verify -e ssh . user@hostname:~/tmp
+# protect spaces
+rsync -avzx --protect-args -e ssh . &quot;user@hostname:/homes/michal/tmp with space&quot;
+# exclude files from 'exclude.txt'
+rsync -avzx --exclude-from 'exclude.txt' -e ssh . user@hostname:~/tmp
 </code></pre>
 
-<p>Combined</p>
+<h4 id="sync-direction">Sync direction</h4>
+
+<pre><code class="language-bash"># from server to laptop
+rsync [OPTION...] &lt;server-path&gt; &lt;laptop-path&gt;
+# form laptop to server
+rsync [OPTION...] &lt;laptop-path&gt; &lt;server-path&gt;
+</code></pre>
+
+<h4 id="full-example">Full example</h4>
 
 <pre><code>rsync -avzx --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
 </code></pre>
 
 <p>On windows (<a href="https://www.itefix.net/cwrsync">cwRsync</a>)</p>
 
-<pre><code class="language-bash">rsync -avzx --progress --human-readable -e &quot;ssh -p 48419 -i c:\ssh\id_rsa&quot; &quot;c/dir/dir/&quot; user@hostname:~/tmp/
+<pre><code class="language-bash">rsync -avzx --append-verify --progress --human-readable -e &quot;ssh -p 48419 -i c:\ssh\id_rsa&quot; &quot;c/dir/dir/&quot; user@hostname:~/tmp/
 </code></pre>
 
 <h3 id="notes">Notes</h3>
