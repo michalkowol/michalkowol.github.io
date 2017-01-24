@@ -1,13 +1,205 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title></title>
+    <title>Michał Kowol</title>
     <link>https://michalkowol.github.io/index.xml</link>
-    <description>Recent content on </description>
+    <description>Recent content on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 10 Dec 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 23 Jan 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://michalkowol.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>How to deserialize abstract types from JSON using Jackson?</title>
+      <link>https://michalkowol.github.io/posts/2017-01-23-jackson/</link>
+      <pubDate>Mon, 23 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2017-01-23-jackson/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;Sometimes you need deserialize JSON to Java abstract types. Good example is list of animals.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;animals&amp;quot;: [
+    {
+      &amp;quot;name&amp;quot;: &amp;quot;Szarik&amp;quot;,
+      &amp;quot;ageInYears&amp;quot;: 3,
+      &amp;quot;type&amp;quot;: &amp;quot;dog&amp;quot;
+    },
+    {
+      &amp;quot;name&amp;quot;: &amp;quot;Filemon&amp;quot;,
+      &amp;quot;livesLeft&amp;quot;: 6,
+      &amp;quot;type&amp;quot;: &amp;quot;cat&amp;quot;
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this case you need to serialize animals to specific types using &lt;code&gt;type&lt;/code&gt; property.&lt;/p&gt;
+
+&lt;h3 id=&#34;java-data-classes-lombock&#34;&gt;Java Data Classes (Lombock)&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import lombok.Data;
+
+interface Animal {
+}
+
+@Data
+class AnimalsContainer {
+    private final List&amp;lt;Animal&amp;gt; animals = new LinkedList&amp;lt;&amp;gt;();
+}
+
+@Data
+class Dog implements Animal {
+    private final String name;
+    private final Integer ageInYears;
+}
+
+@Data
+class Cat implements Animal {
+    private final String name;
+    private final Integer livesLeft;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;json-type-info-annotations&#34;&gt;Json Type Info Annotations&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = &amp;quot;type&amp;quot;)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Dog.class, name = &amp;quot;dog&amp;quot;),
+        @JsonSubTypes.Type(value = Cat.class, name = &amp;quot;cat&amp;quot;)
+})
+interface Animal {
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Please note that we use property &lt;code&gt;type&lt;/code&gt; to determine specific subclass of &lt;code&gt;Animal&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;test-junit-5&#34;&gt;Test (jUnit 5)&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+public class AnimalsTest {
+    @Test
+    @DisplayName(&amp;quot;it should deserialize arrays of animal to specific types&amp;quot;)
+    public void animals() throws Throwable {
+        // given
+        String json = Files.readAsText(&amp;quot;mediabus/examples/animals.json&amp;quot;);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        // when
+        List&amp;lt;Animal&amp;gt; animals = objectMapper.readValue(json, AnimalsContainer.class).getAnimals();
+        // then
+        assertEquals(2, animals.size());
+        assertEquals(Dog.class, animals.get(0).getClass());
+        assertEquals(3, ((Dog) animals.get(0)).getAgeInYears().intValue());
+        assertEquals(Cat.class, animals.get(1).getClass());
+        assertEquals(6, ((Cat) animals.get(1)).getLivesLeft().intValue());
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;System.out.println(animals);&lt;/code&gt; prints &lt;code&gt;[Dog(name=Szarik, ageInYears=3), Cat(name=Filemon, livesLeft=6)]&lt;/code&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to configure LB-LINK</title>
+      <link>https://michalkowol.github.io/posts/2017-01-21-lb-link/</link>
+      <pubDate>Sat, 21 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2017-01-21-lb-link/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;Do you want to change WiFi to regular cable connection. Or you need cheap WiFI amplifier? This post is for you!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link.jpg&#34; alt=&#34;LB-LINK BL-MP01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can by LB-LINK BL-MP01 for only 13$ (52 PLN). It is really cheap and it does it work.&lt;/p&gt;
+
+&lt;h2 id=&#34;repeater-client-mode&#34;&gt;Repeater (client mode)&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;If you want to change WiFi to regular cable connection you need to switch device to &lt;code&gt;Repeater&lt;/code&gt; mode.
+&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-000.jpg&#34; alt=&#34;LB-LINK BL-MP01&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;Connect power and Ethernet cable.&lt;/li&gt;
+&lt;li&gt;Make sure power mode is on.&lt;/li&gt;
+&lt;li&gt;Turn off your WiFi adapter (please remember to turn it on after configuration is done).&lt;/li&gt;
+&lt;li&gt;Open configuration page: &lt;a href=&#34;http://192.168.16.254/&#34;&gt;http://192.168.16.254/&lt;/a&gt; in &lt;strong&gt;Internet Explorer&lt;/strong&gt; (it does not work correctly on Chrome).&lt;/li&gt;
+&lt;li&gt;Enter credentials (default - &lt;code&gt;admin:admin&lt;/code&gt;)
+&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-001.png&#34; alt=&#34;LB-LINK BL-MP01 Configuration Step 1&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;Go to &lt;code&gt;Wireless&lt;/code&gt; tab and then open &lt;code&gt;site_survey&lt;/code&gt; sub-tab.
+&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-002.png&#34; alt=&#34;LB-LINK BL-MP01 Configuration Step 2&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;Select wireless network to connect and click &lt;code&gt;Connect&lt;/code&gt; button. Enter your WiFi password.
+&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-003.png&#34; alt=&#34;LB-LINK BL-MP01 Configuration Step 3&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;After successful connection you should see handshake icon.
+&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-004.png&#34; alt=&#34;LB-LINK BL-MP01 Configuration Step 4&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;Test you connection - &lt;a href=&#34;http://www.google.com/&#34;&gt;http://www.google.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Turn on your WiFi adapter.&lt;/li&gt;
+&lt;li&gt;Connect device you want to use using Ethernet cable (Console, Cable Box device etc., old computer).&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Encrypt zip files on MacOS</title>
+      <link>https://michalkowol.github.io/posts/2016-12-16-encrypted-zip/</link>
+      <pubDate>Fri, 16 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-12-16-encrypted-zip/</guid>
+      <description>&lt;!-- 1. Naciśnij `cmd + spacja`, wpisz &#39;terminal&#39; i naciśnij enter.
+![img](/img/zip/001-zip.png)
+1. Wpisz `cd ` (ze spacją na końcu) i **nie** wciskaj enter.
+1. Przeniś za pomocą metody drag-and-drop (przeciągnij-i-upuść) folder do okienka terminala, który chcesz spakować i naciśnij enter.
+![img](/img/zip/002-zip.png)
+![img](/img/zip/003-zip.png)
+1. Wpisz `cd ..`.
+![img](/img/zip/004-zip.png)
+1. Wpisz `zip -er &lt;filename.zip&gt; &lt;dir-you-want-to-encrypt&gt;` przykład: `zip -er aurator.zip aurator/`
+![img](/img/zip/005-zip.png)
+1. Wpisz hasło dwa razy w okienku terminala (znaki hasła nie będą widoczne).
+![img](/img/zip/006-zip.png)
+1. Zaszyfrowany plik zip został stworzony.
+![img](/img/zip/008-zip.png)
+1. Odszyfrowywanie:
+![img](/img/zip/009-zip.png)
+![img](/img/zip/010-zip.png) --&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Press &lt;code&gt;cmd + space&lt;/code&gt;, type &amp;lsquo;terminal&amp;rsquo; and press enter.
+&lt;img src=&#34;https://michalkowol.github.io/img/zip/001-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;Type &lt;code&gt;cd&lt;/code&gt; (with space) and do &lt;strong&gt;not&lt;/strong&gt; press enter.&lt;/li&gt;
+&lt;li&gt;Drag-and-drop folder you want to zip to terminal window and press enter.
+&lt;img src=&#34;https://michalkowol.github.io/img/zip/002-zip.png&#34; alt=&#34;img&#34; /&gt;
+&lt;img src=&#34;https://michalkowol.github.io/img/zip/003-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;Type &lt;code&gt;cd ..&lt;/code&gt;.
+&lt;img src=&#34;https://michalkowol.github.io/img/zip/004-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;Type &lt;code&gt;zip -er &amp;lt;filename.zip&amp;gt; &amp;lt;dir-you-want-to-encrypt&amp;gt;&lt;/code&gt; in example &lt;code&gt;zip -er aurator.zip aurator/&lt;/code&gt;
+&lt;img src=&#34;https://michalkowol.github.io/img/zip/005-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;Type password two times in terminal window (password characters will not be visible).
+&lt;img src=&#34;https://michalkowol.github.io/img/zip/006-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;Your encrypted file is created!
+&lt;img src=&#34;https://michalkowol.github.io/img/zip/008-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;Decrypt:
+&lt;img src=&#34;https://michalkowol.github.io/img/zip/009-zip.png&#34; alt=&#34;img&#34; /&gt;
+&lt;img src=&#34;https://michalkowol.github.io/img/zip/010-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
     
     <item>
       <title>Photo to scan in Photoshop</title>
@@ -46,7 +238,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;addgroup groupname&lt;/code&gt; - creates new group&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;adduser username&lt;/code&gt; - creates new user&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;usermod -a -G groupname username&lt;/code&gt; - adds existing user to existing group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;usermod -a -G groupname1,groupane2 username&lt;/code&gt; - adds existing user to existing group&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;deluser username&lt;/code&gt; - deletes user&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;groups username&lt;/code&gt; - list all groups for user&lt;/li&gt;
 &lt;/ul&gt;
@@ -165,10 +357,6 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://kb.iu.edu/d/abdb&#34;&gt;In Unix, how do I change the permissions for a file?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;style&gt;
-table { width: auto; }
-&lt;/style&gt;
 </description>
     </item>
     
@@ -319,10 +507,10 @@ dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $
     
     <item>
       <title>How to server cifi shared folder using nginx.</title>
-      <link>https://michalkowol.github.io/posts/2016-11-07-cifs/</link>
+      <link>https://michalkowol.github.io/posts/2016-11-07-nginx-cifs/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/2016-11-07-cifs/</guid>
+      <guid>https://michalkowol.github.io/posts/2016-11-07-nginx-cifs/</guid>
       <description>
 
 &lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
@@ -349,9 +537,14 @@ dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $
 
 &lt;p&gt;Modify &lt;code&gt;nginx&lt;/code&gt; config (&lt;code&gt;/etc/nginx/sites-available/somefile&lt;/code&gt;)&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;location /{ 
-   root /media/storage/dir/; 
-   autoindex on;
+&lt;pre&gt;&lt;code&gt;#...
+server {
+  location / { 
+    alias /media/storage/dir/;
+    autoindex on;
+    autoindex_localtime on;
+    autoindex_exact_size off;
+  }
 }
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -367,20 +560,56 @@ dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $
 &lt;pre&gt;&lt;code&gt;sudo sh -c &amp;quot;openssl passwd -apr1 &amp;gt;&amp;gt; /etc/nginx/.htpasswd&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;Remember to set correct permissions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo chown www-data:www-data /etc/nginx/.htpasswd
+sudo chown 600 /etc/nginx/.htpasswd
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Add this to &lt;code&gt;ngnix&lt;/code&gt; config:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;location / { 
-  root /media/storage/dir/;
-  autoindex on;
-  auth_basic &amp;quot;Restricted Content&amp;quot;;
-  auth_basic_user_file /etc/nginx/.htpasswd;
-  disable_symlinks off;
+&lt;pre&gt;&lt;code&gt;#...
+server {
+  location / { 
+    alias /media/storage/dir/;
+    autoindex on;
+    autoindex_exact_size off;
+    autoindex_localtime on;
+    auth_basic &amp;quot;Restricted Content&amp;quot;;
+    auth_basic_user_file /etc/nginx/.htpasswd;
+    # disable_symlinks off; # ???
+  }
 }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;autoindex-for-all-locations-in-given-section&#34;&gt;Autoindex for all locations in given section&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#...
+server {
+  
+  autoindex on;
+  autoindex_localtime on;
+  autoindex_exact_size off;
+
+  location / { 
+    alias /media/storage/;
+  }
+
+  location /foo { 
+    alias /media/storage/foo;
+  }
+
+  location /bar { 
+    alias /media/storage/test;
+  }
+}
+
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
 
 &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/10631933/nginx-static-file-serving-confusion-with-root-alias&#34;&gt;Nginx — static file serving confusion with root &amp;amp; alias&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-nginx-on-ubuntu-14-04&#34;&gt;How To Set Up Password Authentication with Nginx&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-16-04&#34;&gt;How To Set Up an NFS Mount&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://wiki.qnap.com/wiki/Mounting_an_NFS_share_on_Ubuntu&#34;&gt;Mounting an NFS share on Ubuntu&lt;/a&gt;&lt;/li&gt;
@@ -585,6 +814,7 @@ smbpasswd -a bob
 --append-verify Append w/old data in file checksum
 --protect-args This option sends all filenames and most options to the remote rsync without allowing the remote shell to interpret them. This means that spaces are not split in names, and any non-wildcard special characters are not translated (such as ~, $, ;, &amp;amp;, etc.). Wildcards are expanded on the remote host by rsync (instead of the shell doing it)
 --exclude-from Exclude files or directories from given file
+--max-size=300mb Don&#39;t transfer any file larger than SIZE
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;examples&#34;&gt;Examples&lt;/h3&gt;
@@ -629,7 +859,8 @@ rsync [OPTION...] &amp;lt;laptop-path&amp;gt; &amp;lt;server-path&amp;gt;
 
 &lt;h4 id=&#34;full-example&#34;&gt;Full example&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code&gt;rsync -avzx --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
+&lt;pre&gt;&lt;code&gt;rsync -avzx --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable --max-size=300mb -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
+rsync -avzx --append-verify --progress --human-readable --max-size=300mb -e ssh . user@hostname:~/tmp
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;On windows (&lt;a href=&#34;https://www.itefix.net/cwrsync&#34;&gt;cwRsync&lt;/a&gt;)&lt;/p&gt;
@@ -1159,358 +1390,6 @@ pattern(&amp;quot;3&amp;quot;, &amp;quot;xxx&amp;quot;) // ???
 &lt;li&gt;If we ovverride method, it should call &lt;code&gt;super&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;It is better to use simple &lt;code&gt;case classes&lt;/code&gt; than &lt;code&gt;Tuple&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Scala Traits in JavaScript</title>
-      <link>https://michalkowol.github.io/posts/2014-10-23-traits-in-javascript/</link>
-      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://michalkowol.github.io/posts/2014-10-23-traits-in-javascript/</guid>
-      <description>&lt;p&gt;Traits:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function _extend(object, source) {
-    for (var key in source) {
-        if (source.hasOwnProperty(key)) {
-            object[key] = source[key];
-        }
-    }
-    return object;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function _with() {
-    var self = {};
-    var args = Array.prototype.slice.call(arguments);
-    for (var i = 0; i &amp;lt; args.length; i++) {
-        args[i](self);
-    }
-    self.super = _extend({}, self);
-    return self;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Traits example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var mtv = (function (mtv) {
-    &#39;use strict&#39;;
- 
-    mtv.TraitA = function (self) {
-        self.functionA = function () {
-            console.log(&#39;[start]: TraitA.functionA&#39;);
-            console.log(self.getModel());
-            console.log(&#39;[end]: TraitA.functionA&#39;);
-        };
- 
-        self.dummyModel = function () {
-            console.log(&#39;[start]: TraitA.dummyModel&#39;);
-            console.log(&#39;[end]: TraitA.dummyModel&#39;);
-        };
-    };
- 
-    mtv.TraitB = function (self) {
-        self.functionB = function () {
-            console.log(&#39;[start]: TraitB.functionB&#39;);
-            console.log(self.getModel());
-            console.log(&#39;[end]: TraitB.functionB&#39;);
-        };
- 
-        self.dummyModel = function () {
-            console.log(&#39;[start]: TraitB.dummyModel&#39;);
-            console.log(&#39;[end]: TraitB.dummyModel&#39;);
-        };
- 
-        self.onlyB = function () {
-            console.log(&#39;[start]: TraitB.onlyB&#39;);
-            console.log(&#39;[end]: TraitB.onlyB&#39;);
-        };
-    };
- 
-    mtv.classWithTraitATraitB = function (model) {
-        var self = _with(mtv.TraitA, mtv.TraitB);
- 
-        self.getModel = function () {
-            console.log(&#39;[start]: classWithTraitATraitB.getModel&#39;);
-            console.log(&#39;[end]: classWithTraitATraitB.getModel&#39;);
-            return model;
-        };
- 
-        self.functionB = function () {
-            console.log(&#39;[start]: classWithTraitATraitB.functionB&#39;);
-            self.super.functionB();
-            self.functionA();
-            console.log(&#39;[end]: classWithTraitATraitB.functionB&#39;);
-        };
- 
-        return self;
-    };
- 
-    var classA = mtv.classWithTraitATraitB(&#39;model&#39;);
-    classA.functionA();
-    classA.functionB();
-    classA.dummyModel();
-    return mtv;
-})(mtv || {});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Result:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[start]: TraitA.functionA
-[start]: classWithTraitATraitB.getModel
-[end]: classWithTraitATraitB.getModel
-model
-[end]: TraitA.functionA
-[start]: classWithTraitATraitB.functionB
-[start]: TraitB.functionB
-[start]: classWithTraitATraitB.getModel
-[end]: classWithTraitATraitB.getModel
-model
-[end]: TraitB.functionB
-[start]: TraitA.functionA
-[start]: classWithTraitATraitB.getModel
-[end]: classWithTraitATraitB.getModel
-model
-[end]: TraitA.functionA
-[end]: classWithTraitATraitB.functionB
-[start]: TraitB.dummyModel
-[end]: TraitB.dummyModel
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>&#34;Closures&#34; in JavaScript</title>
-      <link>https://michalkowol.github.io/posts/2014-07-22-closures-in-javascript/</link>
-      <pubDate>Tue, 22 Jul 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://michalkowol.github.io/posts/2014-07-22-closures-in-javascript/</guid>
-      <description>&lt;p&gt;Closures in JS can simulate classes. Polymorphism, encapsulation and inheritance are avilable in this aproach.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function _extend(object, source) {
-    for (var key in source) {
-        if (source.hasOwnProperty(key)) {
-            object[key] = source[key];
-        }
-    }
-    return object;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var mtv = (function (mtv) {
-    &#39;use strict&#39;;
- 
-    mtv.ClassA = function (a) {
-        var self = {};
-        self.a = a;
- 
-        function privateInA () {
-            console.log(&#39;ClassA.privateInA.start&#39;);
-            console.log(self.a);
-            console.log(&#39;ClassA.privateInA.end&#39;);
-        }
- 
-        self.bar = function () {
-            console.log(&#39;ClassA.bar.start&#39;);
-            self.foo();
-            privateInA();
-            console.log(&#39;ClassA.bar.end&#39;);
-        };
- 
-        self.foo = function () {
-            console.log(&#39;ClassA.foo.start&#39;);
-            console.log(self.a);
-            console.log(&#39;ClassA.foo.end&#39;);
-        };
- 
-        self.changeA = function () {
-            console.log(&#39;ClassA.changeA.start&#39;);
-            self.a = self.a + &#39; Kowol&#39;;
-            console.log(&#39;ClassA.changeA.end&#39;);
-        };
- 
-        return self;
-    };
- 
-    mtv.ClassB = function (b) {
-        var self = mtv.ClassA(b);
-        var _super = _extend({}, self);
-        self.b = b;
- 
-        self.foo = function () {
-            console.log(&#39;ClassB.foo.start&#39;);
-            console.log(self.b + &#39; &#39; + self.a);
-            _super.foo();
-            console.log(&#39;ClassB.foo.end&#39;);
-        };
- 
-        return self;
-    };
- 
-    return mtv;
-})(mtv || {});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var classB = mtv.ClassB(&#39;Michal&#39;);
-classB.foo();       // ClassB.foo.start
-                    // Michal Michal
-                    // ClassA.foo.start
-                    // Michal
-                    // ClassA.foo.end
-                    // ClassB.foo.end
- 
-classB.bar();       // ClassA.bar.start
-                    // ClassB.foo.start
-                    // Michal Michal
-                    // ClassA.foo.start
-                    // Michal
-                    // ClassA.foo.end
-                    // ClassB.foo.end
-                    // ClassA.privateInA.start
-                    // Michal
-                    // ClassA.privateInA.end
-                    // ClassA.bar.end
- 
-classB.changeA();   // ClassA.changeA.start
-                    // ClassA.changeA.end
- 
-classB.bar();       // ClassA.bar.start
-                    // ClassB.foo.start
-                    // Michal Michal Kowol
-                    // ClassA.foo.start
-                    // Michal Kowol
-                    // ClassA.foo.end
-                    // ClassB.foo.end
-                    // ClassA.privateInA.start
-                    // Michal Kowol
-                    // ClassA.privateInA.end
-                    // ClassA.bar.end
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>&#34;Classes&#34; and Singletions in JavaScript</title>
-      <link>https://michalkowol.github.io/posts/2014-04-24-classes-and-singletions-in-javascript/</link>
-      <pubDate>Thu, 24 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://michalkowol.github.io/posts/2014-04-24-classes-and-singletions-in-javascript/</guid>
-      <description>&lt;p&gt;In JS there are a lot of way to simulate classes. Here are examples:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var com = com || {};
-
-com.MTVClass1 = function (videoID) {
-    &amp;quot;use strict&amp;quot;;
-    var self = {};
- 
-    function bar() {
-        return &amp;quot;bar&amp;quot; + videoID;
-    }
- 
-    self.foo = function () {
-        return &amp;quot;foo&amp;quot; + bar() + videoID;
-    };
- 
-    return self;
-};
-
-com.MTVClass1(&amp;quot;123&amp;quot;).foo();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var com = com || {};
- 
-(function () {
-    &#39;use strict&#39;;
- 
-    com.MTVClass2 = function (videoID) {
-        this.videoID = videoID;
-    };
- 
-    function bar() {
-        return &amp;quot;bar&amp;quot;; // does not have access to videoID
-    }
- 
-    com.MTVClass2.prototype.foo = function () {
-        return &amp;quot;foo&amp;quot; + bar() + this.videoID;
-    };
-}());
-
-new com.MTVClass2(&amp;quot;1234&amp;quot;).foo();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var com = com || {};
- 
-com.MTVClass3 = (function () {
-    &#39;use strict&#39;;
- 
-    function MTVClass3(videoID) {
-        this.videoID = videoID;
-    }
- 
-    function bar() {
-        return &amp;quot;bar&amp;quot;;  // does not have access to videoID
-    }
- 
-    MTVClass3.prototype.foo = function () {
-        return &amp;quot;foo&amp;quot; + bar() + this.videoID;
-    };
- 
-    return MTVClass3;
-}());
-
-new com.MTVClass3(&amp;quot;123&amp;quot;).foo();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var com = com || {};
- 
-com.MTVClass4 = (function () {
-    &#39;use strict&#39;;
- 
-    function MTVClass4(videoID) {
-        this.videoID = videoID;
-    }
- 
-    function bar(self) {
-        return &amp;quot;bar&amp;quot; + self.videoID;
-    }
- 
-    MTVClass4.prototype.foo = function () {
-        return &amp;quot;foo&amp;quot; + bar(this) + this.videoID;
-    };
- 
-    return MTVClass4;
-}());
-
-new com.MTVClass4(&amp;quot;123&amp;quot;).foo();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var com = com || {};
- 
-com.MTVObject = (function () {
-    &amp;quot;use strict&amp;quot;;
-    var self = {};
- 
-    function bar() {
-        return &amp;quot;bar&amp;quot;;
-    }
- 
-    self.foo = function () {
-        return &amp;quot;foo&amp;quot; + bar();
-    };
- 
-    return self;
-}());
-
-com.MTVObject.foo();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In my option &lt;code&gt;MTVClass1.js&lt;/code&gt; approach is the best one. &lt;code&gt;MTVClass1.js&lt;/code&gt; has similar concept like &lt;code&gt;MTVObject.js&lt;/code&gt;. In &lt;code&gt;MTVClass2.js&lt;/code&gt; and &lt;code&gt;MTVClass3.js&lt;/code&gt; you do not have access to class fields. &lt;code&gt;MTVClass1.js&lt;/code&gt; has some small performance issue, but remeber:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Premature optimization is the root of all evil.&lt;/p&gt;
-&lt;/blockquote&gt;
 </description>
     </item>
     

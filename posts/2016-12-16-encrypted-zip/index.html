@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Encrypt zip files on MacOS &middot; Michał Kowol
+    
+  </title>
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
+
+  
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
+  </nav>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">Encrypt zip files on MacOS</h1>
+  <span class="post-date">2016-12-16</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-random" href="https://michalkowol.github.io/categories/random">random</a>
+    
+    </div>
+  
+  <div class="content">
+  <!-- 1. Naciśnij `cmd + spacja`, wpisz 'terminal' i naciśnij enter.
+![img](/img/zip/001-zip.png)
+1. Wpisz `cd ` (ze spacją na końcu) i **nie** wciskaj enter.
+1. Przeniś za pomocą metody drag-and-drop (przeciągnij-i-upuść) folder do okienka terminala, który chcesz spakować i naciśnij enter.
+![img](/img/zip/002-zip.png)
+![img](/img/zip/003-zip.png)
+1. Wpisz `cd ..`.
+![img](/img/zip/004-zip.png)
+1. Wpisz `zip -er <filename.zip> <dir-you-want-to-encrypt>` przykład: `zip -er aurator.zip aurator/`
+![img](/img/zip/005-zip.png)
+1. Wpisz hasło dwa razy w okienku terminala (znaki hasła nie będą widoczne).
+![img](/img/zip/006-zip.png)
+1. Zaszyfrowany plik zip został stworzony.
+![img](/img/zip/008-zip.png)
+1. Odszyfrowywanie:
+![img](/img/zip/009-zip.png)
+![img](/img/zip/010-zip.png) -->
+
+<ol>
+<li>Press <code>cmd + space</code>, type &lsquo;terminal&rsquo; and press enter.
+<img src="https://michalkowol.github.io/img/zip/001-zip.png" alt="img" /></li>
+<li>Type <code>cd</code> (with space) and do <strong>not</strong> press enter.</li>
+<li>Drag-and-drop folder you want to zip to terminal window and press enter.
+<img src="https://michalkowol.github.io/img/zip/002-zip.png" alt="img" />
+<img src="https://michalkowol.github.io/img/zip/003-zip.png" alt="img" /></li>
+<li>Type <code>cd ..</code>.
+<img src="https://michalkowol.github.io/img/zip/004-zip.png" alt="img" /></li>
+<li>Type <code>zip -er &lt;filename.zip&gt; &lt;dir-you-want-to-encrypt&gt;</code> in example <code>zip -er aurator.zip aurator/</code>
+<img src="https://michalkowol.github.io/img/zip/005-zip.png" alt="img" /></li>
+<li>Type password two times in terminal window (password characters will not be visible).
+<img src="https://michalkowol.github.io/img/zip/006-zip.png" alt="img" /></li>
+<li>Your encrypted file is created!
+<img src="https://michalkowol.github.io/img/zip/008-zip.png" alt="img" /></li>
+<li>Decrypt:
+<img src="https://michalkowol.github.io/img/zip/009-zip.png" alt="img" />
+<img src="https://michalkowol.github.io/img/zip/010-zip.png" alt="img" /></li>
+</ol>
+
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
+    
+      <a class="post-tags post-tags-random" href="https://michalkowol.github.io/tags/random">random</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title></title>
+    <title>Tech on Michał Kowol</title>
     <link>https://michalkowol.github.io/tags/tech/index.xml</link>
-    <description>Recent content on </description>
+    <description>Recent content in Tech on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <atom:link href="https://michalkowol.github.io/tags/tech/index.xml" rel="self" type="application/rss+xml" />
@@ -21,7 +21,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;addgroup groupname&lt;/code&gt; - creates new group&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;adduser username&lt;/code&gt; - creates new user&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;usermod -a -G groupname username&lt;/code&gt; - adds existing user to existing group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;usermod -a -G groupname1,groupane2 username&lt;/code&gt; - adds existing user to existing group&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;deluser username&lt;/code&gt; - deletes user&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;groups username&lt;/code&gt; - list all groups for user&lt;/li&gt;
 &lt;/ul&gt;
@@ -140,10 +140,6 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://kb.iu.edu/d/abdb&#34;&gt;In Unix, how do I change the permissions for a file?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;style&gt;
-table { width: auto; }
-&lt;/style&gt;
 </description>
     </item>
     
@@ -192,10 +188,10 @@ dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $
     
     <item>
       <title>How to server cifi shared folder using nginx.</title>
-      <link>https://michalkowol.github.io/posts/2016-11-07-cifs/</link>
+      <link>https://michalkowol.github.io/posts/2016-11-07-nginx-cifs/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/2016-11-07-cifs/</guid>
+      <guid>https://michalkowol.github.io/posts/2016-11-07-nginx-cifs/</guid>
       <description>
 
 &lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
@@ -222,9 +218,14 @@ dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $
 
 &lt;p&gt;Modify &lt;code&gt;nginx&lt;/code&gt; config (&lt;code&gt;/etc/nginx/sites-available/somefile&lt;/code&gt;)&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;location /{ 
-   root /media/storage/dir/; 
-   autoindex on;
+&lt;pre&gt;&lt;code&gt;#...
+server {
+  location / { 
+    alias /media/storage/dir/;
+    autoindex on;
+    autoindex_localtime on;
+    autoindex_exact_size off;
+  }
 }
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -240,20 +241,56 @@ dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $
 &lt;pre&gt;&lt;code&gt;sudo sh -c &amp;quot;openssl passwd -apr1 &amp;gt;&amp;gt; /etc/nginx/.htpasswd&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;p&gt;Remember to set correct permissions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo chown www-data:www-data /etc/nginx/.htpasswd
+sudo chown 600 /etc/nginx/.htpasswd
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Add this to &lt;code&gt;ngnix&lt;/code&gt; config:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;location / { 
-  root /media/storage/dir/;
-  autoindex on;
-  auth_basic &amp;quot;Restricted Content&amp;quot;;
-  auth_basic_user_file /etc/nginx/.htpasswd;
-  disable_symlinks off;
+&lt;pre&gt;&lt;code&gt;#...
+server {
+  location / { 
+    alias /media/storage/dir/;
+    autoindex on;
+    autoindex_exact_size off;
+    autoindex_localtime on;
+    auth_basic &amp;quot;Restricted Content&amp;quot;;
+    auth_basic_user_file /etc/nginx/.htpasswd;
+    # disable_symlinks off; # ???
+  }
 }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;autoindex-for-all-locations-in-given-section&#34;&gt;Autoindex for all locations in given section&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#...
+server {
+  
+  autoindex on;
+  autoindex_localtime on;
+  autoindex_exact_size off;
+
+  location / { 
+    alias /media/storage/;
+  }
+
+  location /foo { 
+    alias /media/storage/foo;
+  }
+
+  location /bar { 
+    alias /media/storage/test;
+  }
+}
+
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
 
 &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/10631933/nginx-static-file-serving-confusion-with-root-alias&#34;&gt;Nginx — static file serving confusion with root &amp;amp; alias&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-nginx-on-ubuntu-14-04&#34;&gt;How To Set Up Password Authentication with Nginx&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-16-04&#34;&gt;How To Set Up an NFS Mount&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://wiki.qnap.com/wiki/Mounting_an_NFS_share_on_Ubuntu&#34;&gt;Mounting an NFS share on Ubuntu&lt;/a&gt;&lt;/li&gt;
@@ -458,6 +495,7 @@ smbpasswd -a bob
 --append-verify Append w/old data in file checksum
 --protect-args This option sends all filenames and most options to the remote rsync without allowing the remote shell to interpret them. This means that spaces are not split in names, and any non-wildcard special characters are not translated (such as ~, $, ;, &amp;amp;, etc.). Wildcards are expanded on the remote host by rsync (instead of the shell doing it)
 --exclude-from Exclude files or directories from given file
+--max-size=300mb Don&#39;t transfer any file larger than SIZE
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;examples&#34;&gt;Examples&lt;/h3&gt;
@@ -502,7 +540,8 @@ rsync [OPTION...] &amp;lt;laptop-path&amp;gt; &amp;lt;server-path&amp;gt;
 
 &lt;h4 id=&#34;full-example&#34;&gt;Full example&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code&gt;rsync -avzx --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
+&lt;pre&gt;&lt;code&gt;rsync -avzx --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable --max-size=300mb -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
+rsync -avzx --append-verify --progress --human-readable --max-size=300mb -e ssh . user@hostname:~/tmp
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;On windows (&lt;a href=&#34;https://www.itefix.net/cwrsync&#34;&gt;cwRsync&lt;/a&gt;)&lt;/p&gt;

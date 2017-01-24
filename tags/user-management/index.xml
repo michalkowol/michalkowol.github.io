@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title></title>
+    <title>User Management on Michał Kowol</title>
     <link>https://michalkowol.github.io/tags/user-management/index.xml</link>
-    <description>Recent content on </description>
+    <description>Recent content in User Management on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <atom:link href="https://michalkowol.github.io/tags/user-management/index.xml" rel="self" type="application/rss+xml" />
@@ -21,7 +21,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;addgroup groupname&lt;/code&gt; - creates new group&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;adduser username&lt;/code&gt; - creates new user&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;usermod -a -G groupname username&lt;/code&gt; - adds existing user to existing group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;usermod -a -G groupname1,groupane2 username&lt;/code&gt; - adds existing user to existing group&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;deluser username&lt;/code&gt; - deletes user&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;groups username&lt;/code&gt; - list all groups for user&lt;/li&gt;
 &lt;/ul&gt;
@@ -140,10 +140,6 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://kb.iu.edu/d/abdb&#34;&gt;In Unix, how do I change the permissions for a file?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;style&gt;
-table { width: auto; }
-&lt;/style&gt;
 </description>
     </item>
     

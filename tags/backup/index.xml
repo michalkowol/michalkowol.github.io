@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title></title>
+    <title>Backup on Michał Kowol</title>
     <link>https://michalkowol.github.io/tags/backup/index.xml</link>
-    <description>Recent content on </description>
+    <description>Recent content in Backup on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <atom:link href="https://michalkowol.github.io/tags/backup/index.xml" rel="self" type="application/rss+xml" />
@@ -35,6 +35,7 @@
 --append-verify Append w/old data in file checksum
 --protect-args This option sends all filenames and most options to the remote rsync without allowing the remote shell to interpret them. This means that spaces are not split in names, and any non-wildcard special characters are not translated (such as ~, $, ;, &amp;amp;, etc.). Wildcards are expanded on the remote host by rsync (instead of the shell doing it)
 --exclude-from Exclude files or directories from given file
+--max-size=300mb Don&#39;t transfer any file larger than SIZE
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;examples&#34;&gt;Examples&lt;/h3&gt;
@@ -79,7 +80,8 @@ rsync [OPTION...] &amp;lt;laptop-path&amp;gt; &amp;lt;server-path&amp;gt;
 
 &lt;h4 id=&#34;full-example&#34;&gt;Full example&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code&gt;rsync -avzx --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
+&lt;pre&gt;&lt;code&gt;rsync -avzx --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable --max-size=300mb -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
+rsync -avzx --append-verify --progress --human-readable --max-size=300mb -e ssh . user@hostname:~/tmp
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;On windows (&lt;a href=&#34;https://www.itefix.net/cwrsync&#34;&gt;cwRsync&lt;/a&gt;)&lt;/p&gt;

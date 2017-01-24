@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      How to deserialize abstract types from JSON using Jackson? &middot; Michał Kowol
+    
+  </title>
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
+
+  
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
+  </nav>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">How to deserialize abstract types from JSON using Jackson?</h1>
+  <span class="post-date">2017-01-23</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-java" href="https://michalkowol.github.io/categories/java">java</a>
+    
+      <a class="post-category post-category-development" href="https://michalkowol.github.io/categories/development">development</a>
+    
+    </div>
+  
+  <div class="content">
+  
+
+<h2 id="overview">Overview</h2>
+
+<p>Sometimes you need deserialize JSON to Java abstract types. Good example is list of animals.</p>
+
+<pre><code class="language-json">{
+  &quot;animals&quot;: [
+    {
+      &quot;name&quot;: &quot;Szarik&quot;,
+      &quot;ageInYears&quot;: 3,
+      &quot;type&quot;: &quot;dog&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Filemon&quot;,
+      &quot;livesLeft&quot;: 6,
+      &quot;type&quot;: &quot;cat&quot;
+    }
+  ]
+}
+</code></pre>
+
+<p>In this case you need to serialize animals to specific types using <code>type</code> property.</p>
+
+<h3 id="java-data-classes-lombock">Java Data Classes (Lombock)</h3>
+
+<pre><code class="language-java">import lombok.Data;
+
+interface Animal {
+}
+
+@Data
+class AnimalsContainer {
+    private final List&lt;Animal&gt; animals = new LinkedList&lt;&gt;();
+}
+
+@Data
+class Dog implements Animal {
+    private final String name;
+    private final Integer ageInYears;
+}
+
+@Data
+class Cat implements Animal {
+    private final String name;
+    private final Integer livesLeft;
+}
+</code></pre>
+
+<h3 id="json-type-info-annotations">Json Type Info Annotations</h3>
+
+<pre><code class="language-java">import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = &quot;type&quot;)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Dog.class, name = &quot;dog&quot;),
+        @JsonSubTypes.Type(value = Cat.class, name = &quot;cat&quot;)
+})
+interface Animal {
+}
+</code></pre>
+
+<p>Please note that we use property <code>type</code> to determine specific subclass of <code>Animal</code>.</p>
+
+<h3 id="test-junit-5">Test (jUnit 5)</h3>
+
+<pre><code class="language-java">import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+public class AnimalsTest {
+    @Test
+    @DisplayName(&quot;it should deserialize arrays of animal to specific types&quot;)
+    public void animals() throws Throwable {
+        // given
+        String json = Files.readAsText(&quot;mediabus/examples/animals.json&quot;);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        // when
+        List&lt;Animal&gt; animals = objectMapper.readValue(json, AnimalsContainer.class).getAnimals();
+        // then
+        assertEquals(2, animals.size());
+        assertEquals(Dog.class, animals.get(0).getClass());
+        assertEquals(3, ((Dog) animals.get(0)).getAgeInYears().intValue());
+        assertEquals(Cat.class, animals.get(1).getClass());
+        assertEquals(6, ((Cat) animals.get(1)).getLivesLeft().intValue());
+    }
+}
+</code></pre>
+
+<p><code>System.out.println(animals);</code> prints <code>[Dog(name=Szarik, ageInYears=3), Cat(name=Filemon, livesLeft=6)]</code>.</p>
+
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
+    
+      <a class="post-tags post-tags-java" href="https://michalkowol.github.io/tags/java">java</a>
+    
+      <a class="post-tags post-tags-development" href="https://michalkowol.github.io/tags/development">development</a>
+    
+      <a class="post-tags post-tags-json" href="https://michalkowol.github.io/tags/json">json</a>
+    
+      <a class="post-tags post-tags-jackson" href="https://michalkowol.github.io/tags/jackson">jackson</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+
