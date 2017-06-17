@@ -41,152 +41,8 @@
   <nav class="sidebar-nav">
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
-
     
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-
     <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
   </nav>
 </div>
@@ -219,7 +75,11 @@
     </div>
   
   <div class="content">
-  <p>Closures in JS can simulate classes. Polymorphism, encapsulation and inheritance are avilable in this aproach.</p>
+  
+
+<h2 id="closures">Closures</h2>
+
+<p>Closures in JS can simulate classes. Polymorphism, encapsulation and inheritance are avilable in this aproach.</p>
 
 <pre><code class="language-javascript">function _extend(object, source) {
     for (var key in source) {
@@ -323,6 +183,120 @@ classB.bar();       // ClassA.bar.start
                     // ClassA.bar.end
 </code></pre>
 
+<h2 id="traits">Traits</h2>
+
+<p>Defintion from <a href="http://docs.scala-lang.org/tutorials/tour/traits.html">docs.scala-lang.org</a>:</p>
+
+<blockquote>
+<p>Traits are used to share interfaces and fields between classes. They are similar to Java 8’s interfaces. Classes and objects can extend traits but traits cannot be instantiated and therefore have no parameters.</p>
+</blockquote>
+
+<pre><code class="language-javascript">function _extend(object, source) {
+    for (var key in source) {
+        if (source.hasOwnProperty(key)) {
+            object[key] = source[key];
+        }
+    }
+    return object;
+}
+
+function _with() {
+    var self = {};
+    var args = Array.prototype.slice.call(arguments);
+    for (var i = 0; i &lt; args.length; i++) {
+        args[i](self);
+    }
+    self.super = _extend({}, self);
+    return self;
+}
+</code></pre>
+
+<p>Traits example:</p>
+
+<pre><code class="language-javascript">var mtv = (function (mtv) {
+    'use strict';
+ 
+    mtv.TraitA = function (self) {
+        self.functionA = function () {
+            console.log('[start]: TraitA.functionA');
+            console.log(self.getModel());
+            console.log('[end]: TraitA.functionA');
+        };
+ 
+        self.dummyModel = function () {
+            console.log('[start]: TraitA.dummyModel');
+            console.log('[end]: TraitA.dummyModel');
+        };
+    };
+ 
+    mtv.TraitB = function (self) {
+        self.functionB = function () {
+            console.log('[start]: TraitB.functionB');
+            console.log(self.getModel());
+            console.log('[end]: TraitB.functionB');
+        };
+ 
+        self.dummyModel = function () {
+            console.log('[start]: TraitB.dummyModel');
+            console.log('[end]: TraitB.dummyModel');
+        };
+ 
+        self.onlyB = function () {
+            console.log('[start]: TraitB.onlyB');
+            console.log('[end]: TraitB.onlyB');
+        };
+    };
+ 
+    mtv.classWithTraitATraitB = function (model) {
+        var self = _with(mtv.TraitA, mtv.TraitB);
+ 
+        self.getModel = function () {
+            console.log('[start]: classWithTraitATraitB.getModel');
+            console.log('[end]: classWithTraitATraitB.getModel');
+            return model;
+        };
+ 
+        self.functionB = function () {
+            console.log('[start]: classWithTraitATraitB.functionB');
+            self.super.functionB();
+            self.functionA();
+            console.log('[end]: classWithTraitATraitB.functionB');
+        };
+ 
+        return self;
+    };
+ 
+    var classA = mtv.classWithTraitATraitB('model');
+    classA.functionA();
+    classA.functionB();
+    classA.dummyModel();
+    return mtv;
+})(mtv || {});
+</code></pre>
+
+<p>Result:</p>
+
+<pre><code>[start]: TraitA.functionA
+[start]: classWithTraitATraitB.getModel
+[end]: classWithTraitATraitB.getModel
+model
+[end]: TraitA.functionA
+[start]: classWithTraitATraitB.functionB
+[start]: TraitB.functionB
+[start]: classWithTraitATraitB.getModel
+[end]: classWithTraitATraitB.getModel
+model
+[end]: TraitB.functionB
+[start]: TraitA.functionA
+[start]: classWithTraitATraitB.getModel
+[end]: classWithTraitATraitB.getModel
+model
+[end]: TraitA.functionA
+[end]: classWithTraitATraitB.functionB
+[start]: TraitB.dummyModel
+[end]: TraitB.dummyModel
+</code></pre>
+
   </div>
   <div class="tags">
   
@@ -332,6 +306,12 @@ classB.bar();       // ClassA.bar.start
       <a class="post-tags post-tags-development" href="https://michalkowol.github.io/tags/development">development</a>
     
       <a class="post-tags post-tags-javascript" href="https://michalkowol.github.io/tags/javascript">javascript</a>
+    
+      <a class="post-tags post-tags-closures" href="https://michalkowol.github.io/tags/closures">closures</a>
+    
+      <a class="post-tags post-tags-traits" href="https://michalkowol.github.io/tags/traits">traits</a>
+    
+      <a class="post-tags post-tags-scala" href="https://michalkowol.github.io/tags/scala">scala</a>
     
     </div>
   

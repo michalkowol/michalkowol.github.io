@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Oop on Michał Kowol</title>
+    <link>https://michalkowol.github.io/tags/oop/</link>
+    <description>Recent content in Oop on Michał Kowol</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 24 Apr 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/oop/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>&#34;Classes&#34; and Singletions in JavaScript</title>
+      <link>https://michalkowol.github.io/posts/2014-04-24-classes-and-singletions-in-javascript/</link>
+      <pubDate>Thu, 24 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2014-04-24-classes-and-singletions-in-javascript/</guid>
+      <description>Overview Javascript way to simulate Object-Oriented-Programming.
+Classes In JS there are a lot of way to simulate classes.
+Example 1 var com = com || {}; com.Video = function (videoID) { &#39;use strict&#39;; var self = {}; function bar() { return &#39;bar&#39; + videoID; } self.foo = function () { return &#39;foo&#39; + bar() + videoID; }; return self; }; com.Video(&#39;123&#39;).foo();  Example 2 var com = com || {}; (function () { &#39;use strict&#39;; com.</description>
+    </item>
+    
+  </channel>
+</rss>

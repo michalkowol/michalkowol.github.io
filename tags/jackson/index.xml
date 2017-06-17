@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jackson on Michał Kowol</title>
-    <link>https://michalkowol.github.io/tags/jackson/index.xml</link>
+    <link>https://michalkowol.github.io/tags/jackson/</link>
     <description>Recent content in Jackson on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://michalkowol.github.io/tags/jackson/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/jackson/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>How to deserialize abstract types from JSON using Jackson?</title>
@@ -14,104 +17,9 @@
       <pubDate>Mon, 23 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2017-01-23-jackson/</guid>
-      <description>
-
-&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-
-&lt;p&gt;Sometimes you need deserialize JSON to Java abstract types. Good example is list of animals.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-  &amp;quot;animals&amp;quot;: [
-    {
-      &amp;quot;name&amp;quot;: &amp;quot;Szarik&amp;quot;,
-      &amp;quot;ageInYears&amp;quot;: 3,
-      &amp;quot;type&amp;quot;: &amp;quot;dog&amp;quot;
-    },
-    {
-      &amp;quot;name&amp;quot;: &amp;quot;Filemon&amp;quot;,
-      &amp;quot;livesLeft&amp;quot;: 6,
-      &amp;quot;type&amp;quot;: &amp;quot;cat&amp;quot;
-    }
-  ]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In this case you need to serialize animals to specific types using &lt;code&gt;type&lt;/code&gt; property.&lt;/p&gt;
-
-&lt;h3 id=&#34;java-data-classes-lombock&#34;&gt;Java Data Classes (Lombock)&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import lombok.Data;
-
-interface Animal {
-}
-
-@Data
-class AnimalsContainer {
-    private final List&amp;lt;Animal&amp;gt; animals = new LinkedList&amp;lt;&amp;gt;();
-}
-
-@Data
-class Dog implements Animal {
-    private final String name;
-    private final Integer ageInYears;
-}
-
-@Data
-class Cat implements Animal {
-    private final String name;
-    private final Integer livesLeft;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;json-type-info-annotations&#34;&gt;Json Type Info Annotations&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = &amp;quot;type&amp;quot;)
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = Dog.class, name = &amp;quot;dog&amp;quot;),
-        @JsonSubTypes.Type(value = Cat.class, name = &amp;quot;cat&amp;quot;)
-})
-interface Animal {
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Please note that we use property &lt;code&gt;type&lt;/code&gt; to determine specific subclass of &lt;code&gt;Animal&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&#34;test-junit-5&#34;&gt;Test (jUnit 5)&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-public class AnimalsTest {
-    @Test
-    @DisplayName(&amp;quot;it should deserialize arrays of animal to specific types&amp;quot;)
-    public void animals() throws Throwable {
-        // given
-        String json = Files.readAsText(&amp;quot;mediabus/examples/animals.json&amp;quot;);
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.findAndRegisterModules();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        // when
-        List&amp;lt;Animal&amp;gt; animals = objectMapper.readValue(json, AnimalsContainer.class).getAnimals();
-        // then
-        assertEquals(2, animals.size());
-        assertEquals(Dog.class, animals.get(0).getClass());
-        assertEquals(3, ((Dog) animals.get(0)).getAgeInYears().intValue());
-        assertEquals(Cat.class, animals.get(1).getClass());
-        assertEquals(6, ((Cat) animals.get(1)).getLivesLeft().intValue());
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;System.out.println(animals);&lt;/code&gt; prints &lt;code&gt;[Dog(name=Szarik, ageInYears=3), Cat(name=Filemon, livesLeft=6)]&lt;/code&gt;.&lt;/p&gt;
-</description>
+      <description>Overview Sometimes you need deserialize JSON to Java abstract types. Good example is list of animals.
+{ &amp;quot;animals&amp;quot;: [ { &amp;quot;name&amp;quot;: &amp;quot;Szarik&amp;quot;, &amp;quot;ageInYears&amp;quot;: 3, &amp;quot;type&amp;quot;: &amp;quot;dog&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;Filemon&amp;quot;, &amp;quot;livesLeft&amp;quot;: 6, &amp;quot;type&amp;quot;: &amp;quot;cat&amp;quot; } ] }  In this case you need to serialize animals to specific types using type property.
+Java Data Classes (Lombock) import lombok.Data; interface Animal { } @Data class AnimalsContainer { private final List&amp;lt;Animal&amp;gt; animals = new LinkedList&amp;lt;&amp;gt;(); } @Data class Dog implements Animal { private final String name; private final Integer ageInYears; } @Data class Cat implements Animal { private final String name; private final Integer livesLeft; }  Json Type Info Annotations import com.</description>
     </item>
     
   </channel>

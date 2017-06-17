@@ -2,53 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Puzzle on Michał Kowol</title>
-    <link>https://michalkowol.github.io/tags/puzzle/index.xml</link>
+    <link>https://michalkowol.github.io/tags/puzzle/</link>
     <description>Recent content in Puzzle on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://michalkowol.github.io/tags/puzzle/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 22 Nov 2013 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/puzzle/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
-      <title>Java puzzle</title>
+      <title>Java Puzzle - initialization order</title>
       <link>https://michalkowol.github.io/posts/2013-11-22-java-puzzle/</link>
       <pubDate>Fri, 22 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2013-11-22-java-puzzle/</guid>
-      <description>&lt;p&gt;Let&amp;rsquo;s consider code bellow&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;class ClassMain {
- 
-  private val mainVar = &amp;quot;Main&amp;quot;
-  showMeTheMain()
- 
-  protected def showMeTheMain() {
-    println(mainVar)
-  }
-}
- 
-class ClassA extends ClassMain {
- 
-  private val a = &amp;quot;qwerty&amp;quot;
-  showMeTheMain()
- 
-  override def showMeTheMain() {
-    println(&amp;quot;not main anymore&amp;quot; + a.toUpperCase())
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Result of this code is &lt;code&gt;NullPointerException&lt;/code&gt;. This is because we override method &lt;code&gt;showMeTheMain&lt;/code&gt;, but we want to use &lt;code&gt;a&lt;/code&gt; parameter.&lt;/p&gt;
-
-&lt;p&gt;This is how program is executed:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Constructor of &lt;code&gt;ClassMain&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Method &lt;code&gt;ClassA.showMeTheMain&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Constructor of &lt;code&gt;ClassA&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In this example we changed access qualification from protected to public. We can increase access qualification, but we cannot make it more restrict.&lt;/p&gt;
-</description>
+      <description>Overview When I applied my first full-time job, a guy during recruitment showed me the following code and asked me what would happen? It supposed to show if I understand initialization order in Java.
+Example class ClassMain { private final String mainVar = &amp;quot;Main&amp;quot;; ClassMain() { showMeTheMain(); } protected void showMeTheMain() { System.out.println(mainVar); } } class ClassA extends ClassMain { private String a = &amp;quot;qwerty&amp;quot;; ClassA() { showMeTheMain(); } @Override public void showMeTheMain() { System.</description>
     </item>
     
   </channel>

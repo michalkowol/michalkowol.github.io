@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Michał Kowol</title>
+    <link>https://michalkowol.github.io/tags/</link>
+    <description>Recent content in Tags on Michał Kowol</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 01 Dec 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Akka</title>
+      <link>https://michalkowol.github.io/tags/akka/</link>
+      <pubDate>Mon, 01 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/akka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ap</title>
+      <link>https://michalkowol.github.io/tags/ap/</link>
+      <pubDate>Sat, 21 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/ap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Backup</title>
+      <link>https://michalkowol.github.io/tags/backup/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/backup/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bean</title>
+      <link>https://michalkowol.github.io/tags/bean/</link>
+      <pubDate>Thu, 05 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/bean/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Boot</title>
+      <link>https://michalkowol.github.io/tags/boot/</link>
+      <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/boot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cifi</title>
+      <link>https://michalkowol.github.io/tags/cifi/</link>
+      <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/cifi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Closures</title>
+      <link>https://michalkowol.github.io/tags/closures/</link>
+      <pubDate>Tue, 22 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/closures/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Development</title>
+      <link>https://michalkowol.github.io/tags/development/</link>
+      <pubDate>Mon, 23 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Header</title>
+      <link>https://michalkowol.github.io/tags/header/</link>
+      <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/header/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Howto</title>
+      <link>https://michalkowol.github.io/tags/howto/</link>
+      <pubDate>Sat, 21 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/howto/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Http</title>
+      <link>https://michalkowol.github.io/tags/http/</link>
+      <pubDate>Thu, 01 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/http/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Jackson</title>
+      <link>https://michalkowol.github.io/tags/jackson/</link>
+      <pubDate>Mon, 23 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/jackson/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>https://michalkowol.github.io/tags/java/</link>
+      <pubDate>Mon, 23 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Javascript</title>
+      <link>https://michalkowol.github.io/tags/javascript/</link>
+      <pubDate>Tue, 22 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Json</title>
+      <link>https://michalkowol.github.io/tags/json/</link>
+      <pubDate>Mon, 23 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/json/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Jvm</title>
+      <link>https://michalkowol.github.io/tags/jvm/</link>
+      <pubDate>Mon, 01 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/jvm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://michalkowol.github.io/tags/linux/</link>
+      <pubDate>Sat, 10 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Locale</title>
+      <link>https://michalkowol.github.io/tags/locale/</link>
+      <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/locale/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mc</title>
+      <link>https://michalkowol.github.io/tags/mc/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/mc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Midnight Commander</title>
+      <link>https://michalkowol.github.io/tags/midnight-commander/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/midnight-commander/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Network</title>
+      <link>https://michalkowol.github.io/tags/network/</link>
+      <pubDate>Sat, 21 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/network/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nginx</title>
+      <link>https://michalkowol.github.io/tags/nginx/</link>
+      <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nmap</title>
+      <link>https://michalkowol.github.io/tags/nmap/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/nmap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Oop</title>
+      <link>https://michalkowol.github.io/tags/oop/</link>
+      <pubDate>Thu, 24 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/oop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Photoshop</title>
+      <link>https://michalkowol.github.io/tags/photoshop/</link>
+      <pubDate>Sat, 10 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/photoshop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Puzzle</title>
+      <link>https://michalkowol.github.io/tags/puzzle/</link>
+      <pubDate>Fri, 22 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/puzzle/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Random</title>
+      <link>https://michalkowol.github.io/tags/random/</link>
+      <pubDate>Sat, 21 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/random/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Recruitment</title>
+      <link>https://michalkowol.github.io/tags/recruitment/</link>
+      <pubDate>Fri, 22 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/recruitment/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rsnapshot</title>
+      <link>https://michalkowol.github.io/tags/rsnapshot/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/rsnapshot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rsync</title>
+      <link>https://michalkowol.github.io/tags/rsync/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/rsync/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Samba</title>
+      <link>https://michalkowol.github.io/tags/samba/</link>
+      <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/samba/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Scala</title>
+      <link>https://michalkowol.github.io/tags/scala/</link>
+      <pubDate>Mon, 01 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/scala/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Scan</title>
+      <link>https://michalkowol.github.io/tags/scan/</link>
+      <pubDate>Sat, 10 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/scan/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Smb</title>
+      <link>https://michalkowol.github.io/tags/smb/</link>
+      <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/smb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spark</title>
+      <link>https://michalkowol.github.io/tags/spark/</link>
+      <pubDate>Thu, 01 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/spark/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spring</title>
+      <link>https://michalkowol.github.io/tags/spring/</link>
+      <pubDate>Thu, 05 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/spring/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ssh</title>
+      <link>https://michalkowol.github.io/tags/ssh/</link>
+      <pubDate>Sat, 29 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/ssh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Synology</title>
+      <link>https://michalkowol.github.io/tags/synology/</link>
+      <pubDate>Sat, 29 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/synology/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tech</title>
+      <link>https://michalkowol.github.io/tags/tech/</link>
+      <pubDate>Sat, 10 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/tech/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Traits</title>
+      <link>https://michalkowol.github.io/tags/traits/</link>
+      <pubDate>Tue, 22 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/traits/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>User</title>
+      <link>https://michalkowol.github.io/tags/user/</link>
+      <pubDate>Sat, 10 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/user/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>User Management</title>
+      <link>https://michalkowol.github.io/tags/user-management/</link>
+      <pubDate>Sat, 10 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/user-management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Utilities</title>
+      <link>https://michalkowol.github.io/tags/utilities/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/utilities/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web</title>
+      <link>https://michalkowol.github.io/tags/web/</link>
+      <pubDate>Thu, 01 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/tags/web/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

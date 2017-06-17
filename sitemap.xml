@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>https://michalkowol.github.io/posts/2017-01-23-jackson/</loc>
@@ -52,6 +53,16 @@
   </url>
   
   <url>
+    <loc>https://michalkowol.github.io/posts/2016-11-03-backup-with-rsnapshot/</loc>
+    <lastmod>2016-11-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/posts/2016-11-03-midnight-commander/</loc>
+    <lastmod>2016-11-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://michalkowol.github.io/posts/2016-11-03-nmap/</loc>
     <lastmod>2016-11-03T00:00:00+00:00</lastmod>
   </url>
@@ -74,11 +85,6 @@
   <url>
     <loc>https://michalkowol.github.io/posts/2014-11-28-scala-notes/</loc>
     <lastmod>2014-11-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://michalkowol.github.io/posts/2014-10-23-traits-in-javascript/</loc>
-    <lastmod>2014-10-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -115,7 +121,7 @@
   
   <url>
     <loc>https://michalkowol.github.io/tags/backup/</loc>
-    <lastmod>2016-10-30T00:00:00+00:00</lastmod>
+    <lastmod>2016-11-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -139,6 +145,12 @@
   <url>
     <loc>https://michalkowol.github.io/tags/cifi/</loc>
     <lastmod>2016-11-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/tags/closures/</loc>
+    <lastmod>2014-07-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -198,19 +210,31 @@
   
   <url>
     <loc>https://michalkowol.github.io/categories/javascript/</loc>
-    <lastmod>2014-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2014-07-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://michalkowol.github.io/tags/javascript/</loc>
-    <lastmod>2014-10-23T00:00:00+00:00</lastmod>
+    <lastmod>2014-07-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://michalkowol.github.io/tags/json/</loc>
     <lastmod>2017-01-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/categories/jvm/</loc>
+    <lastmod>2014-12-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/tags/jvm/</loc>
+    <lastmod>2014-12-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -233,8 +257,20 @@
   </url>
   
   <url>
+    <loc>https://michalkowol.github.io/tags/mc/</loc>
+    <lastmod>2016-11-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://michalkowol.github.io/</loc>
     <lastmod>2017-01-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/tags/midnight-commander/</loc>
+    <lastmod>2016-11-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -259,6 +295,12 @@
   <url>
     <loc>https://michalkowol.github.io/tags/nmap/</loc>
     <lastmod>2016-11-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/tags/oop/</loc>
+    <lastmod>2014-04-24T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -299,8 +341,20 @@
   </url>
   
   <url>
+    <loc>https://michalkowol.github.io/tags/recruitment/</loc>
+    <lastmod>2013-11-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/tags/rsnapshot/</loc>
+    <lastmod>2016-11-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://michalkowol.github.io/tags/rsync/</loc>
-    <lastmod>2016-10-30T00:00:00+00:00</lastmod>
+    <lastmod>2016-11-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -360,6 +414,7 @@
   
   <url>
     <loc>https://michalkowol.github.io/tags/</loc>
+    <lastmod>2014-12-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -376,8 +431,8 @@
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/tags/trait/</loc>
-    <lastmod>2014-04-24T00:00:00+00:00</lastmod>
+    <loc>https://michalkowol.github.io/tags/traits/</loc>
+    <lastmod>2014-07-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

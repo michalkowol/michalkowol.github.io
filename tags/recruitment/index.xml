@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Recruitment on Michał Kowol</title>
+    <link>https://michalkowol.github.io/tags/recruitment/</link>
+    <description>Recent content in Recruitment on Michał Kowol</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 22 Nov 2013 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/recruitment/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Java Puzzle - initialization order</title>
+      <link>https://michalkowol.github.io/posts/2013-11-22-java-puzzle/</link>
+      <pubDate>Fri, 22 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2013-11-22-java-puzzle/</guid>
+      <description>Overview When I applied my first full-time job, a guy during recruitment showed me the following code and asked me what would happen? It supposed to show if I understand initialization order in Java.
+Example class ClassMain { private final String mainVar = &amp;quot;Main&amp;quot;; ClassMain() { showMeTheMain(); } protected void showMeTheMain() { System.out.println(mainVar); } } class ClassA extends ClassMain { private String a = &amp;quot;qwerty&amp;quot;; ClassA() { showMeTheMain(); } @Override public void showMeTheMain() { System.</description>
+    </item>
+    
+  </channel>
+</rss>

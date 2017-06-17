@@ -41,152 +41,8 @@
   <nav class="sidebar-nav">
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
-
     
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-
     <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
   </nav>
 </div>
@@ -221,24 +77,46 @@
     </div>
   
   <div class="content">
-  <ul>
-<li><a href="http://stackoverflow.com/questions/16981128/nmap-ip-range-specification">http://stackoverflow.com/questions/16981128/nmap-ip-range-specification</a></li>
-<li><a href="https://hackertarget.com/nmap-cheatsheet-a-quick-reference-guide/">https://hackertarget.com/nmap-cheatsheet-a-quick-reference-guide/</a></li>
-<li><a href="https://www.garron.me/en/go2linux/nmap-command-graph-front-end-port-scan.html">https://www.garron.me/en/go2linux/nmap-command-graph-front-end-port-scan.html</a></li>
-<li><code>namp nmap 192.168.0.0/24</code> Scan a subnet</li>
-<li><code>nmap 192.168.0.0/24</code> Scan a range of IPs</li>
-<li><code>nmap 192.168.0.1-20</code> Scan a range of IPs</li>
-<li><code>nmap 192.168.0.1-20 192.168.0.30-40</code> Scan a range of IPs</li>
-<li><code>nmap -sS 192.168.1.1</code></li>
-<li><code>nmap -sS 192.168.0.1-20</code></li>
-<li>Scan a single Port <code>nmap -p 22 192.168.1.1</code></li>
-<li>Scan a range of ports <code>nmap -p 1-100 192.168.1.1</code></li>
-<li>Scan 100 most common ports (Fast) <code>nmap -F 192.168.1.1</code></li>
-<li>Scan all 65535 ports <code>nmap -p- 192.168.1.1</code></li>
-<li>Scan using TCP connect <code>nmap -sT 192.168.1.1</code></li>
-<li>Scan using TCP SYN scan (default) <code>nmap -sS 192.168.1.1</code></li>
-<li>Scan UDP ports <code>nmap -sU -p 123,161,162 192.168.1.1</code></li>
-<li>Heartbleed Testing <code>nmap -sV -p 443 --script=ssl-heartbleed 192.168.1.0/24</code></li>
+  
+
+<h2 id="overview">Overview</h2>
+
+<p><a href="https://nmap.org/">Nmap</a> (&ldquo;Network Mapper&rdquo;) is a free and open source utility for network discovery and security auditing. Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics.</p>
+
+<h2 id="examples">Examples</h2>
+
+<pre><code class="language-bash"># Scan a subnet
+namp 192.168.0.0/24
+# Scan a range of IPs
+nmap 192.168.0.1-20
+# Scan ranges of IPs
+nmap 192.168.0.1-20 192.168.0.30-40
+# Scan using TCP SYN scan (default)
+nmap -sS 192.168.1.1
+# Scan a single Port
+nmap -p 22 192.168.1.1
+# Scan a range of ports
+nmap -p 1-100 192.168.1.1
+# Scan 100 most common ports (Fast)
+nmap -F 192.168.1.1
+# Scan all 65535 ports
+nmap -p- 192.168.1.1
+# Scan using TCP connect
+nmap -sT 192.168.1.1
+# Scan UDP ports
+nmap -sU -p 123,161,162 192.168.1.1
+# Heartbleed Testing - http://heartbleed.com/
+nmap -sV -p 443 --script=ssl-heartbleed 192.168.1.0/24
+</code></pre>
+
+<h2 id="references">References</h2>
+
+<ul>
+<li><a href="https://nmap.org/">Nmap: the Network Mapper - Free Security Scanner</a></li>
+<li><a href="http://heartbleed.com/">Heartbleed Bug</a></li>
+<li><a href="https://stackoverflow.com/questions/16981128/nmap-ip-range-specification">ip address - Nmap ip range specification - Stack Overflow</a></li>
+<li><a href="https://hackertarget.com/nmap-cheatsheet-a-quick-reference-guide/">Nmap Cheat Sheet | HackerTarget.com</a></li>
+<li><a href="https://www.garron.me/en/go2linux/nmap-command-graph-front-end-port-scan.html">nmap - how to scan hosts of networks for open ports</a></li>
 </ul>
 
   </div>

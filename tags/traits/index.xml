@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Traits on Michał Kowol</title>
+    <link>https://michalkowol.github.io/tags/traits/</link>
+    <description>Recent content in Traits on Michał Kowol</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 22 Jul 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/traits/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>&#34;Closures&#34; in JavaScript</title>
+      <link>https://michalkowol.github.io/posts/2014-07-22-closures-in-javascript/</link>
+      <pubDate>Tue, 22 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2014-07-22-closures-in-javascript/</guid>
+      <description>Closures Closures in JS can simulate classes. Polymorphism, encapsulation and inheritance are avilable in this aproach.
+function _extend(object, source) { for (var key in source) { if (source.hasOwnProperty(key)) { object[key] = source[key]; } } return object; }  var mtv = (function (mtv) { &#39;use strict&#39;; mtv.ClassA = function (a) { var self = {}; self.a = a; function privateInA () { console.log(&#39;ClassA.privateInA.start&#39;); console.log(self.a); console.log(&#39;ClassA.privateInA.end&#39;); } self.bar = function () { console.</description>
+    </item>
+    
+  </channel>
+</rss>

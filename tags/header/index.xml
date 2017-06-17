@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Header on Michał Kowol</title>
-    <link>https://michalkowol.github.io/tags/header/index.xml</link>
+    <link>https://michalkowol.github.io/tags/header/</link>
     <description>Recent content in Header on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://michalkowol.github.io/tags/header/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Nov 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/header/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>/boot 100% and can&#39;t purge</title>
@@ -14,41 +17,7 @@
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-07-linux-headers/</guid>
-      <description>
-
-&lt;h2 id=&#34;solution&#34;&gt;Solution&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;code&gt;sudo apt-get install&lt;/code&gt; &amp;ndash;fix-broken should fail but list unused packets&lt;/li&gt;
-&lt;li&gt;free them one by one using sudo &lt;code&gt;dpkg --purge ...&lt;/code&gt;. If a packet refuse to uninstall due to dependencies, just advance to the next one.&lt;/li&gt;
-&lt;li&gt;After uninstalling everything you could, &lt;code&gt;sudo apt-get install --fix-broken&lt;/code&gt; again, and this time it should work.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;So, after upgrading kernels and rebooting to test it, you can remove all other kernels with:&lt;/p&gt;
-
-&lt;p&gt;To list all installed kernels, run:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;dpkg -l linux-image-\* | grep ^ii
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Command to show all kernels and headers that can be removed, excluding the current running kernel:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;kernelver=$(uname -r | sed -r &#39;s/-[a-z]+//&#39;)
-dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $2}&#39; | grep -ve $kernelver
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So, after upgrading kernels and rebooting to test it, you can remove all other kernels with:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo apt-get purge $(dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $2}&#39; | grep -ve &amp;quot;$(uname -r | sed -r &#39;s/-[a-z]+//&#39;)&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://askubuntu.com/questions/89710/how-do-i-free-up-more-space-in-boot&#34;&gt;How do I free up more space in /boot?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://askubuntu.com/questions/337456/boot-100-and-cant-purge&#34;&gt;/boot 100% and can&amp;rsquo;t purge&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Solution  sudo apt-get install &amp;ndash;fix-broken should fail but list unused packets free them one by one using sudo dpkg --purge .... If a packet refuse to uninstall due to dependencies, just advance to the next one. After uninstalling everything you could, sudo apt-get install --fix-broken again, and this time it should work.  So, after upgrading kernels and rebooting to test it, you can remove all other kernels with:</description>
     </item>
     
   </channel>

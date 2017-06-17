@@ -41,152 +41,8 @@
   <nav class="sidebar-nav">
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
-
     
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-
     <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
   </nav>
 </div>
@@ -216,12 +72,103 @@
     
       <a class="post-category post-category-java" href="https://michalkowol.github.io/categories/java">java</a>
     
+      <a class="post-category post-category-jvm" href="https://michalkowol.github.io/categories/jvm">jvm</a>
+    
     </div>
   
   <div class="content">
   
 
-<h2 id="simple-example">Simple example:</h2>
+<h2 id="overview">Overview</h2>
+
+<p>Post bellow refers to the old version of Spring. In modern Spring application you don&rsquo;t need to write xml files. You can do almost everything from java code.</p>
+
+<h2 id="example">Example</h2>
+
+<pre><code class="language-java">interface Fruit {
+    String eat();
+
+    String getName();
+}
+
+interface Peelable {
+    String peel();
+}
+
+interface PeelableFruit extends Fruit, Peelable {
+}
+
+class Apple implements PeelableFruit {
+    @Override
+    public String peel() {
+        return &quot;peeling &quot; + getName();
+    }
+
+    @Override
+    public String eat() {
+        return &quot;omnonnom &quot; + getName();
+    }
+
+    @Override
+    public String getName() {
+        return &quot;apple&quot;;
+    }
+}
+
+class Peeler {
+    String peel(Peelable peelable) {
+        return peelable.peel() + &quot; with peeler&quot;;
+    }
+}
+
+class Juicer {
+    private final Peeler peeler;
+    private final PeelableFruit fruit;
+
+    public Juicer(Peeler peeler, PeelableFruit fruit) {
+        this.peeler = peeler;
+        this.fruit = fruit;
+    }
+
+    public String makeJuice() {
+        return peeler.peel(fruit) + &quot;\n&quot; +
+            &quot;squeezing &quot; + fruit.getName() + &quot;\n&quot; +
+            &quot;Ready!&quot;;
+    }
+}
+
+</code></pre>
+
+<p><code>Boot</code> for examples with xml files:</p>
+
+<pre><code class="language-java">class Boot {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
+        Juicer j1 = context.getBean(Juicer.class);
+        Juicer j2 = context.getBean(Juicer.class);
+        System.out.println(j1 == j2);
+    }
+}
+</code></pre>
+
+<p>And <code>Boot</code> for new way:</p>
+
+<pre><code class="language-java">@SpringBootApplication
+class Boot {
+    public static void main(String[] args) {
+        ConfigurableApplicationContext context = SpringApplication.run(Boot.class, args);
+        Juicer j1 = context.getBean(Juicer.class);
+        Juicer j2 = context.getBean(Juicer.class);
+        System.out.println(j1 == j2);
+    }
+}
+</code></pre>
+
+<h3 id="singletion-scope">Singletion scope</h3>
+
+<p>Default scope is <code>singleton</code>. If you want to use other scopes you need to use annotation <code>@Scope</code>.</p>
+
+<h4 id="the-old-xml-ish-way">The old, xml-ish way</h4>
 
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
  
@@ -234,82 +181,104 @@
         &lt;constructor-arg ref=&quot;apple&quot; /&gt;
         &lt;constructor-arg ref=&quot;peeler&quot; /&gt;
     &lt;/bean&gt;
-    &lt;bean id=&quot;peeler&quot; class=&quot;Peeler&quot;&gt;
-        &lt;constructor-arg ref=&quot;apple&quot; /&gt;
-    &lt;/bean&gt;
+    &lt;bean id=&quot;peeler&quot; class=&quot;Peeler&quot;/&gt;
+    
 &lt;/beans&gt;
 </code></pre>
 
-<pre><code class="language-xml">&lt;!-- ... --&gt;
-&lt;bean id=&quot;juicer&quot; class=&quot;Juicer&quot; scope=&quot;prototype&quot;&gt;
-&lt;!-- ... --&gt;
+<h4 id="the-new-way">The new way</h4>
+
+<pre><code class="language-java">@Configuration
+class AppConfig {
+    @Bean
+    PeelableFruit fruit() {
+        return new Apple();
+    }
+
+    @Bean
+    Peeler peeler() {
+        return new Peeler();
+    }
+
+    @Bean
+    Juicer juicer(Peeler peeler, PeelableFruit fruit) {
+        return new Juicer(peeler, fruit);
+    }
+}
 </code></pre>
 
-<pre><code class="language-java">public interface Fruit {
-    void eat();
-    String getName();
-}
+<h4 id="result">Result</h4>
 
-public interface Peelable {
-    void peel();
-}
+<p>Result of running <code>Boot</code> is <code>true</code>. This is because we alwyas get the same instance (the same addedss in memory) of <code>Juicer</code>.</p>
 
-public class Apple implements Fruit, Peelable {
-    public void peel() { }
-    public void eat() { }
-    String getName() { return &quot;apple&quot;; }
-}
+<h3 id="prototype-scope">Prototype scope</h3>
 
-public class Peeler {
-    private final Peelable peelable;
+<h4 id="the-old-xml-ish-way-1">The old, xml-ish way</h4>
+
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
  
-    public Peeler(Peelable peelable) {
-        this.peelable = peelable;
-    }
-}
-
-public class Juicer {
-    private final Peelable peelable;
-    private final Peeler peeler;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt;
  
-    public Juicer(Peelable peelable, Peeler peeler) {
-        this.peelable = peelable;
-        this.peeler = peeler;
+    &lt;bean id=&quot;apple&quot; class=&quot;Apple&quot; /&gt;
+    &lt;bean id=&quot;juicer&quot; class=&quot;Juicer&quot; scope=&quot;prototype&quot;&gt;
+        &lt;constructor-arg ref=&quot;apple&quot; /&gt;
+        &lt;constructor-arg ref=&quot;peeler&quot; /&gt;
+    &lt;/bean&gt;
+    &lt;bean id=&quot;peeler&quot; class=&quot;Peeler&quot;/&gt;
+    
+&lt;/beans&gt;
+</code></pre>
+
+<h4 id="the-new-way-1">The new way</h4>
+
+<pre><code class="language-java">@Configuration
+class AppConfig {
+    @Bean
+    PeelableFruit fruit() {
+        return new Apple();
+    }
+
+    @Bean
+    Peeler peeler() {
+        return new Peeler();
+    }
+
+    @Bean
+    @Scope(&quot;prototype&quot;)
+    Juicer juicer(Peeler peeler, PeelableFruit fruit) {
+        return new Juicer(peeler, fruit);
     }
 }
 </code></pre>
 
-<pre><code class="language-java">public class MainAppPrototype {
-    public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans_prototype.xml&quot;);
-        Juicer j1 = context.getBean(Juicer.class);
-        Juicer j2 = context.getBean(Juicer.class);
-        System.out.println(j1 == j2);
-    }
-}
-</code></pre>
+<h4 id="result-1">Result</h4>
 
-<pre><code class="language-java">public class MainAppSingleton {
-    public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
-        Juicer j1 = context.getBean(Juicer.class);
-        Juicer j2 = context.getBean(Juicer.class);
-        System.out.println(j1 == j2);
-    }
-}
-</code></pre>
-
-<p><code>MainAppSingleton</code> execution result: <code>true</code>.</p>
-
-<p><code>MainAppPrototype</code> execution result: <code>false</code>.</p>
+<p>Result of running <code>Boot</code> is <code>false</code>. This is because we alwyas get the new instances of <code>Juicer</code>.</p>
 
 <h2 id="resolving-conflicts-in-constructor-s-arguments">Resolving conflicts in constructor&rsquo;s arguments.</h2>
 
-<pre><code class="language-xml">&lt;bean id=&quot;test&quot; class=&quot;Test&quot;&gt;
-    &lt;constructor-arg value=&quot;xhajs&quot; /&gt;
-    &lt;constructor-arg value=&quot;md5&quot; /&gt;
-&lt;/bean&gt;
+<pre><code class="language-java">class PasswordWithType {
+    private String type;
+    private String password;
+
+    PasswordWithType(String type, String password) {
+        this.type = type;
+        this.password = password;
+    }
+
+    String getPassword() {
+        return password;
+    }
+
+    String getType() {
+        return type;
+    }
+}
 </code></pre>
+
+<h3 id="the-old-xml-ish-way-2">The old, xml-ish way</h3>
 
 <pre><code class="language-xml">&lt;bean id=&quot;test&quot; class=&quot;Test&quot;&gt;
     &lt;constructor-arg name=&quot;password&quot; value=&quot;xhajs&quot; /&gt;
@@ -317,36 +286,67 @@ public class Juicer {
 &lt;/bean&gt;
 </code></pre>
 
-<pre><code class="language-java">public class Test {
- 
-    private String type;
-    private String password;
- 
-    public Test(String type, String password) {
-        this.type = type;
-        this.password = password;
-    }
-     
-    public String getPassword() {
-        return password;
-    }
-     
-    public String getType() {
-        return type;
+<pre><code class="language-java">class Boot {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);
+        PasswordWithType passwordWithType = context.getBean(PasswordWithType.class);
+        System.out.println(&quot;type=&quot; + passwordWithType.getType());
+        System.out.println(&quot;password=&quot; + passwordWithType.getPassword());
     }
 }
 </code></pre>
 
-<p>With <code>bean1.xml</code>:</p>
+<p>And result:</p>
 
-<pre><code>Test.type = xhajs
-Test.password= md5
+<pre><code class="language-text">type = md5
+password= xhajs
 </code></pre>
 
-<p>With <code>bean2.xml</code>:</p>
+<p>Note that we used <code>name</code> attribute in the xml. If didn&rsquo;t use, we would end <code>type = xhajs</code>.</p>
 
-<pre><code>Test.type = md5
-Test.password= xhajs
+<h3 id="the-new-way-2">The new way</h3>
+
+<pre><code class="language-java">@Configuration
+class AppConfig {
+    @Bean
+    String type() {
+        return &quot;md5&quot;;
+    }
+
+    @Bean
+    String password() {
+        return &quot;xhajs&quot;;
+    }
+
+    @Bean
+    PasswordWithType PasswordWithType(String type, String password) {
+        return new PasswordWithType(type, password);
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">@SpringBootApplication
+class Boot {
+    public static void main(String[] args) {
+        ConfigurableApplicationContext context = SpringApplication.run(Boot.class, args);
+        PasswordWithType passwordWithType = context.getBean(PasswordWithType.class);
+        System.out.println(&quot;type=&quot; + passwordWithType.getType());
+        System.out.println(&quot;password=&quot; + passwordWithType.getPassword());
+    }
+}
+</code></pre>
+
+<p>And result:</p>
+
+<pre><code class="language-text">type = md5
+password= xhajs
+</code></pre>
+
+<p>If we use java to configure our app we do not have to use names. Spring is smart enought to figure it out base on name of the methods in <code>@Configurotion</code> classes.</p>
+
+<p>If we want tou specify specific name we could use <code>javax.inject.Named</code> annotation - example <code>@Named(&quot;type&quot;)</code>. We need to add that dependency:</p>
+
+<pre><code class="language-gradle">compile 'javax.inject:javax.inject:1'
 </code></pre>
 
 <h2 id="factories">Factories</h2>
@@ -429,7 +429,7 @@ Test.password= xhajs
 
 <p>Result:</p>
 
-<pre><code>Eating a banana: omomom
+<pre><code class="language-text">Eating a banana: omomom
 </code></pre>
 
 <p>Plum with name:</p>
@@ -441,7 +441,7 @@ Test.password= xhajs
 
 <p>Result:</p>
 
-<pre><code>Eating a plum sliwka: omomom
+<pre><code class="language-text">Eating a plum sliwka: omomom
 </code></pre>
 
 <p>Plum by name using createFruit method:</p>
@@ -453,7 +453,7 @@ Test.password= xhajs
 
 <p>Result:</p>
 
-<pre><code>Eating a plum defaultName: omomom
+<pre><code class="language-text">Eating a plum defaultName: omomom
 </code></pre>
 
   </div>
@@ -465,6 +465,8 @@ Test.password= xhajs
       <a class="post-tags post-tags-development" href="https://michalkowol.github.io/tags/development">development</a>
     
       <a class="post-tags post-tags-java" href="https://michalkowol.github.io/tags/java">java</a>
+    
+      <a class="post-tags post-tags-jvm" href="https://michalkowol.github.io/tags/jvm">jvm</a>
     
       <a class="post-tags post-tags-spring" href="https://michalkowol.github.io/tags/spring">spring</a>
     

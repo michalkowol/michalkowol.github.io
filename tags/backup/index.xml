@@ -2,11 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Backup on Michał Kowol</title>
-    <link>https://michalkowol.github.io/tags/backup/index.xml</link>
+    <link>https://michalkowol.github.io/tags/backup/</link>
     <description>Recent content in Backup on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://michalkowol.github.io/tags/backup/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Nov 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/backup/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Backups with rsnapshot</title>
+      <link>https://michalkowol.github.io/posts/2016-11-03-backup-with-rsnapshot/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-11-03-backup-with-rsnapshot/</guid>
+      <description>Docker test enviroment Dockerfile:
+FROM ubuntu:17.10 RUN apt-get update &amp;amp;&amp;amp; apt-get install -y rsnapshot ENTRYPOINT [&amp;quot;/bin/bash&amp;quot;]  and run it with
+docker build -t ubuntu-rsnapshot . docker run --name ubuntu-rsnapshot-bash -it ubuntu-rsnapshot  to attach another terminal you can use
+docker exec -it ubuntu-rsnapshot-bash /bin/bash  Rsnapshot configuration You can find configuration in /etc/rsnapshot.conf
+The most interesing parts of config:
+config_version 1.2 cmd_cp	/bin/cp cmd_rm	/bin/rm cmd_rsync	/usr/bin/rsync cmd_ssh	/usr/bin/ssh cmd_logger	/usr/bin/logger verbose	2 loglevel	3 logfile	/var/log/rsnapshot.</description>
+    </item>
     
     <item>
       <title>How to: rsync</title>
@@ -14,104 +31,8 @@
       <pubDate>Sun, 30 Oct 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-10-30-rsync-how-to/</guid>
-      <description>
-
-&lt;h3 id=&#34;documentation&#34;&gt;Documentation&lt;/h3&gt;
-
-&lt;p&gt;rsync selected options&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;-a, --archive It is more commonly used than -r (recursive) and is usually what you want to use.
--z, --compress With this option, rsync compresses the file data as it is sent to the destination machine
--v, --verbose This option increases the amount of information the daemon logs during its startup phase.
--x, --one-file-system This tells rsync to avoid crossing a filesystem boundary when recursing.
--A, --acls Preserve ACLs (implies -p).
--H, --hard-links This tells rsync to look for hard-linked files.
--X, --xattrs This option causes rsync to update the remote extended attributes to be the same as the local ones.
--e, --rsh=COMMAND Specify the remote shell to use.
---delete-after Receiver deletes after transfer, not before.
--n, --dry-run This makes rsync perform a trial run that doesn&#39;t make any changes.
---progress This option tells rsync to print information showing the progress of the transfer.
---human-readable Output numbers in a more human-readable format.
---append-verify Append w/old data in file checksum
---protect-args This option sends all filenames and most options to the remote rsync without allowing the remote shell to interpret them. This means that spaces are not split in names, and any non-wildcard special characters are not translated (such as ~, $, ;, &amp;amp;, etc.). Wildcards are expanded on the remote host by rsync (instead of the shell doing it)
---exclude-from Exclude files or directories from given file
---max-size=300mb Don&#39;t transfer any file larger than SIZE
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;examples&#34;&gt;Examples&lt;/h3&gt;
-
-&lt;h4 id=&#34;simple-examples&#34;&gt;Simple examples&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# without ssh
-rsync -avzx . user@hostname::NetBackup/owncloud
-# with ssh
-rsync -avzx -e ssh . user@hostname:~/tmp
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;more-advanced-examples&#34;&gt;More advanced examples&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# with dry run (no changes - files are not deleted on server)
-rsync -avzx --dry-run --delete-after -e ssh . user@hostname:~/tmp
-# with ssh on port 48419
-rsync -avzx -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
-# with progress information
-rsync -avzx --progress -e ssh . user@hostname:~/tmp
-# human readable format - kilk/mega/giga bytes instead of bytes
-rsync -avzx --human-readable -e ssh . user@hostname:~/tmp
-# delete files *after* sync is complete
-rsync -avzx --delete-after -e ssh . user@hostname:~/tmp
-# with mac to linux file change encoding
-rsync -avzx --iconv=utf-8-mac,utf-8 -e ssh . user@hostname:~/tmp
-# with append w/old data in file checksum
-rsync -avzx --append-verify -e ssh . user@hostname:~/tmp
-# protect spaces
-rsync -avzx --protect-args -e ssh . &amp;quot;user@hostname:/homes/michal/tmp with space&amp;quot;
-# exclude files from &#39;exclude.txt&#39;
-rsync -avzx --exclude-from &#39;exclude.txt&#39; -e ssh . user@hostname:~/tmp
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;sync-direction&#34;&gt;Sync direction&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# from server to laptop
-rsync [OPTION...] &amp;lt;server-path&amp;gt; &amp;lt;laptop-path&amp;gt;
-# form laptop to server
-rsync [OPTION...] &amp;lt;laptop-path&amp;gt; &amp;lt;server-path&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;full-example&#34;&gt;Full example&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;rsync -avzx --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable --max-size=300mb -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
-rsync -avzx --append-verify --progress --human-readable --max-size=300mb -e ssh . user@hostname:~/tmp
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;On windows (&lt;a href=&#34;https://www.itefix.net/cwrsync&#34;&gt;cwRsync&lt;/a&gt;)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rsync -avzx --append-verify --progress --human-readable -e &amp;quot;ssh -p 48419 -i c:\ssh\id_rsa&amp;quot; &amp;quot;c/dir/dir/&amp;quot; user@hostname:~/tmp/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;notes&#34;&gt;Notes&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;trailing &lt;code&gt;/&lt;/code&gt; in directory name is &lt;strong&gt;very&lt;/strong&gt; important - there is a big difference between &lt;code&gt;rsync dir1 dir2&lt;/code&gt; and &lt;code&gt;rsync dir1/ dir2/&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps&#34;&gt;https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;always use &lt;code&gt;--iconv=utf-8-mac,utf-8&lt;/code&gt; when initialising the rsync from the mac&lt;/li&gt;
-&lt;li&gt;always use &lt;code&gt;--iconv=utf-8,utf-8-mac&lt;/code&gt; when initialising the rsync from the linux&lt;/li&gt;
-&lt;li&gt;the &lt;code&gt;--iconv&lt;/code&gt; argument cam with &lt;code&gt;rsync&lt;/code&gt; version 3.0.0 (release notes) OSX provides only version 2.6.9&lt;/li&gt;
-&lt;li&gt;upgrade rsync on mac &lt;code&gt;brew update &amp;amp;&amp;amp; brew tap homebrew/dupes &amp;amp;&amp;amp; brew install rsync&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;--append-verify&lt;/code&gt; isn&amp;rsquo;t dangerous: It will always read and compare the data on both ends and not just assume they&amp;rsquo;re equal. It does this using checksums, so it&amp;rsquo;s easy on the network, but it does require reading the shared amount of data on both ends of the wire before it can actually resume the transfer by appending to the target.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Thus you need to get a newer version latest is 3.1.1 (2.6.9 was released in 2006)&lt;/p&gt;
-
-&lt;p&gt;I would also get a newer version rsync as xattr copying was also introduced after 2.6.9&lt;/p&gt;
-
-&lt;h3 id=&#34;references&#34;&gt;References&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://linux.die.net/man/1/rsync&#34;&gt;rsync man&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.itefix.net/cwrsync&#34;&gt;cwRsync&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Documentation rsync selected options
+-a, --archive It is more commonly used than -r (recursive) and is usually what you want to use. -z, --compress With this option, rsync compresses the file data as it is sent to the destination machine -v, --verbose This option increases the amount of information the daemon logs during its startup phase. -x, --one-file-system This tells rsync to avoid crossing a filesystem boundary when recursing. -A, --acls Preserve ACLs (implies -p).</description>
     </item>
     
   </channel>

@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on Michał Kowol</title>
-    <link>https://michalkowol.github.io/tags/linux/index.xml</link>
+    <link>https://michalkowol.github.io/tags/linux/</link>
     <description>Recent content in Linux on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://michalkowol.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Dec 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>User management in Linux</title>
@@ -14,133 +17,7 @@
       <pubDate>Sat, 10 Dec 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-12-12-user-management/</guid>
-      <description>
-
-&lt;h2 id=&#34;add-delete-users-and-groups&#34;&gt;Add, delete users and groups&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;addgroup groupname&lt;/code&gt; - creates new group&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;adduser username&lt;/code&gt; - creates new user&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;usermod -a -G groupname1,groupane2 username&lt;/code&gt; - adds existing user to existing group&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;deluser username&lt;/code&gt; - deletes user&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;groups username&lt;/code&gt; - list all groups for user&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;chmod&#34;&gt;chmod&lt;/h2&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Mode&lt;/th&gt;
-&lt;th&gt;Name&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;r&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;read&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;w&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;write&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;x&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;execute&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;X&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;special execute&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;s&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;setuid/gid&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;t&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;sticky&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Reference&lt;/th&gt;
-&lt;th&gt;Class&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;u&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;owner&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;g&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;group&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;o&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;others&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;a&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;all&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Operator&lt;/th&gt;
-&lt;th&gt;Description&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;+&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;adds the specified modes to the specified classes&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;-&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;removes the specified modes from the specified classes&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;=&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;the modes specified are to be made the exact modes for the specified classes&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&#34;files-permissions&#34;&gt;Files permissions&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;chown -R username:groupname path&lt;/code&gt; - changes file/directory owner and its group&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;chown -R :groupname path&lt;/code&gt; - changes file/directory group&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;chmod -R a-x+X path&lt;/code&gt; - remove the execute permission on all files in a directory tree, while allowing for directory browsing&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;chmod -R a+X directory&lt;/code&gt; - allowing for directory browsing for all&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://kb.iu.edu/d/abdb&#34;&gt;In Unix, how do I change the permissions for a file?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Add, delete users and groups  addgroup groupname - creates new group adduser username - creates new user usermod -a -G groupname1,groupane2 username - adds existing user to existing group deluser username - deletes user groups username - list all groups for user  chmod    Mode Name     r read   w write   x execute   X special execute   s setuid/gid   t sticky       Reference Class     u owner   g group   o others   a all       Operator Description     + adds the specified modes to the specified classes   - removes the specified modes from the specified classes   = the modes specified are to be made the exact modes for the specified classes    Files permissions  chown -R username:groupname path - changes file/directory owner and its group chown -R :groupname path - changes file/directory group chmod -R a-x+X path - remove the execute permission on all files in a directory tree, while allowing for directory browsing chmod -R a+X directory - allowing for directory browsing for all  Links  In Unix, how do I change the permissions for a file?</description>
     </item>
     
     <item>
@@ -149,41 +26,7 @@
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-07-linux-headers/</guid>
-      <description>
-
-&lt;h2 id=&#34;solution&#34;&gt;Solution&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;code&gt;sudo apt-get install&lt;/code&gt; &amp;ndash;fix-broken should fail but list unused packets&lt;/li&gt;
-&lt;li&gt;free them one by one using sudo &lt;code&gt;dpkg --purge ...&lt;/code&gt;. If a packet refuse to uninstall due to dependencies, just advance to the next one.&lt;/li&gt;
-&lt;li&gt;After uninstalling everything you could, &lt;code&gt;sudo apt-get install --fix-broken&lt;/code&gt; again, and this time it should work.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;So, after upgrading kernels and rebooting to test it, you can remove all other kernels with:&lt;/p&gt;
-
-&lt;p&gt;To list all installed kernels, run:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;dpkg -l linux-image-\* | grep ^ii
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Command to show all kernels and headers that can be removed, excluding the current running kernel:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;kernelver=$(uname -r | sed -r &#39;s/-[a-z]+//&#39;)
-dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $2}&#39; | grep -ve $kernelver
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So, after upgrading kernels and rebooting to test it, you can remove all other kernels with:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo apt-get purge $(dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $2}&#39; | grep -ve &amp;quot;$(uname -r | sed -r &#39;s/-[a-z]+//&#39;)&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://askubuntu.com/questions/89710/how-do-i-free-up-more-space-in-boot&#34;&gt;How do I free up more space in /boot?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://askubuntu.com/questions/337456/boot-100-and-cant-purge&#34;&gt;/boot 100% and can&amp;rsquo;t purge&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Solution  sudo apt-get install &amp;ndash;fix-broken should fail but list unused packets free them one by one using sudo dpkg --purge .... If a packet refuse to uninstall due to dependencies, just advance to the next one. After uninstalling everything you could, sudo apt-get install --fix-broken again, and this time it should work.  So, after upgrading kernels and rebooting to test it, you can remove all other kernels with:</description>
     </item>
     
     <item>
@@ -192,112 +35,9 @@ dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-07-nginx-cifs/</guid>
-      <description>
-
-&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
-
-&lt;p&gt;Create folder &lt;code&gt;/media/storage/dir/&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;mkdir -p /media/storage/dir/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Next, mount shared directory. &lt;code&gt;uid&lt;/code&gt; and &lt;code&gt;gid&lt;/code&gt; are very important because without this you will get &lt;code&gt;403 Forbidden&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo mount -t cifs -o uid=www-data,gid=www-data,ro,username=username,password=password //10.0.0.2/shared/ /media/storage/dir/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;-t cifs&lt;/code&gt; - type of fs (&lt;code&gt;cifs&lt;/code&gt; - Common Internet File System, also known as &lt;code&gt;smb&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;uid&lt;/code&gt; - specific user&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;gid&lt;/code&gt; - specific groutp&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ro&lt;/code&gt; - read-only&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;rw&lt;/code&gt; - read-write&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - shared directory username&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - shared directory password&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Modify &lt;code&gt;nginx&lt;/code&gt; config (&lt;code&gt;/etc/nginx/sites-available/somefile&lt;/code&gt;)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#...
-server {
-  location / { 
-    alias /media/storage/dir/;
-    autoindex on;
-    autoindex_localtime on;
-    autoindex_exact_size off;
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;password-protecion&#34;&gt;Password protecion&lt;/h3&gt;
-
-&lt;p&gt;Add user &lt;code&gt;bob&lt;/code&gt; to &lt;code&gt;.htpasswd&lt;/code&gt; file using this command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo sh -c &amp;quot;echo -n &#39;bob:&#39; &amp;gt;&amp;gt; /etc/nginx/.htpasswd&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Add an encrypted password for the username:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo sh -c &amp;quot;openssl passwd -apr1 &amp;gt;&amp;gt; /etc/nginx/.htpasswd&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Remember to set correct permissions:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo chown www-data:www-data /etc/nginx/.htpasswd
-sudo chown 600 /etc/nginx/.htpasswd
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Add this to &lt;code&gt;ngnix&lt;/code&gt; config:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#...
-server {
-  location / { 
-    alias /media/storage/dir/;
-    autoindex on;
-    autoindex_exact_size off;
-    autoindex_localtime on;
-    auth_basic &amp;quot;Restricted Content&amp;quot;;
-    auth_basic_user_file /etc/nginx/.htpasswd;
-    # disable_symlinks off; # ???
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;autoindex-for-all-locations-in-given-section&#34;&gt;Autoindex for all locations in given section&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;#...
-server {
-  
-  autoindex on;
-  autoindex_localtime on;
-  autoindex_exact_size off;
-
-  location / { 
-    alias /media/storage/;
-  }
-
-  location /foo { 
-    alias /media/storage/foo;
-  }
-
-  location /bar { 
-    alias /media/storage/test;
-  }
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/10631933/nginx-static-file-serving-confusion-with-root-alias&#34;&gt;Nginx — static file serving confusion with root &amp;amp; alias&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-nginx-on-ubuntu-14-04&#34;&gt;How To Set Up Password Authentication with Nginx&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-16-04&#34;&gt;How To Set Up an NFS Mount&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://wiki.qnap.com/wiki/Mounting_an_NFS_share_on_Ubuntu&#34;&gt;Mounting an NFS share on Ubuntu&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://superuser.com/questions/320415/linux-mount-device-with-specific-user-rights&#34;&gt;Linux - Mount device with specific user rights&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://unix.stackexchange.com/questions/68079/mount-cifs-network-drive-write-permissions-and-chown&#34;&gt;Mount cifs Network Drive: write permissions and chown&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Setup Create folder /media/storage/dir/
+mkdir -p /media/storage/dir/  Next, mount shared directory. uid and gid are very important because without this you will get 403 Forbidden.
+sudo mount -t cifs -o uid=www-data,gid=www-data,ro,username=username,password=password //10.0.0.2/shared/ /media/storage/dir/   -t cifs - type of fs (cifs - Common Internet File System, also known as smb) uid - specific user gid - specific groutp ro - read-only rw - read-write username - shared directory username password - shared directory password  Modify nginx config (/etc/nginx/sites-available/somefile)</description>
     </item>
     
     <item>
@@ -306,28 +46,10 @@ server {
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-07-locale/</guid>
-      <description>
-
-&lt;h3 id=&#34;locale&#34;&gt;Locale&lt;/h3&gt;
-
-&lt;p&gt;check which locales are supported:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;locale -a
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;add the locales you want (for example ru):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo locale-gen ru_RU
-sudo locale-gen ru_RU.UTF-8
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;run this update comand&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo update-locale 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://askubuntu.com/questions/76013/how-do-i-add-locale-to-ubuntu-server&#34;&gt;How do I add locale to ubuntu server?&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>Locale check which locales are supported:
+locale -a  add the locales you want (for example ru):
+sudo locale-gen ru_RU sudo locale-gen ru_RU.UTF-8  run this update comand
+sudo update-locale  How do I add locale to ubuntu server?</description>
     </item>
     
   </channel>

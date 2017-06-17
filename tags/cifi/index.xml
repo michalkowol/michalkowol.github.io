@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cifi on Michał Kowol</title>
-    <link>https://michalkowol.github.io/tags/cifi/index.xml</link>
+    <link>https://michalkowol.github.io/tags/cifi/</link>
     <description>Recent content in Cifi on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://michalkowol.github.io/tags/cifi/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Nov 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/cifi/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>How to server cifi shared folder using nginx.</title>
@@ -14,112 +17,9 @@
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-07-nginx-cifs/</guid>
-      <description>
-
-&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
-
-&lt;p&gt;Create folder &lt;code&gt;/media/storage/dir/&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;mkdir -p /media/storage/dir/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Next, mount shared directory. &lt;code&gt;uid&lt;/code&gt; and &lt;code&gt;gid&lt;/code&gt; are very important because without this you will get &lt;code&gt;403 Forbidden&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo mount -t cifs -o uid=www-data,gid=www-data,ro,username=username,password=password //10.0.0.2/shared/ /media/storage/dir/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;-t cifs&lt;/code&gt; - type of fs (&lt;code&gt;cifs&lt;/code&gt; - Common Internet File System, also known as &lt;code&gt;smb&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;uid&lt;/code&gt; - specific user&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;gid&lt;/code&gt; - specific groutp&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ro&lt;/code&gt; - read-only&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;rw&lt;/code&gt; - read-write&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - shared directory username&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - shared directory password&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Modify &lt;code&gt;nginx&lt;/code&gt; config (&lt;code&gt;/etc/nginx/sites-available/somefile&lt;/code&gt;)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#...
-server {
-  location / { 
-    alias /media/storage/dir/;
-    autoindex on;
-    autoindex_localtime on;
-    autoindex_exact_size off;
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;password-protecion&#34;&gt;Password protecion&lt;/h3&gt;
-
-&lt;p&gt;Add user &lt;code&gt;bob&lt;/code&gt; to &lt;code&gt;.htpasswd&lt;/code&gt; file using this command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo sh -c &amp;quot;echo -n &#39;bob:&#39; &amp;gt;&amp;gt; /etc/nginx/.htpasswd&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Add an encrypted password for the username:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo sh -c &amp;quot;openssl passwd -apr1 &amp;gt;&amp;gt; /etc/nginx/.htpasswd&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Remember to set correct permissions:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo chown www-data:www-data /etc/nginx/.htpasswd
-sudo chown 600 /etc/nginx/.htpasswd
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Add this to &lt;code&gt;ngnix&lt;/code&gt; config:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#...
-server {
-  location / { 
-    alias /media/storage/dir/;
-    autoindex on;
-    autoindex_exact_size off;
-    autoindex_localtime on;
-    auth_basic &amp;quot;Restricted Content&amp;quot;;
-    auth_basic_user_file /etc/nginx/.htpasswd;
-    # disable_symlinks off; # ???
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;autoindex-for-all-locations-in-given-section&#34;&gt;Autoindex for all locations in given section&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;#...
-server {
-  
-  autoindex on;
-  autoindex_localtime on;
-  autoindex_exact_size off;
-
-  location / { 
-    alias /media/storage/;
-  }
-
-  location /foo { 
-    alias /media/storage/foo;
-  }
-
-  location /bar { 
-    alias /media/storage/test;
-  }
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/10631933/nginx-static-file-serving-confusion-with-root-alias&#34;&gt;Nginx — static file serving confusion with root &amp;amp; alias&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-nginx-on-ubuntu-14-04&#34;&gt;How To Set Up Password Authentication with Nginx&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-16-04&#34;&gt;How To Set Up an NFS Mount&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://wiki.qnap.com/wiki/Mounting_an_NFS_share_on_Ubuntu&#34;&gt;Mounting an NFS share on Ubuntu&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://superuser.com/questions/320415/linux-mount-device-with-specific-user-rights&#34;&gt;Linux - Mount device with specific user rights&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://unix.stackexchange.com/questions/68079/mount-cifs-network-drive-write-permissions-and-chown&#34;&gt;Mount cifs Network Drive: write permissions and chown&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Setup Create folder /media/storage/dir/
+mkdir -p /media/storage/dir/  Next, mount shared directory. uid and gid are very important because without this you will get 403 Forbidden.
+sudo mount -t cifs -o uid=www-data,gid=www-data,ro,username=username,password=password //10.0.0.2/shared/ /media/storage/dir/   -t cifs - type of fs (cifs - Common Internet File System, also known as smb) uid - specific user gid - specific groutp ro - read-only rw - read-write username - shared directory username password - shared directory password  Modify nginx config (/etc/nginx/sites-available/somefile)</description>
     </item>
     
   </channel>

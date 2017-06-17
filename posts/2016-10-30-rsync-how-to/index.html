@@ -41,152 +41,8 @@
   <nav class="sidebar-nav">
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
-
     
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-
     <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
   </nav>
 </div>
@@ -225,7 +81,7 @@
 
 <p>rsync selected options</p>
 
-<pre><code>-a, --archive It is more commonly used than -r (recursive) and is usually what you want to use.
+<pre><code class="language-text">-a, --archive It is more commonly used than -r (recursive) and is usually what you want to use.
 -z, --compress With this option, rsync compresses the file data as it is sent to the destination machine
 -v, --verbose This option increases the amount of information the daemon logs during its startup phase.
 -x, --one-file-system This tells rsync to avoid crossing a filesystem boundary when recursing.
@@ -240,6 +96,7 @@
 --append-verify Append w/old data in file checksum
 --protect-args This option sends all filenames and most options to the remote rsync without allowing the remote shell to interpret them. This means that spaces are not split in names, and any non-wildcard special characters are not translated (such as ~, $, ;, &amp;, etc.). Wildcards are expanded on the remote host by rsync (instead of the shell doing it)
 --exclude-from Exclude files or directories from given file
+--exclude Exclude files
 --max-size=300mb Don't transfer any file larger than SIZE
 </code></pre>
 
@@ -259,23 +116,20 @@ rsync -avzx -e ssh . user@hostname:~/tmp
 rsync -avzx --dry-run --delete-after -e ssh . user@hostname:~/tmp
 # with ssh on port 48419
 rsync -avzx -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
-# with progress information
-rsync -avzx --progress -e ssh . user@hostname:~/tmp
-# human readable format - kilk/mega/giga bytes instead of bytes
-rsync -avzx --human-readable -e ssh . user@hostname:~/tmp
-# delete files *after* sync is complete
-rsync -avzx --delete-after -e ssh . user@hostname:~/tmp
 # with mac to linux file change encoding
 rsync -avzx --iconv=utf-8-mac,utf-8 -e ssh . user@hostname:~/tmp
-# with append w/old data in file checksum
-rsync -avzx --append-verify -e ssh . user@hostname:~/tmp
-# protect spaces
+# protects spaces
 rsync -avzx --protect-args -e ssh . &quot;user@hostname:/homes/michal/tmp with space&quot;
-# exclude files from 'exclude.txt'
+# excludes files from 'exclude.txt'
 rsync -avzx --exclude-from 'exclude.txt' -e ssh . user@hostname:~/tmp
+# preserves ACLs and update the remote extended attributes
+rsync -avzx --acls --xattrs -e ssh . user@hostname:~/tmp
 </code></pre>
 
-<h4 id="sync-direction">Sync direction</h4>
+<pre><code class="language-bash">rsync -avzx --acls --xattrs --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable --max-size=300mb --exclude-from 'exclude.txt' -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
+</code></pre>
+
+<h4 id="sync-directions">Sync directions</h4>
 
 <pre><code class="language-bash"># from server to laptop
 rsync [OPTION...] &lt;server-path&gt; &lt;laptop-path&gt;
@@ -283,13 +137,12 @@ rsync [OPTION...] &lt;server-path&gt; &lt;laptop-path&gt;
 rsync [OPTION...] &lt;laptop-path&gt; &lt;server-path&gt;
 </code></pre>
 
-<h4 id="full-example">Full example</h4>
+<h4 id="most-useful-example">Most useful example</h4>
 
-<pre><code>rsync -avzx --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable --max-size=300mb -e &quot;ssh -p 48419&quot; . user@hostname:~/tmp
-rsync -avzx --append-verify --progress --human-readable --max-size=300mb -e ssh . user@hostname:~/tmp
+<pre><code class="language-bash">rsync -avzx --acls --xattrs --append-verify --progress --human-readable -e ssh . user@hostname:~/tmp
 </code></pre>
 
-<p>On windows (<a href="https://www.itefix.net/cwrsync">cwRsync</a>)</p>
+<h3 id="on-windows-cwrsync-https-www-itefix-net-cwrsync">On windows (<a href="https://www.itefix.net/cwrsync">cwRsync</a>)</h3>
 
 <pre><code class="language-bash">rsync -avzx --append-verify --progress --human-readable -e &quot;ssh -p 48419 -i c:\ssh\id_rsa&quot; &quot;c/dir/dir/&quot; user@hostname:~/tmp/
 </code></pre>
@@ -301,20 +154,17 @@ rsync -avzx --append-verify --progress --human-readable --max-size=300mb -e ssh 
 <li><a href="https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps">https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps</a></li>
 <li>always use <code>--iconv=utf-8-mac,utf-8</code> when initialising the rsync from the mac</li>
 <li>always use <code>--iconv=utf-8,utf-8-mac</code> when initialising the rsync from the linux</li>
-<li>the <code>--iconv</code> argument cam with <code>rsync</code> version 3.0.0 (release notes) OSX provides only version 2.6.9</li>
+<li>the <code>--iconv</code> argument came with <code>rsync</code> version 3.0.0 (release notes) OSX provides only version 2.6.9</li>
 <li>upgrade rsync on mac <code>brew update &amp;&amp; brew tap homebrew/dupes &amp;&amp; brew install rsync</code></li>
 <li><code>--append-verify</code> isn&rsquo;t dangerous: It will always read and compare the data on both ends and not just assume they&rsquo;re equal. It does this using checksums, so it&rsquo;s easy on the network, but it does require reading the shared amount of data on both ends of the wire before it can actually resume the transfer by appending to the target.</li>
 </ul>
-
-<p>Thus you need to get a newer version latest is 3.1.1 (2.6.9 was released in 2006)</p>
-
-<p>I would also get a newer version rsync as xattr copying was also introduced after 2.6.9</p>
 
 <h3 id="references">References</h3>
 
 <ul>
 <li><a href="http://linux.die.net/man/1/rsync">rsync man</a></li>
-<li><a href="https://www.itefix.net/cwrsync">cwRsync</a></li>
+<li><a href="https://www.itefix.net/cwrsync">cwRsync - Rsync for Windows | itefix.net</a></li>
+<li><a href="http://www.trueblade.com/knowledge/using-rsync-and-cygwin-to-sync-files-from-a-linux-server-to-a-windows-notebook-pc">Using rsync and cygwin to Sync Files from a Linux Server to a Windows Notebook PC</a></li>
 </ul>
 
   </div>

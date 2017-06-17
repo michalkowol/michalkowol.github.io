@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on Michał Kowol</title>
-    <link>https://michalkowol.github.io/categories/java/index.xml</link>
+    <link>https://michalkowol.github.io/categories/java/</link>
     <description>Recent content in Java on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://michalkowol.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>How to deserialize abstract types from JSON using Jackson?</title>
@@ -14,104 +17,9 @@
       <pubDate>Mon, 23 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2017-01-23-jackson/</guid>
-      <description>
-
-&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-
-&lt;p&gt;Sometimes you need deserialize JSON to Java abstract types. Good example is list of animals.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-  &amp;quot;animals&amp;quot;: [
-    {
-      &amp;quot;name&amp;quot;: &amp;quot;Szarik&amp;quot;,
-      &amp;quot;ageInYears&amp;quot;: 3,
-      &amp;quot;type&amp;quot;: &amp;quot;dog&amp;quot;
-    },
-    {
-      &amp;quot;name&amp;quot;: &amp;quot;Filemon&amp;quot;,
-      &amp;quot;livesLeft&amp;quot;: 6,
-      &amp;quot;type&amp;quot;: &amp;quot;cat&amp;quot;
-    }
-  ]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In this case you need to serialize animals to specific types using &lt;code&gt;type&lt;/code&gt; property.&lt;/p&gt;
-
-&lt;h3 id=&#34;java-data-classes-lombock&#34;&gt;Java Data Classes (Lombock)&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import lombok.Data;
-
-interface Animal {
-}
-
-@Data
-class AnimalsContainer {
-    private final List&amp;lt;Animal&amp;gt; animals = new LinkedList&amp;lt;&amp;gt;();
-}
-
-@Data
-class Dog implements Animal {
-    private final String name;
-    private final Integer ageInYears;
-}
-
-@Data
-class Cat implements Animal {
-    private final String name;
-    private final Integer livesLeft;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;json-type-info-annotations&#34;&gt;Json Type Info Annotations&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = &amp;quot;type&amp;quot;)
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = Dog.class, name = &amp;quot;dog&amp;quot;),
-        @JsonSubTypes.Type(value = Cat.class, name = &amp;quot;cat&amp;quot;)
-})
-interface Animal {
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Please note that we use property &lt;code&gt;type&lt;/code&gt; to determine specific subclass of &lt;code&gt;Animal&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&#34;test-junit-5&#34;&gt;Test (jUnit 5)&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-public class AnimalsTest {
-    @Test
-    @DisplayName(&amp;quot;it should deserialize arrays of animal to specific types&amp;quot;)
-    public void animals() throws Throwable {
-        // given
-        String json = Files.readAsText(&amp;quot;mediabus/examples/animals.json&amp;quot;);
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.findAndRegisterModules();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        // when
-        List&amp;lt;Animal&amp;gt; animals = objectMapper.readValue(json, AnimalsContainer.class).getAnimals();
-        // then
-        assertEquals(2, animals.size());
-        assertEquals(Dog.class, animals.get(0).getClass());
-        assertEquals(3, ((Dog) animals.get(0)).getAgeInYears().intValue());
-        assertEquals(Cat.class, animals.get(1).getClass());
-        assertEquals(6, ((Cat) animals.get(1)).getLivesLeft().intValue());
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;System.out.println(animals);&lt;/code&gt; prints &lt;code&gt;[Dog(name=Szarik, ageInYears=3), Cat(name=Filemon, livesLeft=6)]&lt;/code&gt;.&lt;/p&gt;
-</description>
+      <description>Overview Sometimes you need deserialize JSON to Java abstract types. Good example is list of animals.
+{ &amp;quot;animals&amp;quot;: [ { &amp;quot;name&amp;quot;: &amp;quot;Szarik&amp;quot;, &amp;quot;ageInYears&amp;quot;: 3, &amp;quot;type&amp;quot;: &amp;quot;dog&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;Filemon&amp;quot;, &amp;quot;livesLeft&amp;quot;: 6, &amp;quot;type&amp;quot;: &amp;quot;cat&amp;quot; } ] }  In this case you need to serialize animals to specific types using type property.
+Java Data Classes (Lombock) import lombok.Data; interface Animal { } @Data class AnimalsContainer { private final List&amp;lt;Animal&amp;gt; animals = new LinkedList&amp;lt;&amp;gt;(); } @Data class Dog implements Animal { private final String name; private final Integer ageInYears; } @Data class Cat implements Animal { private final String name; private final Integer livesLeft; }  Json Type Info Annotations import com.</description>
     </item>
     
     <item>
@@ -120,100 +28,8 @@ public class AnimalsTest {
       <pubDate>Thu, 01 Dec 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-12-01-java-simple-http-servers/</guid>
-      <description>
-
-&lt;h2 id=&#34;java-build-in&#34;&gt;Java build-in&lt;/h2&gt;
-
-&lt;p&gt;Since Java SE 6, there&amp;rsquo;s a builtin HTTP server in &lt;del&gt;Sun&lt;/del&gt; Oracle JRE. The com.sun.net.httpserver package summary outlines the involved classes and contains examples.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
-import lombok.SneakyThrows;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-
-public class BootSunHttp {
-
-    public static void main(String[] args) {
-        new BootSunHttp().bootServer();
-    }
-
-    @SneakyThrows
-    private void bootServer() {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-        server.createContext(&amp;quot;/test&amp;quot;, new SimpleHandler());
-        server.setExecutor(null); // creates a default executor
-        server.start();
-    }
-
-    private static class SimpleHandler implements HttpHandler {
-
-        @Override
-        public void handle(HttpExchange t) throws IOException {
-            String response = &amp;quot;This is the response&amp;quot;;
-            t.sendResponseHeaders(200, response.length());
-            OutputStream os = t.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Noted should be that the response.length() part in their example is bad, it should have been response.getBytes().length. Even then, the getBytes() method must explicitly specify the charset which you then specify in the response header. Alas, albeit misguiding to starters, it&amp;rsquo;s after all just a basic kickoff example.&lt;/p&gt;
-
-&lt;p&gt;As to using &lt;code&gt;com.sun.*&lt;/code&gt; classes, do note that this is, in contrary to what some developers think, absolutely not forbidden by the well known FAQ &lt;a href=&#34;http://www.oracle.com/technetwork/java/faq-sun-packages-142232.html&#34;&gt;Why Developers Should Not Write Programs That Call &amp;lsquo;sun&amp;rsquo; Packages&lt;/a&gt;. That FAQ concerns the sun.* package (such as sun.misc.BASE64Encoder) for internal usage by the Oracle JRE (which would thus kill your application when you run it on a different JRE), not the com.sun.* package. Sun/Oracle also just develop software on top of the Java SE API themselves like as every other company such as Apache and so on. Using com.sun.* classes is only discouraged (but not forbidden) when it concerns an implementation of a certain Java API, such as GlassFish (Java EE impl), Mojarra (JSF impl), Jersey (JAX-RS impl), etc.&lt;/p&gt;
-
-&lt;h2 id=&#34;spark&#34;&gt;Spark&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import spark.Request;
-import spark.Response;
-import spark.Route;
-
-import static spark.Spark.get;
-import static spark.Spark.port;
-
-public class BootSparkHttp {
-
-    private final BarHandler barHandler = new BarHandler();
-
-    public static void main(String[] args) {
-        new BootSparkHttp().run();
-    }
-
-    private void run() {
-        port(8080);
-        get(&amp;quot;/hello&amp;quot;, (request, response) -&amp;gt; &amp;quot;Hello World!&amp;quot;);
-        get(&amp;quot;/foo/:id&amp;quot;, this::foo);
-        get(&amp;quot;/bar/:id&amp;quot;, barHandler);
-    }
-
-    private String foo(Request request, Response response) throws Exception {
-        String id = request.params(&amp;quot;:id&amp;quot;);
-        response.type(&amp;quot;application/json&amp;quot;);
-        return &amp;quot;{\&amp;quot;foo\&amp;quot;: \&amp;quot;&amp;quot; + id + &amp;quot;\&amp;quot;}&amp;quot;;
-    }
-
-    private static class BarHandler implements Route {
-        @Override
-        public String handle(Request request, Response response) throws Exception {
-            String id = request.params(&amp;quot;:id&amp;quot;);
-            return &amp;quot;bar=&amp;quot; + id;
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/3732109/simple-http-server-in-java-using-only-java-se-api&#34;&gt;simple HTTP server in Java using only Java SE API&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://sparkjava.com/&#34;&gt;Spark Framework - A tiny Java web framework&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Java build-in Since Java SE 6, there&amp;rsquo;s a builtin HTTP server in Sun Oracle JRE. The com.sun.net.httpserver package summary outlines the involved classes and contains examples.
+import com.sun.net.httpserver.HttpExchange; import com.sun.net.httpserver.HttpHandler; import com.sun.net.httpserver.HttpServer; import lombok.SneakyThrows; import java.io.IOException; import java.io.OutputStream; import java.net.InetSocketAddress; public class BootSunHttp { public static void main(String[] args) { new BootSunHttp().bootServer(); } @SneakyThrows private void bootServer() { HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0); server.createContext(&amp;quot;/test&amp;quot;, new SimpleHandler()); server.setExecutor(null); // creates a default executor server.</description>
     </item>
     
     <item>
@@ -222,286 +38,18 @@ public class BootSparkHttp {
       <pubDate>Thu, 05 Dec 2013 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2013-12-05-java-with-spring/</guid>
-      <description>
-
-&lt;h2 id=&#34;simple-example&#34;&gt;Simple example:&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
- 
-&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
-    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
-    xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&amp;quot;&amp;gt;
- 
-    &amp;lt;bean id=&amp;quot;apple&amp;quot; class=&amp;quot;Apple&amp;quot; /&amp;gt;
-    &amp;lt;bean id=&amp;quot;juicer&amp;quot; class=&amp;quot;Juicer&amp;quot;&amp;gt;
-        &amp;lt;constructor-arg ref=&amp;quot;apple&amp;quot; /&amp;gt;
-        &amp;lt;constructor-arg ref=&amp;quot;peeler&amp;quot; /&amp;gt;
-    &amp;lt;/bean&amp;gt;
-    &amp;lt;bean id=&amp;quot;peeler&amp;quot; class=&amp;quot;Peeler&amp;quot;&amp;gt;
-        &amp;lt;constructor-arg ref=&amp;quot;apple&amp;quot; /&amp;gt;
-    &amp;lt;/bean&amp;gt;
-&amp;lt;/beans&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- ... --&amp;gt;
-&amp;lt;bean id=&amp;quot;juicer&amp;quot; class=&amp;quot;Juicer&amp;quot; scope=&amp;quot;prototype&amp;quot;&amp;gt;
-&amp;lt;!-- ... --&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public interface Fruit {
-    void eat();
-    String getName();
-}
-
-public interface Peelable {
-    void peel();
-}
-
-public class Apple implements Fruit, Peelable {
-    public void peel() { }
-    public void eat() { }
-    String getName() { return &amp;quot;apple&amp;quot;; }
-}
-
-public class Peeler {
-    private final Peelable peelable;
- 
-    public Peeler(Peelable peelable) {
-        this.peelable = peelable;
-    }
-}
-
-public class Juicer {
-    private final Peelable peelable;
-    private final Peeler peeler;
- 
-    public Juicer(Peelable peelable, Peeler peeler) {
-        this.peelable = peelable;
-        this.peeler = peeler;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MainAppPrototype {
-    public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext(&amp;quot;beans_prototype.xml&amp;quot;);
-        Juicer j1 = context.getBean(Juicer.class);
-        Juicer j2 = context.getBean(Juicer.class);
-        System.out.println(j1 == j2);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MainAppSingleton {
-    public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext(&amp;quot;beans.xml&amp;quot;);
-        Juicer j1 = context.getBean(Juicer.class);
-        Juicer j2 = context.getBean(Juicer.class);
-        System.out.println(j1 == j2);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;MainAppSingleton&lt;/code&gt; execution result: &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;MainAppPrototype&lt;/code&gt; execution result: &lt;code&gt;false&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;resolving-conflicts-in-constructor-s-arguments&#34;&gt;Resolving conflicts in constructor&amp;rsquo;s arguments.&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;test&amp;quot; class=&amp;quot;Test&amp;quot;&amp;gt;
-    &amp;lt;constructor-arg value=&amp;quot;xhajs&amp;quot; /&amp;gt;
-    &amp;lt;constructor-arg value=&amp;quot;md5&amp;quot; /&amp;gt;
-&amp;lt;/bean&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;test&amp;quot; class=&amp;quot;Test&amp;quot;&amp;gt;
-    &amp;lt;constructor-arg name=&amp;quot;password&amp;quot; value=&amp;quot;xhajs&amp;quot; /&amp;gt;
-    &amp;lt;constructor-arg value=&amp;quot;md5&amp;quot; /&amp;gt;
-&amp;lt;/bean&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class Test {
- 
-    private String type;
-    private String password;
- 
-    public Test(String type, String password) {
-        this.type = type;
-        this.password = password;
-    }
-     
-    public String getPassword() {
-        return password;
-    }
-     
-    public String getType() {
-        return type;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;With &lt;code&gt;bean1.xml&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Test.type = xhajs
-Test.password= md5
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;With &lt;code&gt;bean2.xml&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Test.type = md5
-Test.password= xhajs
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;factories&#34;&gt;Factories&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
- 
-&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
-    xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
-    xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&amp;quot;&amp;gt;
- 
-    &amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;newBanana&amp;quot; /&amp;gt;
-&amp;lt;/beans&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public interface Fruit {
-    void eat();
-    String getName();
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public final class Fruits {
- 
-    private Fruits() {
-    }
-     
-    public static Fruit createFruit(String fruitName) {
-        if (fruitName.equals(&amp;quot;banana&amp;quot;)) {
-            return newBanana();
-        } else {
-            return newPlum(&amp;quot;defaultName&amp;quot;);
-        }
-    }
-     
-    public static Fruit newBanana() {
-        return new Banana();
-    }
-     
-    public static Fruit newPlum(String name) {
-        return new Plum(name);
-    }
-     
-    private static class Banana implements Fruit {
- 
-        public void eat() {
-            System.out.println(&amp;quot;Eating a banana: omomom&amp;quot;);
-        }
- 
-        public String getName() {
-            return &amp;quot;banana&amp;quot;;
-        }
-    }
-     
-    private static class Plum implements Fruit {
- 
-        private String name;
- 
-        public Plum(String name) {
-            this.name = name;
-        }
- 
-        public void eat() {
-            System.out.println(String.format(&amp;quot;Eating a plum %s: omomom&amp;quot;, name) );
-        }
- 
-        public String getName() {
-            return &amp;quot;plum&amp;quot;;
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MainApp {
-    public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext(&amp;quot;beans.xml&amp;quot;);
-        Fruit fruit = context.getBean(Fruit.class);
-        fruit.eat();
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Result:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Eating a banana: omomom
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Plum with name:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;newPlum&amp;quot;&amp;gt;
-    &amp;lt;constructor-arg value=&amp;quot;sliwka&amp;quot;&amp;gt;&amp;lt;/constructor-arg&amp;gt;
-&amp;lt;/bean&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Result:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Eating a plum sliwka: omomom
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Plum by name using createFruit method:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;fruit&amp;quot; class=&amp;quot;Fruits&amp;quot; factory-method=&amp;quot;createFruit&amp;quot;&amp;gt;
-    &amp;lt;constructor-arg value=&amp;quot;sliwka&amp;quot;&amp;gt;&amp;lt;/constructor-arg&amp;gt;
-&amp;lt;/bean&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Result:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Eating a plum defaultName: omomom
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Overview Post bellow refers to the old version of Spring. In modern Spring application you don&amp;rsquo;t need to write xml files. You can do almost everything from java code.
+Example interface Fruit { String eat(); String getName(); } interface Peelable { String peel(); } interface PeelableFruit extends Fruit, Peelable { } class Apple implements PeelableFruit { @Override public String peel() { return &amp;quot;peeling &amp;quot; + getName(); } @Override public String eat() { return &amp;quot;omnonnom &amp;quot; + getName(); } @Override public String getName() { return &amp;quot;apple&amp;quot;; } } class Peeler { String peel(Peelable peelable) { return peelable.</description>
     </item>
     
     <item>
-      <title>Java puzzle</title>
+      <title>Java Puzzle - initialization order</title>
       <link>https://michalkowol.github.io/posts/2013-11-22-java-puzzle/</link>
       <pubDate>Fri, 22 Nov 2013 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2013-11-22-java-puzzle/</guid>
-      <description>&lt;p&gt;Let&amp;rsquo;s consider code bellow&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;class ClassMain {
- 
-  private val mainVar = &amp;quot;Main&amp;quot;
-  showMeTheMain()
- 
-  protected def showMeTheMain() {
-    println(mainVar)
-  }
-}
- 
-class ClassA extends ClassMain {
- 
-  private val a = &amp;quot;qwerty&amp;quot;
-  showMeTheMain()
- 
-  override def showMeTheMain() {
-    println(&amp;quot;not main anymore&amp;quot; + a.toUpperCase())
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Result of this code is &lt;code&gt;NullPointerException&lt;/code&gt;. This is because we override method &lt;code&gt;showMeTheMain&lt;/code&gt;, but we want to use &lt;code&gt;a&lt;/code&gt; parameter.&lt;/p&gt;
-
-&lt;p&gt;This is how program is executed:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Constructor of &lt;code&gt;ClassMain&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Method &lt;code&gt;ClassA.showMeTheMain&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Constructor of &lt;code&gt;ClassA&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In this example we changed access qualification from protected to public. We can increase access qualification, but we cannot make it more restrict.&lt;/p&gt;
-</description>
+      <description>Overview When I applied my first full-time job, a guy during recruitment showed me the following code and asked me what would happen? It supposed to show if I understand initialization order in Java.
+Example class ClassMain { private final String mainVar = &amp;quot;Main&amp;quot;; ClassMain() { showMeTheMain(); } protected void showMeTheMain() { System.out.println(mainVar); } } class ClassA extends ClassMain { private String a = &amp;quot;qwerty&amp;quot;; ClassA() { showMeTheMain(); } @Override public void showMeTheMain() { System.</description>
     </item>
     
   </channel>

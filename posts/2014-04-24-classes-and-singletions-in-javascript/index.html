@@ -41,152 +41,8 @@
   <nav class="sidebar-nav">
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
-
     
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-
     <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
   </nav>
 </div>
@@ -219,120 +75,140 @@
     </div>
   
   <div class="content">
-  <p>In JS there are a lot of way to simulate classes. Here are examples:</p>
+  
+
+<h2 id="overview">Overview</h2>
+
+<p>Javascript way to simulate Object-Oriented-Programming.</p>
+
+<h2 id="classes">Classes</h2>
+
+<p>In JS there are a lot of way to simulate classes.</p>
+
+<h3 id="example-1">Example 1</h3>
 
 <pre><code class="language-javascript">var com = com || {};
 
-com.MTVClass1 = function (videoID) {
-    &quot;use strict&quot;;
+com.Video = function (videoID) {
+    'use strict';
     var self = {};
  
     function bar() {
-        return &quot;bar&quot; + videoID;
+        return 'bar' + videoID;
     }
  
     self.foo = function () {
-        return &quot;foo&quot; + bar() + videoID;
+        return 'foo' + bar() + videoID;
     };
  
     return self;
 };
 
-com.MTVClass1(&quot;123&quot;).foo();
+com.Video('123').foo();
 </code></pre>
+
+<h3 id="example-2">Example 2</h3>
 
 <pre><code class="language-javascript">var com = com || {};
  
 (function () {
     'use strict';
  
-    com.MTVClass2 = function (videoID) {
+    com.Video = function (videoID) {
         this.videoID = videoID;
     };
  
     function bar() {
-        return &quot;bar&quot;; // does not have access to videoID
+        return 'bar'; // it does not have access to videoID
     }
  
-    com.MTVClass2.prototype.foo = function () {
-        return &quot;foo&quot; + bar() + this.videoID;
+    com.Video.prototype.foo = function () {
+        return 'foo' + bar() + this.videoID;
     };
 }());
 
-new com.MTVClass2(&quot;1234&quot;).foo();
+new com.Video('123').foo();
 </code></pre>
+
+<h3 id="example-3">Example 3</h3>
 
 <pre><code class="language-javascript">var com = com || {};
  
-com.MTVClass3 = (function () {
+com.Video = (function () {
     'use strict';
  
-    function MTVClass3(videoID) {
+    function Video(videoID) {
         this.videoID = videoID;
     }
  
     function bar() {
-        return &quot;bar&quot;;  // does not have access to videoID
+        return 'bar';  // it does not have access to videoID
     }
  
-    MTVClass3.prototype.foo = function () {
-        return &quot;foo&quot; + bar() + this.videoID;
+    Video.prototype.foo = function () {
+        return 'foo' + bar() + this.videoID;
     };
  
-    return MTVClass3;
+    return Video;
 }());
 
-new com.MTVClass3(&quot;123&quot;).foo();
+new com.Video('123').foo();
 </code></pre>
+
+<h3 id="example-4">Example 4</h3>
 
 <pre><code class="language-javascript">var com = com || {};
  
-com.MTVClass4 = (function () {
+com.Video = (function () {
     'use strict';
  
-    function MTVClass4(videoID) {
+    function Video(videoID) {
         this.videoID = videoID;
     }
  
     function bar(self) {
-        return &quot;bar&quot; + self.videoID;
+        return 'bar' + self.videoID;
     }
  
-    MTVClass4.prototype.foo = function () {
-        return &quot;foo&quot; + bar(this) + this.videoID;
+    Video.prototype.foo = function () {
+        return 'foo' + bar(this) + this.videoID;
     };
  
-    return MTVClass4;
+    return Video;
 }());
 
-new com.MTVClass4(&quot;123&quot;).foo();
+new com.Video('123').foo();
 </code></pre>
+
+<p>In my option apporach from Example 1 is the best one. In Example 2 and Example 3 we do not have access to class fields. Example 1 has some small performance issue, but remeber:</p>
+
+<blockquote>
+<p>Premature optimization is the root of all evil.</p>
+</blockquote>
+
+<h2 id="objects">Objects</h2>
+
+<p>Sometimes you need to create Singleton Objects. It is a good way to store procedures - in example factory methods.</p>
 
 <pre><code class="language-javascript">var com = com || {};
  
-com.MTVObject = (function () {
-    &quot;use strict&quot;;
+com.VideoObject = (function () {
+    'use strict';
     var self = {};
  
     function bar() {
-        return &quot;bar&quot;;
+        return 'bar';
     }
  
     self.foo = function () {
-        return &quot;foo&quot; + bar();
+        return 'foo' + bar();
     };
  
     return self;
 }());
 
-com.MTVObject.foo();
+com.VideoObject.foo();
 </code></pre>
-
-<p>In my option <code>MTVClass1.js</code> approach is the best one. <code>MTVClass1.js</code> has similar concept like <code>MTVObject.js</code>. In <code>MTVClass2.js</code> and <code>MTVClass3.js</code> you do not have access to class fields. <code>MTVClass1.js</code> has some small performance issue, but remeber:</p>
-
-<blockquote>
-<p>Premature optimization is the root of all evil.</p>
-</blockquote>
 
   </div>
   <div class="tags">
@@ -344,7 +220,7 @@ com.MTVObject.foo();
     
       <a class="post-tags post-tags-javascript" href="https://michalkowol.github.io/tags/javascript">javascript</a>
     
-      <a class="post-tags post-tags-trait" href="https://michalkowol.github.io/tags/trait">trait</a>
+      <a class="post-tags post-tags-oop" href="https://michalkowol.github.io/tags/oop">oop</a>
     
     </div>
   

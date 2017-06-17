@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Synology on Michał Kowol</title>
-    <link>https://michalkowol.github.io/tags/synology/index.xml</link>
+    <link>https://michalkowol.github.io/tags/synology/</link>
     <description>Recent content in Synology on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://michalkowol.github.io/tags/synology/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Oct 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/synology/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Synology ssh with public key</title>
@@ -14,74 +17,10 @@
       <pubDate>Sat, 29 Oct 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-10-29-synology/</guid>
-      <description>
-
-&lt;p&gt;First of all generate ssh private and public key on your local machine.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;local&amp;gt; ssh-keygen -t rsa -b 4096 -C &amp;quot;yourmail@example.com&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It is good idea to create dedicated user for &lt;code&gt;rsync&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;synology&amp;gt; adduser rsync
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;By default Synology sets home directory rights to &lt;code&gt;777&lt;/code&gt;. &lt;code&gt;sshd&lt;/code&gt; is very picky and its needs different home directory rights.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;synology&amp;gt; chmod 755 /var/services/homes/rsync
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now, you need to modify &lt;code&gt;/etc/ssh/sshd_config&lt;/code&gt; on Synlogy. Make sure it has the following line uncommented.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# ...
-PubkeyAuthentication yes
-# ...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then you need to create the &lt;code&gt;authorized_keys&lt;/code&gt; file on Synlogy. To this file remote users add their public keys. File permissions are crucial here and if they are wrong ssh will refuse you.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;synology&amp;gt; su -s rsync
-synology&amp;gt; cd
-synology&amp;gt; pwd # make sure you are in /var/services/homes/rsync
-synology&amp;gt; mkdir .ssh
-synology&amp;gt; chmod 700 .ssh
-synology&amp;gt; touch .ssh/authorized_keys
-synology&amp;gt; chmod 600 .ssh/authorized_keys
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Typically you want the &lt;code&gt;.ssh&lt;/code&gt; directory permissions to be &lt;code&gt;700 (drwx------)&lt;/code&gt;, home directory to be &lt;code&gt;755 (drwxr-xr-x)&lt;/code&gt; and the public key (&lt;code&gt;.pub file&lt;/code&gt;) to be &lt;code&gt;644 (-rw-r--r--)&lt;/code&gt;. Your private key (&lt;code&gt;id_rsa&lt;/code&gt;) should be &lt;code&gt;600 (-rw-------)&lt;/code&gt;. &lt;code&gt;authorized_keys&lt;/code&gt; should be &lt;code&gt;600 (-rw-------)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Then add public key corresponding to a private key in one line in &lt;code&gt;authorized_keys&lt;/code&gt;. You can use this command.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;local&amp;gt; cat ~/.ssh/id_rsa.pub | ssh user@hostname &#39;cat &amp;gt;&amp;gt; .ssh/authorized_keys&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now restart Synology or quicker just force the ssh deamon to reload its config&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;synology&amp;gt; ps | grep sshd
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;synology&amp;gt; kill -HUP $PID
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You should now be able ssh to Synology as rsync with no password.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;local&amp;gt; ssh rsync@synology
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Note: How to change shell for user?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;chsh -s /usr/local/bin/bash username
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;/sbin/nologin&lt;/code&gt; disables login.&lt;/p&gt;
-
-&lt;h3 id=&#34;references&#34;&gt;References&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://karlcode.owtelse.com/blog/2015/06/27/passwordless-ssh-on-synology/&#34;&gt;Passwordless Ssh on Synology&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Generating SSH keys First of all generate SSH private and public keys on your local machine.
+local&amp;gt; ssh-keygen -t rsa -b 4096 -C &amp;quot;yourmail@example.com&amp;quot;  New user It is good idea to create dedicated user for rsync.
+synology&amp;gt; adduser rsync  SSH with public key on Synology Directories By default Synology sets home directory rights to 777. sshd is very picky and its needs different home directory rights.
+synology&amp;gt; chmod 755 /var/services/homes/rsync  Then you need to create the authorized_keys file on Synlogy.</description>
     </item>
     
   </channel>

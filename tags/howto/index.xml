@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Howto on Michał Kowol</title>
-    <link>https://michalkowol.github.io/tags/howto/index.xml</link>
+    <link>https://michalkowol.github.io/tags/howto/</link>
     <description>Recent content in Howto on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://michalkowol.github.io/tags/howto/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 21 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/howto/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>How to configure LB-LINK</title>
@@ -14,38 +17,9 @@
       <pubDate>Sat, 21 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2017-01-21-lb-link/</guid>
-      <description>
-
-&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-
-&lt;p&gt;Do you want to change WiFi to regular cable connection. Or you need cheap WiFI amplifier? This post is for you!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link.jpg&#34; alt=&#34;LB-LINK BL-MP01&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;You can by LB-LINK BL-MP01 for only 13$ (52 PLN). It is really cheap and it does it work.&lt;/p&gt;
-
-&lt;h2 id=&#34;repeater-client-mode&#34;&gt;Repeater (client mode)&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;If you want to change WiFi to regular cable connection you need to switch device to &lt;code&gt;Repeater&lt;/code&gt; mode.
-&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-000.jpg&#34; alt=&#34;LB-LINK BL-MP01&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Connect power and Ethernet cable.&lt;/li&gt;
-&lt;li&gt;Make sure power mode is on.&lt;/li&gt;
-&lt;li&gt;Turn off your WiFi adapter (please remember to turn it on after configuration is done).&lt;/li&gt;
-&lt;li&gt;Open configuration page: &lt;a href=&#34;http://192.168.16.254/&#34;&gt;http://192.168.16.254/&lt;/a&gt; in &lt;strong&gt;Internet Explorer&lt;/strong&gt; (it does not work correctly on Chrome).&lt;/li&gt;
-&lt;li&gt;Enter credentials (default - &lt;code&gt;admin:admin&lt;/code&gt;)
-&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-001.png&#34; alt=&#34;LB-LINK BL-MP01 Configuration Step 1&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Go to &lt;code&gt;Wireless&lt;/code&gt; tab and then open &lt;code&gt;site_survey&lt;/code&gt; sub-tab.
-&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-002.png&#34; alt=&#34;LB-LINK BL-MP01 Configuration Step 2&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Select wireless network to connect and click &lt;code&gt;Connect&lt;/code&gt; button. Enter your WiFi password.
-&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-003.png&#34; alt=&#34;LB-LINK BL-MP01 Configuration Step 3&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;After successful connection you should see handshake icon.
-&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-004.png&#34; alt=&#34;LB-LINK BL-MP01 Configuration Step 4&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Test you connection - &lt;a href=&#34;http://www.google.com/&#34;&gt;http://www.google.com/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Turn on your WiFi adapter.&lt;/li&gt;
-&lt;li&gt;Connect device you want to use using Ethernet cable (Console, Cable Box device etc., old computer).&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description>Overview Do you want to change WiFi to regular cable connection. Or you need cheap WiFI amplifier? This post is for you!
+You can by LB-LINK BL-MP01 for only 13$ (52 PLN). It is really cheap and it does it work.
+Repeater (client mode)  If you want to change WiFi to regular cable connection you need to switch device to Repeater mode.  Connect power and Ethernet cable. Make sure power mode is on.</description>
     </item>
     
     <item>
@@ -54,41 +28,7 @@
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-07-linux-headers/</guid>
-      <description>
-
-&lt;h2 id=&#34;solution&#34;&gt;Solution&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;code&gt;sudo apt-get install&lt;/code&gt; &amp;ndash;fix-broken should fail but list unused packets&lt;/li&gt;
-&lt;li&gt;free them one by one using sudo &lt;code&gt;dpkg --purge ...&lt;/code&gt;. If a packet refuse to uninstall due to dependencies, just advance to the next one.&lt;/li&gt;
-&lt;li&gt;After uninstalling everything you could, &lt;code&gt;sudo apt-get install --fix-broken&lt;/code&gt; again, and this time it should work.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;So, after upgrading kernels and rebooting to test it, you can remove all other kernels with:&lt;/p&gt;
-
-&lt;p&gt;To list all installed kernels, run:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;dpkg -l linux-image-\* | grep ^ii
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Command to show all kernels and headers that can be removed, excluding the current running kernel:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;kernelver=$(uname -r | sed -r &#39;s/-[a-z]+//&#39;)
-dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $2}&#39; | grep -ve $kernelver
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So, after upgrading kernels and rebooting to test it, you can remove all other kernels with:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo apt-get purge $(dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $2}&#39; | grep -ve &amp;quot;$(uname -r | sed -r &#39;s/-[a-z]+//&#39;)&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://askubuntu.com/questions/89710/how-do-i-free-up-more-space-in-boot&#34;&gt;How do I free up more space in /boot?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://askubuntu.com/questions/337456/boot-100-and-cant-purge&#34;&gt;/boot 100% and can&amp;rsquo;t purge&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Solution  sudo apt-get install &amp;ndash;fix-broken should fail but list unused packets free them one by one using sudo dpkg --purge .... If a packet refuse to uninstall due to dependencies, just advance to the next one. After uninstalling everything you could, sudo apt-get install --fix-broken again, and this time it should work.  So, after upgrading kernels and rebooting to test it, you can remove all other kernels with:</description>
     </item>
     
     <item>
@@ -97,112 +37,9 @@ dpkg -l linux-{image,headers}-&amp;quot;[0-9]*&amp;quot; | awk &#39;/ii/{print $
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-07-nginx-cifs/</guid>
-      <description>
-
-&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
-
-&lt;p&gt;Create folder &lt;code&gt;/media/storage/dir/&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;mkdir -p /media/storage/dir/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Next, mount shared directory. &lt;code&gt;uid&lt;/code&gt; and &lt;code&gt;gid&lt;/code&gt; are very important because without this you will get &lt;code&gt;403 Forbidden&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo mount -t cifs -o uid=www-data,gid=www-data,ro,username=username,password=password //10.0.0.2/shared/ /media/storage/dir/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;-t cifs&lt;/code&gt; - type of fs (&lt;code&gt;cifs&lt;/code&gt; - Common Internet File System, also known as &lt;code&gt;smb&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;uid&lt;/code&gt; - specific user&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;gid&lt;/code&gt; - specific groutp&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ro&lt;/code&gt; - read-only&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;rw&lt;/code&gt; - read-write&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - shared directory username&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - shared directory password&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Modify &lt;code&gt;nginx&lt;/code&gt; config (&lt;code&gt;/etc/nginx/sites-available/somefile&lt;/code&gt;)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#...
-server {
-  location / { 
-    alias /media/storage/dir/;
-    autoindex on;
-    autoindex_localtime on;
-    autoindex_exact_size off;
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;password-protecion&#34;&gt;Password protecion&lt;/h3&gt;
-
-&lt;p&gt;Add user &lt;code&gt;bob&lt;/code&gt; to &lt;code&gt;.htpasswd&lt;/code&gt; file using this command:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo sh -c &amp;quot;echo -n &#39;bob:&#39; &amp;gt;&amp;gt; /etc/nginx/.htpasswd&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Add an encrypted password for the username:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo sh -c &amp;quot;openssl passwd -apr1 &amp;gt;&amp;gt; /etc/nginx/.htpasswd&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Remember to set correct permissions:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo chown www-data:www-data /etc/nginx/.htpasswd
-sudo chown 600 /etc/nginx/.htpasswd
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Add this to &lt;code&gt;ngnix&lt;/code&gt; config:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#...
-server {
-  location / { 
-    alias /media/storage/dir/;
-    autoindex on;
-    autoindex_exact_size off;
-    autoindex_localtime on;
-    auth_basic &amp;quot;Restricted Content&amp;quot;;
-    auth_basic_user_file /etc/nginx/.htpasswd;
-    # disable_symlinks off; # ???
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;autoindex-for-all-locations-in-given-section&#34;&gt;Autoindex for all locations in given section&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;#...
-server {
-  
-  autoindex on;
-  autoindex_localtime on;
-  autoindex_exact_size off;
-
-  location / { 
-    alias /media/storage/;
-  }
-
-  location /foo { 
-    alias /media/storage/foo;
-  }
-
-  location /bar { 
-    alias /media/storage/test;
-  }
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/10631933/nginx-static-file-serving-confusion-with-root-alias&#34;&gt;Nginx — static file serving confusion with root &amp;amp; alias&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-nginx-on-ubuntu-14-04&#34;&gt;How To Set Up Password Authentication with Nginx&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-16-04&#34;&gt;How To Set Up an NFS Mount&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://wiki.qnap.com/wiki/Mounting_an_NFS_share_on_Ubuntu&#34;&gt;Mounting an NFS share on Ubuntu&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://superuser.com/questions/320415/linux-mount-device-with-specific-user-rights&#34;&gt;Linux - Mount device with specific user rights&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://unix.stackexchange.com/questions/68079/mount-cifs-network-drive-write-permissions-and-chown&#34;&gt;Mount cifs Network Drive: write permissions and chown&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Setup Create folder /media/storage/dir/
+mkdir -p /media/storage/dir/  Next, mount shared directory. uid and gid are very important because without this you will get 403 Forbidden.
+sudo mount -t cifs -o uid=www-data,gid=www-data,ro,username=username,password=password //10.0.0.2/shared/ /media/storage/dir/   -t cifs - type of fs (cifs - Common Internet File System, also known as smb) uid - specific user gid - specific groutp ro - read-only rw - read-write username - shared directory username password - shared directory password  Modify nginx config (/etc/nginx/sites-available/somefile)</description>
     </item>
     
     <item>
@@ -211,28 +48,10 @@ server {
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-07-locale/</guid>
-      <description>
-
-&lt;h3 id=&#34;locale&#34;&gt;Locale&lt;/h3&gt;
-
-&lt;p&gt;check which locales are supported:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;locale -a
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;add the locales you want (for example ru):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo locale-gen ru_RU
-sudo locale-gen ru_RU.UTF-8
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;run this update comand&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo update-locale 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://askubuntu.com/questions/76013/how-do-i-add-locale-to-ubuntu-server&#34;&gt;How do I add locale to ubuntu server?&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>Locale check which locales are supported:
+locale -a  add the locales you want (for example ru):
+sudo locale-gen ru_RU sudo locale-gen ru_RU.UTF-8  run this update comand
+sudo update-locale  How do I add locale to ubuntu server?</description>
     </item>
     
     <item>
@@ -241,108 +60,32 @@ sudo locale-gen ru_RU.UTF-8
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-04-smb-howto/</guid>
-      <description>
-
-&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
-
-&lt;p&gt;On Ubuntu configuration file is located in &lt;code&gt;/etc/samba/smb.conf&lt;/code&gt;. You need &lt;code&gt;root&lt;/code&gt; privileges to edit it.&lt;/p&gt;
-
-&lt;h3 id=&#34;sample-file&#34;&gt;Sample file&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nohighlight&#34;&gt;[global]
-  workgroup = WORKGROUP
-  server string = servername
-  unix password sync = yes
-  access based share enum = yes
-
-[homes]
-  comment = Home Directories
-  browseable = no
-  read only = no
-  writable = yes
-  guest ok = no
-  create mask = 0600
-  directory mask = 0700
-  security = user
-
-[accounting]
-  comment = Accounting Department Directory
-  writable = yes
-  valid users = @account
-  path = /media/storage/accounting
-  create mask = 0660
-  directory mode = 0770
-  force group = account
-
-[public]
-  comment = Public
-  browsable = yes
-  path = /media/storage/public
-  public = yes
-  read only = no
-  writable = yes
-  guest ok = yes
-  create mask = 0666
-  directory mode = 0777
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You need to set public storage directory permissions to be &lt;code&gt;777 (drwxrwxrwx)&lt;/code&gt; and for directories shared in group &lt;code&gt;770 (drwxrwx---)&lt;/code&gt;. Don&amp;rsquo;t forget to change group of shared directories with &lt;code&gt;chown -R :groupname path&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;This is how we can create group &lt;code&gt;account&lt;/code&gt; and add &lt;code&gt;bob&lt;/code&gt; to &lt;code&gt;account&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;groupadd account
-adduser bob
-usermod -a -G account bob
-smbpasswd -a bob
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;configuring-anonymous-public-shares&#34;&gt;Configuring anonymous public shares&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nohighlight&#34;&gt;[public]
-  comment = Public
-  browsable = yes
-  path = /media/storage/public
-  public = yes
-  read only = no
-  writable = no
-  write list = bob
-  guest ok = yes
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This sets up a share named &lt;code&gt;public&lt;/code&gt; which is shown when browsing the server to any user with rights to do so. You can see it is public, but not writable except for &lt;code&gt;bob&lt;/code&gt; and that it is ok for guests to login.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nohighlight&#34;&gt;[global]
-  # ...
-  guest account = nobody
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Which defines the account to use when authenticating guests. Don’t forget to create this user using &lt;code&gt;smbpasswd -an nobody&lt;/code&gt;. This will create the user with no password.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nohighlight&#34;&gt;[global]
-  #...
-  map to guest = bad user
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This maps any unknown username to the specified guest user, so login always succeeds.&lt;/p&gt;
-
-&lt;h2 id=&#34;useful-commands&#34;&gt;Useful commands&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;sudo service smbd restart&lt;/code&gt; - restarts samba server (reloads config)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;smbpasswd -an nobody&lt;/code&gt; - creates user with no password in smb&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.samba.org/samba/docs/using_samba/ch09.html&#34;&gt;Samba&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://micheljansen.org/blog/entry/182&#34;&gt;Configuring anonymous public shares with Samba 3&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.computerhope.com/unix/groupadd.htm&#34;&gt;Linux and Unix groupadd command&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.cyberciti.biz/faq/howto-linux-add-user-to-group/&#34;&gt;Howto: Linux Add User To Group&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.cyberciti.biz/faq/how-to-use-chmod-and-chown-command/&#34;&gt;Howto: Use chmod and chown Command&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Configuration On Ubuntu configuration file is located in /etc/samba/smb.conf. You need root privileges to edit it.
+Sample file [global] workgroup = WORKGROUP server string = servername unix password sync = yes access based share enum = yes [homes] comment = Home Directories browseable = no read only = no writable = yes guest ok = no create mask = 0600 directory mask = 0700 security = user [accounting] comment = Accounting Department Directory writable = yes valid users = @account path = /media/storage/accounting create mask = 0660 directory mode = 0770 force group = account [public] comment = Public browsable = yes path = /media/storage/public public = yes read only = no writable = yes guest ok = yes create mask = 0666 directory mode = 0777  You need to set public storage directory permissions to be 777 (drwxrwxrwx) and for directories shared in group 770 (drwxrwx---).</description>
+    </item>
+    
+    <item>
+      <title>Backups with rsnapshot</title>
+      <link>https://michalkowol.github.io/posts/2016-11-03-backup-with-rsnapshot/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-11-03-backup-with-rsnapshot/</guid>
+      <description>Docker test enviroment Dockerfile:
+FROM ubuntu:17.10 RUN apt-get update &amp;amp;&amp;amp; apt-get install -y rsnapshot ENTRYPOINT [&amp;quot;/bin/bash&amp;quot;]  and run it with
+docker build -t ubuntu-rsnapshot . docker run --name ubuntu-rsnapshot-bash -it ubuntu-rsnapshot  to attach another terminal you can use
+docker exec -it ubuntu-rsnapshot-bash /bin/bash  Rsnapshot configuration You can find configuration in /etc/rsnapshot.conf
+The most interesing parts of config:
+config_version 1.2 cmd_cp	/bin/cp cmd_rm	/bin/rm cmd_rsync	/usr/bin/rsync cmd_ssh	/usr/bin/ssh cmd_logger	/usr/bin/logger verbose	2 loglevel	3 logfile	/var/log/rsnapshot.</description>
+    </item>
+    
+    <item>
+      <title>Midnight Commander</title>
+      <link>https://michalkowol.github.io/posts/2016-11-03-midnight-commander/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-11-03-midnight-commander/</guid>
+      <description>Overview Midnight Commander is based on versatile text interfaces, such as Ncurses or S-Lang, which allows it to work on a regular console, inside an X Window terminal, over SSH connections and all kinds of remote shells.
+Shorcuts  Ctrl + x, q quick preview (x = comman, q = quick view) Shift + F6 rename file Ctrl + o open/close terminal Ctrl + s cd in active panel Esc + c quick cd Esc + i open same directory in another panel Ctrl + r refresh  Configure open as View/Open Menu: Command &amp;gt; Edit extension file</description>
     </item>
     
     <item>
@@ -351,26 +94,7 @@ smbpasswd -a bob
       <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-03-nmap/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/16981128/nmap-ip-range-specification&#34;&gt;http://stackoverflow.com/questions/16981128/nmap-ip-range-specification&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://hackertarget.com/nmap-cheatsheet-a-quick-reference-guide/&#34;&gt;https://hackertarget.com/nmap-cheatsheet-a-quick-reference-guide/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.garron.me/en/go2linux/nmap-command-graph-front-end-port-scan.html&#34;&gt;https://www.garron.me/en/go2linux/nmap-command-graph-front-end-port-scan.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;namp nmap 192.168.0.0/24&lt;/code&gt; Scan a subnet&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nmap 192.168.0.0/24&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nmap 192.168.0.1-20&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nmap 192.168.0.1-20 192.168.0.30-40&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nmap -sS 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nmap -sS 192.168.0.1-20&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan a single Port &lt;code&gt;nmap -p 22 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan a range of ports &lt;code&gt;nmap -p 1-100 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan 100 most common ports (Fast) &lt;code&gt;nmap -F 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan all 65535 ports &lt;code&gt;nmap -p- 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan using TCP connect &lt;code&gt;nmap -sT 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan using TCP SYN scan (default) &lt;code&gt;nmap -sS 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan UDP ports &lt;code&gt;nmap -sU -p 123,161,162 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Heartbleed Testing &lt;code&gt;nmap -sV -p 443 --script=ssl-heartbleed 192.168.1.0/24&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Overview Nmap (&amp;ldquo;Network Mapper&amp;rdquo;) is a free and open source utility for network discovery and security auditing. Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics.</description>
     </item>
     
     <item>
@@ -379,104 +103,20 @@ smbpasswd -a bob
       <pubDate>Sun, 30 Oct 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-10-30-rsync-how-to/</guid>
-      <description>
-
-&lt;h3 id=&#34;documentation&#34;&gt;Documentation&lt;/h3&gt;
-
-&lt;p&gt;rsync selected options&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;-a, --archive It is more commonly used than -r (recursive) and is usually what you want to use.
--z, --compress With this option, rsync compresses the file data as it is sent to the destination machine
--v, --verbose This option increases the amount of information the daemon logs during its startup phase.
--x, --one-file-system This tells rsync to avoid crossing a filesystem boundary when recursing.
--A, --acls Preserve ACLs (implies -p).
--H, --hard-links This tells rsync to look for hard-linked files.
--X, --xattrs This option causes rsync to update the remote extended attributes to be the same as the local ones.
--e, --rsh=COMMAND Specify the remote shell to use.
---delete-after Receiver deletes after transfer, not before.
--n, --dry-run This makes rsync perform a trial run that doesn&#39;t make any changes.
---progress This option tells rsync to print information showing the progress of the transfer.
---human-readable Output numbers in a more human-readable format.
---append-verify Append w/old data in file checksum
---protect-args This option sends all filenames and most options to the remote rsync without allowing the remote shell to interpret them. This means that spaces are not split in names, and any non-wildcard special characters are not translated (such as ~, $, ;, &amp;amp;, etc.). Wildcards are expanded on the remote host by rsync (instead of the shell doing it)
---exclude-from Exclude files or directories from given file
---max-size=300mb Don&#39;t transfer any file larger than SIZE
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;examples&#34;&gt;Examples&lt;/h3&gt;
-
-&lt;h4 id=&#34;simple-examples&#34;&gt;Simple examples&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# without ssh
-rsync -avzx . user@hostname::NetBackup/owncloud
-# with ssh
-rsync -avzx -e ssh . user@hostname:~/tmp
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;more-advanced-examples&#34;&gt;More advanced examples&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# with dry run (no changes - files are not deleted on server)
-rsync -avzx --dry-run --delete-after -e ssh . user@hostname:~/tmp
-# with ssh on port 48419
-rsync -avzx -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
-# with progress information
-rsync -avzx --progress -e ssh . user@hostname:~/tmp
-# human readable format - kilk/mega/giga bytes instead of bytes
-rsync -avzx --human-readable -e ssh . user@hostname:~/tmp
-# delete files *after* sync is complete
-rsync -avzx --delete-after -e ssh . user@hostname:~/tmp
-# with mac to linux file change encoding
-rsync -avzx --iconv=utf-8-mac,utf-8 -e ssh . user@hostname:~/tmp
-# with append w/old data in file checksum
-rsync -avzx --append-verify -e ssh . user@hostname:~/tmp
-# protect spaces
-rsync -avzx --protect-args -e ssh . &amp;quot;user@hostname:/homes/michal/tmp with space&amp;quot;
-# exclude files from &#39;exclude.txt&#39;
-rsync -avzx --exclude-from &#39;exclude.txt&#39; -e ssh . user@hostname:~/tmp
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;sync-direction&#34;&gt;Sync direction&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# from server to laptop
-rsync [OPTION...] &amp;lt;server-path&amp;gt; &amp;lt;laptop-path&amp;gt;
-# form laptop to server
-rsync [OPTION...] &amp;lt;laptop-path&amp;gt; &amp;lt;server-path&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;full-example&#34;&gt;Full example&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;rsync -avzx --iconv=utf-8-mac,utf-8 --append-verify --progress --human-readable --max-size=300mb -e &amp;quot;ssh -p 48419&amp;quot; . user@hostname:~/tmp
-rsync -avzx --append-verify --progress --human-readable --max-size=300mb -e ssh . user@hostname:~/tmp
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;On windows (&lt;a href=&#34;https://www.itefix.net/cwrsync&#34;&gt;cwRsync&lt;/a&gt;)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;rsync -avzx --append-verify --progress --human-readable -e &amp;quot;ssh -p 48419 -i c:\ssh\id_rsa&amp;quot; &amp;quot;c/dir/dir/&amp;quot; user@hostname:~/tmp/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;notes&#34;&gt;Notes&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;trailing &lt;code&gt;/&lt;/code&gt; in directory name is &lt;strong&gt;very&lt;/strong&gt; important - there is a big difference between &lt;code&gt;rsync dir1 dir2&lt;/code&gt; and &lt;code&gt;rsync dir1/ dir2/&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps&#34;&gt;https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;always use &lt;code&gt;--iconv=utf-8-mac,utf-8&lt;/code&gt; when initialising the rsync from the mac&lt;/li&gt;
-&lt;li&gt;always use &lt;code&gt;--iconv=utf-8,utf-8-mac&lt;/code&gt; when initialising the rsync from the linux&lt;/li&gt;
-&lt;li&gt;the &lt;code&gt;--iconv&lt;/code&gt; argument cam with &lt;code&gt;rsync&lt;/code&gt; version 3.0.0 (release notes) OSX provides only version 2.6.9&lt;/li&gt;
-&lt;li&gt;upgrade rsync on mac &lt;code&gt;brew update &amp;amp;&amp;amp; brew tap homebrew/dupes &amp;amp;&amp;amp; brew install rsync&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;--append-verify&lt;/code&gt; isn&amp;rsquo;t dangerous: It will always read and compare the data on both ends and not just assume they&amp;rsquo;re equal. It does this using checksums, so it&amp;rsquo;s easy on the network, but it does require reading the shared amount of data on both ends of the wire before it can actually resume the transfer by appending to the target.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Thus you need to get a newer version latest is 3.1.1 (2.6.9 was released in 2006)&lt;/p&gt;
-
-&lt;p&gt;I would also get a newer version rsync as xattr copying was also introduced after 2.6.9&lt;/p&gt;
-
-&lt;h3 id=&#34;references&#34;&gt;References&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://linux.die.net/man/1/rsync&#34;&gt;rsync man&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.itefix.net/cwrsync&#34;&gt;cwRsync&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Documentation rsync selected options
+-a, --archive It is more commonly used than -r (recursive) and is usually what you want to use. -z, --compress With this option, rsync compresses the file data as it is sent to the destination machine -v, --verbose This option increases the amount of information the daemon logs during its startup phase. -x, --one-file-system This tells rsync to avoid crossing a filesystem boundary when recursing. -A, --acls Preserve ACLs (implies -p).</description>
+    </item>
+    
+    <item>
+      <title>Synology ssh with public key</title>
+      <link>https://michalkowol.github.io/posts/2016-10-29-synology/</link>
+      <pubDate>Sat, 29 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-10-29-synology/</guid>
+      <description>Generating SSH keys First of all generate SSH private and public keys on your local machine.
+local&amp;gt; ssh-keygen -t rsa -b 4096 -C &amp;quot;yourmail@example.com&amp;quot;  New user It is good idea to create dedicated user for rsync.
+synology&amp;gt; adduser rsync  SSH with public key on Synology Directories By default Synology sets home directory rights to 777. sshd is very picky and its needs different home directory rights.
+synology&amp;gt; chmod 755 /var/services/homes/rsync  Then you need to create the authorized_keys file on Synlogy.</description>
     </item>
     
   </channel>

@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Random on Michał Kowol</title>
-    <link>https://michalkowol.github.io/categories/random/index.xml</link>
+    <link>https://michalkowol.github.io/categories/random/</link>
     <description>Recent content in Random on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://michalkowol.github.io/categories/random/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 21 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/categories/random/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>How to configure LB-LINK</title>
@@ -14,38 +17,9 @@
       <pubDate>Sat, 21 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2017-01-21-lb-link/</guid>
-      <description>
-
-&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-
-&lt;p&gt;Do you want to change WiFi to regular cable connection. Or you need cheap WiFI amplifier? This post is for you!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link.jpg&#34; alt=&#34;LB-LINK BL-MP01&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;You can by LB-LINK BL-MP01 for only 13$ (52 PLN). It is really cheap and it does it work.&lt;/p&gt;
-
-&lt;h2 id=&#34;repeater-client-mode&#34;&gt;Repeater (client mode)&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;If you want to change WiFi to regular cable connection you need to switch device to &lt;code&gt;Repeater&lt;/code&gt; mode.
-&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-000.jpg&#34; alt=&#34;LB-LINK BL-MP01&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Connect power and Ethernet cable.&lt;/li&gt;
-&lt;li&gt;Make sure power mode is on.&lt;/li&gt;
-&lt;li&gt;Turn off your WiFi adapter (please remember to turn it on after configuration is done).&lt;/li&gt;
-&lt;li&gt;Open configuration page: &lt;a href=&#34;http://192.168.16.254/&#34;&gt;http://192.168.16.254/&lt;/a&gt; in &lt;strong&gt;Internet Explorer&lt;/strong&gt; (it does not work correctly on Chrome).&lt;/li&gt;
-&lt;li&gt;Enter credentials (default - &lt;code&gt;admin:admin&lt;/code&gt;)
-&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-001.png&#34; alt=&#34;LB-LINK BL-MP01 Configuration Step 1&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Go to &lt;code&gt;Wireless&lt;/code&gt; tab and then open &lt;code&gt;site_survey&lt;/code&gt; sub-tab.
-&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-002.png&#34; alt=&#34;LB-LINK BL-MP01 Configuration Step 2&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Select wireless network to connect and click &lt;code&gt;Connect&lt;/code&gt; button. Enter your WiFi password.
-&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-003.png&#34; alt=&#34;LB-LINK BL-MP01 Configuration Step 3&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;After successful connection you should see handshake icon.
-&lt;img src=&#34;https://michalkowol.github.io/img/lb-link/lb-link-004.png&#34; alt=&#34;LB-LINK BL-MP01 Configuration Step 4&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Test you connection - &lt;a href=&#34;http://www.google.com/&#34;&gt;http://www.google.com/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Turn on your WiFi adapter.&lt;/li&gt;
-&lt;li&gt;Connect device you want to use using Ethernet cable (Console, Cable Box device etc., old computer).&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description>Overview Do you want to change WiFi to regular cable connection. Or you need cheap WiFI amplifier? This post is for you!
+You can by LB-LINK BL-MP01 for only 13$ (52 PLN). It is really cheap and it does it work.
+Repeater (client mode)  If you want to change WiFi to regular cable connection you need to switch device to Repeater mode.  Connect power and Ethernet cable. Make sure power mode is on.</description>
     </item>
     
     <item>
@@ -54,44 +28,7 @@
       <pubDate>Fri, 16 Dec 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-12-16-encrypted-zip/</guid>
-      <description>&lt;!-- 1. Naciśnij `cmd + spacja`, wpisz &#39;terminal&#39; i naciśnij enter.
-![img](/img/zip/001-zip.png)
-1. Wpisz `cd ` (ze spacją na końcu) i **nie** wciskaj enter.
-1. Przeniś za pomocą metody drag-and-drop (przeciągnij-i-upuść) folder do okienka terminala, który chcesz spakować i naciśnij enter.
-![img](/img/zip/002-zip.png)
-![img](/img/zip/003-zip.png)
-1. Wpisz `cd ..`.
-![img](/img/zip/004-zip.png)
-1. Wpisz `zip -er &lt;filename.zip&gt; &lt;dir-you-want-to-encrypt&gt;` przykład: `zip -er aurator.zip aurator/`
-![img](/img/zip/005-zip.png)
-1. Wpisz hasło dwa razy w okienku terminala (znaki hasła nie będą widoczne).
-![img](/img/zip/006-zip.png)
-1. Zaszyfrowany plik zip został stworzony.
-![img](/img/zip/008-zip.png)
-1. Odszyfrowywanie:
-![img](/img/zip/009-zip.png)
-![img](/img/zip/010-zip.png) --&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Press &lt;code&gt;cmd + space&lt;/code&gt;, type &amp;lsquo;terminal&amp;rsquo; and press enter.
-&lt;img src=&#34;https://michalkowol.github.io/img/zip/001-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Type &lt;code&gt;cd&lt;/code&gt; (with space) and do &lt;strong&gt;not&lt;/strong&gt; press enter.&lt;/li&gt;
-&lt;li&gt;Drag-and-drop folder you want to zip to terminal window and press enter.
-&lt;img src=&#34;https://michalkowol.github.io/img/zip/002-zip.png&#34; alt=&#34;img&#34; /&gt;
-&lt;img src=&#34;https://michalkowol.github.io/img/zip/003-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Type &lt;code&gt;cd ..&lt;/code&gt;.
-&lt;img src=&#34;https://michalkowol.github.io/img/zip/004-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Type &lt;code&gt;zip -er &amp;lt;filename.zip&amp;gt; &amp;lt;dir-you-want-to-encrypt&amp;gt;&lt;/code&gt; in example &lt;code&gt;zip -er aurator.zip aurator/&lt;/code&gt;
-&lt;img src=&#34;https://michalkowol.github.io/img/zip/005-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Type password two times in terminal window (password characters will not be visible).
-&lt;img src=&#34;https://michalkowol.github.io/img/zip/006-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Your encrypted file is created!
-&lt;img src=&#34;https://michalkowol.github.io/img/zip/008-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;Decrypt:
-&lt;img src=&#34;https://michalkowol.github.io/img/zip/009-zip.png&#34; alt=&#34;img&#34; /&gt;
-&lt;img src=&#34;https://michalkowol.github.io/img/zip/010-zip.png&#34; alt=&#34;img&#34; /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description>` przykład: `zip -er aurator.zip aurator/` ![img](/img/zip/005-zip.png) 1. Wpisz hasło dwa razy w okienku terminala (znaki hasła nie będą widoczne). ![img](/img/zip/006-zip.png) 1. Zaszyfrowany plik zip został stworzony. ![img](/img/zip/008-zip.png) 1. Odszyfrowywanie: ![img](/img/zip/009-zip.png) ![img](/img/zip/010-zip.png) --  Press cmd + space, type &amp;lsquo;terminal&amp;rsquo; and press enter.  Type cd (with space) and do not press enter. Drag-and-drop folder you want to zip to terminal window and press enter.  Type cd ...  Type zip -er &amp;lt;filename.</description>
     </item>
     
     <item>
@@ -100,22 +37,7 @@
       <pubDate>Sat, 10 Dec 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-12-10-photo-to-scan-in-photoshop/</guid>
-      <description>
-
-&lt;h2 id=&#34;photo-to-scan-in-photoshop&#34;&gt;Photo to scan in Photoshop&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;img src=&#34;https://michalkowol.github.io/img/photo-to-scan-in-photoshop/perspective-crop-tool.png&#34; alt=&#34;Perspective Crop Tool&#34; /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Layer &amp;gt; New Adjustment Layer &amp;gt; Gradient Map&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Layer &amp;gt; New Adjustment Layer &amp;gt; Levels&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://tricky-photoshop.com/make-document-looks-like-scanned-copy-photoshop/&#34;&gt;http://tricky-photoshop.com/make-document-looks-like-scanned-copy-photoshop/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description> Photo to scan in Photoshop   Layer &amp;gt; New Adjustment Layer &amp;gt; Gradient Map Layer &amp;gt; New Adjustment Layer &amp;gt; Levels  Links  http://tricky-photoshop.com/make-document-looks-like-scanned-copy-photoshop/  </description>
     </item>
     
     <item>
@@ -124,108 +46,8 @@
       <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-04-smb-howto/</guid>
-      <description>
-
-&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
-
-&lt;p&gt;On Ubuntu configuration file is located in &lt;code&gt;/etc/samba/smb.conf&lt;/code&gt;. You need &lt;code&gt;root&lt;/code&gt; privileges to edit it.&lt;/p&gt;
-
-&lt;h3 id=&#34;sample-file&#34;&gt;Sample file&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nohighlight&#34;&gt;[global]
-  workgroup = WORKGROUP
-  server string = servername
-  unix password sync = yes
-  access based share enum = yes
-
-[homes]
-  comment = Home Directories
-  browseable = no
-  read only = no
-  writable = yes
-  guest ok = no
-  create mask = 0600
-  directory mask = 0700
-  security = user
-
-[accounting]
-  comment = Accounting Department Directory
-  writable = yes
-  valid users = @account
-  path = /media/storage/accounting
-  create mask = 0660
-  directory mode = 0770
-  force group = account
-
-[public]
-  comment = Public
-  browsable = yes
-  path = /media/storage/public
-  public = yes
-  read only = no
-  writable = yes
-  guest ok = yes
-  create mask = 0666
-  directory mode = 0777
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You need to set public storage directory permissions to be &lt;code&gt;777 (drwxrwxrwx)&lt;/code&gt; and for directories shared in group &lt;code&gt;770 (drwxrwx---)&lt;/code&gt;. Don&amp;rsquo;t forget to change group of shared directories with &lt;code&gt;chown -R :groupname path&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;This is how we can create group &lt;code&gt;account&lt;/code&gt; and add &lt;code&gt;bob&lt;/code&gt; to &lt;code&gt;account&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;groupadd account
-adduser bob
-usermod -a -G account bob
-smbpasswd -a bob
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;configuring-anonymous-public-shares&#34;&gt;Configuring anonymous public shares&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nohighlight&#34;&gt;[public]
-  comment = Public
-  browsable = yes
-  path = /media/storage/public
-  public = yes
-  read only = no
-  writable = no
-  write list = bob
-  guest ok = yes
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This sets up a share named &lt;code&gt;public&lt;/code&gt; which is shown when browsing the server to any user with rights to do so. You can see it is public, but not writable except for &lt;code&gt;bob&lt;/code&gt; and that it is ok for guests to login.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nohighlight&#34;&gt;[global]
-  # ...
-  guest account = nobody
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Which defines the account to use when authenticating guests. Don’t forget to create this user using &lt;code&gt;smbpasswd -an nobody&lt;/code&gt;. This will create the user with no password.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-nohighlight&#34;&gt;[global]
-  #...
-  map to guest = bad user
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This maps any unknown username to the specified guest user, so login always succeeds.&lt;/p&gt;
-
-&lt;h2 id=&#34;useful-commands&#34;&gt;Useful commands&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;sudo service smbd restart&lt;/code&gt; - restarts samba server (reloads config)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;smbpasswd -an nobody&lt;/code&gt; - creates user with no password in smb&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.samba.org/samba/docs/using_samba/ch09.html&#34;&gt;Samba&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://micheljansen.org/blog/entry/182&#34;&gt;Configuring anonymous public shares with Samba 3&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.computerhope.com/unix/groupadd.htm&#34;&gt;Linux and Unix groupadd command&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.cyberciti.biz/faq/howto-linux-add-user-to-group/&#34;&gt;Howto: Linux Add User To Group&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.cyberciti.biz/faq/how-to-use-chmod-and-chown-command/&#34;&gt;Howto: Use chmod and chown Command&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Configuration On Ubuntu configuration file is located in /etc/samba/smb.conf. You need root privileges to edit it.
+Sample file [global] workgroup = WORKGROUP server string = servername unix password sync = yes access based share enum = yes [homes] comment = Home Directories browseable = no read only = no writable = yes guest ok = no create mask = 0600 directory mask = 0700 security = user [accounting] comment = Accounting Department Directory writable = yes valid users = @account path = /media/storage/accounting create mask = 0660 directory mode = 0770 force group = account [public] comment = Public browsable = yes path = /media/storage/public public = yes read only = no writable = yes guest ok = yes create mask = 0666 directory mode = 0777  You need to set public storage directory permissions to be 777 (drwxrwxrwx) and for directories shared in group 770 (drwxrwx---).</description>
     </item>
     
     <item>
@@ -234,26 +56,7 @@ smbpasswd -a bob
       <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-03-nmap/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/16981128/nmap-ip-range-specification&#34;&gt;http://stackoverflow.com/questions/16981128/nmap-ip-range-specification&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://hackertarget.com/nmap-cheatsheet-a-quick-reference-guide/&#34;&gt;https://hackertarget.com/nmap-cheatsheet-a-quick-reference-guide/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.garron.me/en/go2linux/nmap-command-graph-front-end-port-scan.html&#34;&gt;https://www.garron.me/en/go2linux/nmap-command-graph-front-end-port-scan.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;namp nmap 192.168.0.0/24&lt;/code&gt; Scan a subnet&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nmap 192.168.0.0/24&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nmap 192.168.0.1-20&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nmap 192.168.0.1-20 192.168.0.30-40&lt;/code&gt; Scan a range of IPs&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nmap -sS 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;nmap -sS 192.168.0.1-20&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan a single Port &lt;code&gt;nmap -p 22 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan a range of ports &lt;code&gt;nmap -p 1-100 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan 100 most common ports (Fast) &lt;code&gt;nmap -F 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan all 65535 ports &lt;code&gt;nmap -p- 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan using TCP connect &lt;code&gt;nmap -sT 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan using TCP SYN scan (default) &lt;code&gt;nmap -sS 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Scan UDP ports &lt;code&gt;nmap -sU -p 123,161,162 192.168.1.1&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Heartbleed Testing &lt;code&gt;nmap -sV -p 443 --script=ssl-heartbleed 192.168.1.0/24&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>Overview Nmap (&amp;ldquo;Network Mapper&amp;rdquo;) is a free and open source utility for network discovery and security auditing. Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics.</description>
     </item>
     
   </channel>

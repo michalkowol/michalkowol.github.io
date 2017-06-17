@@ -41,152 +41,8 @@
   <nav class="sidebar-nav">
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
-
     
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-
     <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
   </nav>
 </div>
@@ -214,36 +70,39 @@
     
       <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
     
+      <a class="post-category post-category-howto" href="https://michalkowol.github.io/categories/howto">howto</a>
+    
     </div>
   
   <div class="content">
   
 
-<p>First of all generate ssh private and public key on your local machine.</p>
+<h2 id="generating-ssh-keys">Generating SSH keys</h2>
+
+<p>First of all generate SSH private and public keys on your local machine.</p>
 
 <pre><code class="language-bash">local&gt; ssh-keygen -t rsa -b 4096 -C &quot;yourmail@example.com&quot;
 </code></pre>
+
+<h2 id="new-user">New user</h2>
 
 <p>It is good idea to create dedicated user for <code>rsync</code>.</p>
 
 <pre><code class="language-bash">synology&gt; adduser rsync
 </code></pre>
 
+<h2 id="ssh-with-public-key-on-synology">SSH with public key on Synology</h2>
+
+<h3 id="directories">Directories</h3>
+
 <p>By default Synology sets home directory rights to <code>777</code>. <code>sshd</code> is very picky and its needs different home directory rights.</p>
 
 <pre><code class="language-bash">synology&gt; chmod 755 /var/services/homes/rsync
 </code></pre>
 
-<p>Now, you need to modify <code>/etc/ssh/sshd_config</code> on Synlogy. Make sure it has the following line uncommented.</p>
-
-<pre><code># ...
-PubkeyAuthentication yes
-# ...
-</code></pre>
-
 <p>Then you need to create the <code>authorized_keys</code> file on Synlogy. To this file remote users add their public keys. File permissions are crucial here and if they are wrong ssh will refuse you.</p>
 
-<pre><code>synology&gt; su -s rsync
+<pre><code class="language-bash">synology&gt; su -s rsync
 synology&gt; cd
 synology&gt; pwd # make sure you are in /var/services/homes/rsync
 synology&gt; mkdir .ssh
@@ -254,32 +113,47 @@ synology&gt; chmod 600 .ssh/authorized_keys
 
 <p>Typically you want the <code>.ssh</code> directory permissions to be <code>700 (drwx------)</code>, home directory to be <code>755 (drwxr-xr-x)</code> and the public key (<code>.pub file</code>) to be <code>644 (-rw-r--r--)</code>. Your private key (<code>id_rsa</code>) should be <code>600 (-rw-------)</code>. <code>authorized_keys</code> should be <code>600 (-rw-------)</code>.</p>
 
+<h3 id="adding-public-key">Adding public key</h3>
+
 <p>Then add public key corresponding to a private key in one line in <code>authorized_keys</code>. You can use this command.</p>
 
 <pre><code class="language-bash">local&gt; cat ~/.ssh/id_rsa.pub | ssh user@hostname 'cat &gt;&gt; .ssh/authorized_keys'
 </code></pre>
 
-<p>Now restart Synology or quicker just force the ssh deamon to reload its config</p>
+<h3 id="sshd-configuration"><code>sshd</code> configuration</h3>
 
-<pre><code>synology&gt; ps | grep sshd
+<p>Now, you need to modify <code>/etc/ssh/sshd_config</code> on Synlogy. Make sure it has the following line uncommented.</p>
+
+<pre><code class="language-text"># ...
+PubkeyAuthentication yes
+# ...
 </code></pre>
 
-<pre><code>synology&gt; kill -HUP $PID
+<h4 id="restarting-appling-settings">Restarting/appling settings</h4>
+
+<p>Now restart Synology or quicker just force the ssh deamon to reload its config.</p>
+
+<pre><code class="language-bash">synology&gt; ps | grep sshd
+synology&gt; kill -HUP $PID
 </code></pre>
+
+<h2 id="testing">Testing</h2>
 
 <p>You should now be able ssh to Synology as rsync with no password.</p>
 
-<pre><code>local&gt; ssh rsync@synology
+<pre><code class="language-bash">local&gt; ssh rsync@synology
 </code></pre>
 
-<p>Note: How to change shell for user?</p>
+<h2 id="how-to-change-shell-for-user">How to change shell for user?</h2>
 
-<pre><code>chsh -s /usr/local/bin/bash username
+<p>Sometimes you want to change default shell for particular client.</p>
+
+<pre><code class="language-bash">chsh -s /usr/local/bin/bash username
 </code></pre>
 
-<p><code>/sbin/nologin</code> disables login.</p>
+<p><code>/sbin/nologin</code> is specific type of shell - it disables login.</p>
 
-<h3 id="references">References</h3>
+<h2 id="references">References</h2>
 
 <ul>
 <li><a href="http://karlcode.owtelse.com/blog/2015/06/27/passwordless-ssh-on-synology/">Passwordless Ssh on Synology</a></li>
@@ -290,6 +164,10 @@ synology&gt; chmod 600 .ssh/authorized_keys
   
     <div class="post-tags">
     Tagged 
+    
+      <a class="post-tags post-tags-tech" href="https://michalkowol.github.io/tags/tech">tech</a>
+    
+      <a class="post-tags post-tags-howto" href="https://michalkowol.github.io/tags/howto">howto</a>
     
       <a class="post-tags post-tags-synology" href="https://michalkowol.github.io/tags/synology">synology</a>
     

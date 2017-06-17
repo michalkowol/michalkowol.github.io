@@ -41,152 +41,8 @@
   <nav class="sidebar-nav">
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
-
     
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-
     <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
   </nav>
 </div>
@@ -216,12 +72,14 @@
     
       <a class="post-category post-category-scala" href="https://michalkowol.github.io/categories/scala">scala</a>
     
+      <a class="post-category post-category-jvm" href="https://michalkowol.github.io/categories/jvm">jvm</a>
+    
     </div>
   
   <div class="content">
   
 
-<h3 id="akka-traits">Akka traits</h3>
+<h2 id="akka-traits">Akka traits</h2>
 
 <p><img src="https://michalkowol.github.io/img/akka-notes/reactive-traits.svg" alt="akka traits" /></p>
 
@@ -236,7 +94,7 @@
 
 <p>Please see <a href="http://www.reactivemanifesto.org/">Reactive Manifesto</a> for more information.</p>
 
-<h3 id="concurrency-vs-parallelism">Concurrency vs parallelism</h3>
+<h2 id="concurrency-vs-parallelism">Concurrency vs parallelism</h2>
 
 <ul>
 <li>Definition 1
@@ -266,7 +124,7 @@
 
 <p>Source: <a href="http://joearms.github.io/2013/04/05/concurrent-and-parallel-programming.html">joearms.github.io</a>.</p>
 
-<h3 id="actor-actorref">Actor, ActorRef</h3>
+<h2 id="actor-actorref">Actor, ActorRef</h2>
 
 <p><img src="https://michalkowol.github.io/img/akka-notes/actor-ref.png" alt="Actor with Mailbox" /></p>
 
@@ -282,14 +140,14 @@
 <li>Messages must be immutable.</li>
 </ul>
 
-<h3 id="how-to-handle-unhandled-messages">How to handle &ldquo;unhandled&rdquo; messages</h3>
+<h2 id="how-to-handle-unhandled-messages">How to handle &ldquo;unhandled&rdquo; messages</h2>
 
 <p>If in receive block we do not handle some message, this message will be dropped (and maybe logged). We can use <code>unhandled</code> method to do something with messages not handled in receive block.</p>
 
 <pre><code class="language-scala">override def unhandled(message: Any): Unit = ???
 </code></pre>
 
-<h3 id="top-level-actor">Top-Level Actor</h3>
+<h2 id="top-level-actor">Top-Level Actor</h2>
 
 <p>If you create top-level actors, use factory methods - it will simplify testing. Always give name to your top-level actors.</p>
 
@@ -297,7 +155,7 @@
 def createTopLevelActor(): ActorRef = system.actorOf(TopLevel.props, &quot;top-level&quot;)
 </code></pre>
 
-<h3 id="message-protocol">Message protocol</h3>
+<h2 id="message-protocol">Message protocol</h2>
 
 <ul>
 <li>Defince your message protocol in the companion object of the actor.</li>
@@ -327,7 +185,7 @@ class BarActor extends Actor {
 }
 </code></pre>
 
-<h3 id="actor-dsl">Actor DSL</h3>
+<h2 id="actor-dsl">Actor DSL</h2>
 
 <p>To create anonymous actoes we can use <a href="http://doc.akka.io/docs/akka/2.3.0-RC1/scala/actordsl.html">Actor DSL</a>. Here, <code>actor</code> takes the role of either <code>system.actorOf</code> or <code>context.actorOf</code>. It takes an implicit <code>ActorRefFactory</code> and creates the new <code>Actor</code>.</p>
 
@@ -340,10 +198,10 @@ val a = actor(new Act {
 })
 </code></pre>
 
-<h3 id="best-practices">Best practices</h3>
+<h2 id="best-practices">Best practices</h2>
 
 <ul>
-<li>Always create <code>Props</code> factory - the best place for that is in companion object (see: <a href="http://doc.akka.io/docs/akka/snapshot/scala/actors.html">Actors — Akka Documentation</a>).</li>
+<li>Always create <code>Props</code> factory - the best place for that is in companion object (see: <a href="http://doc.akka.io/docs/akka/snapshot/scala/actors.html">Actors â€” Akka Documentation</a>).</li>
 <li>Put Companion Object before you class.</li>
 <li>Use <code>sender()</code> <strong>with</strong> parentheses. It is function, not val and you have to rember about it. It can be very tricky when <code>sender()</code> will be execute in other thread - in example in <code>Future</code>.</li>
 </ul>
@@ -380,6 +238,8 @@ class GoodWayActor extends Actor {
       <a class="post-tags post-tags-development" href="https://michalkowol.github.io/tags/development">development</a>
     
       <a class="post-tags post-tags-scala" href="https://michalkowol.github.io/tags/scala">scala</a>
+    
+      <a class="post-tags post-tags-jvm" href="https://michalkowol.github.io/tags/jvm">jvm</a>
     
       <a class="post-tags post-tags-akka" href="https://michalkowol.github.io/tags/akka">akka</a>
     

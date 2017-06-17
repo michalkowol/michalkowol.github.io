@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title></title>
-    <link>https://michalkowol.github.io/tags/midnight-commander/index.xml</link>
-    <description>Recent content on </description>
+    <title>Midnight Commander on Michał Kowol</title>
+    <link>https://michalkowol.github.io/tags/midnight-commander/</link>
+    <description>Recent content in Midnight Commander on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://michalkowol.github.io/tags/midnight-commander/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Nov 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/midnight-commander/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Midnight Commander</title>
-      <link>https://michalkowol.github.io/posts/midnight-commander/</link>
+      <link>https://michalkowol.github.io/posts/2016-11-03-midnight-commander/</link>
       <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://michalkowol.github.io/posts/midnight-commander/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://www.midnight-commander.org/&#34;&gt;https://www.midnight-commander.org/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Quick preview: &lt;code&gt;Ctrl + x, q&lt;/code&gt; (x = comman, q = quick view)&lt;/p&gt;
-</description>
+      <guid>https://michalkowol.github.io/posts/2016-11-03-midnight-commander/</guid>
+      <description>Overview Midnight Commander is based on versatile text interfaces, such as Ncurses or S-Lang, which allows it to work on a regular console, inside an X Window terminal, over SSH connections and all kinds of remote shells.
+Shorcuts  Ctrl + x, q quick preview (x = comman, q = quick view) Shift + F6 rename file Ctrl + o open/close terminal Ctrl + s cd in active panel Esc + c quick cd Esc + i open same directory in another panel Ctrl + r refresh  Configure open as View/Open Menu: Command &amp;gt; Edit extension file</description>
     </item>
     
   </channel>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rsnapshot on Michał Kowol</title>
+    <link>https://michalkowol.github.io/tags/rsnapshot/</link>
+    <description>Recent content in Rsnapshot on Michał Kowol</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 03 Nov 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/rsnapshot/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Backups with rsnapshot</title>
+      <link>https://michalkowol.github.io/posts/2016-11-03-backup-with-rsnapshot/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-11-03-backup-with-rsnapshot/</guid>
+      <description>Docker test enviroment Dockerfile:
+FROM ubuntu:17.10 RUN apt-get update &amp;amp;&amp;amp; apt-get install -y rsnapshot ENTRYPOINT [&amp;quot;/bin/bash&amp;quot;]  and run it with
+docker build -t ubuntu-rsnapshot . docker run --name ubuntu-rsnapshot-bash -it ubuntu-rsnapshot  to attach another terminal you can use
+docker exec -it ubuntu-rsnapshot-bash /bin/bash  Rsnapshot configuration You can find configuration in /etc/rsnapshot.conf
+The most interesing parts of config:
+config_version 1.2 cmd_cp	/bin/cp cmd_rm	/bin/rm cmd_rsync	/usr/bin/rsync cmd_ssh	/usr/bin/ssh cmd_logger	/usr/bin/logger verbose	2 loglevel	3 logfile	/var/log/rsnapshot.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -41,152 +41,8 @@
   <nav class="sidebar-nav">
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
     <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
-
     
     
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-
     <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
   </nav>
 </div>
@@ -216,12 +72,14 @@
     
       <a class="post-category post-category-scala" href="https://michalkowol.github.io/categories/scala">scala</a>
     
+      <a class="post-category post-category-jvm" href="https://michalkowol.github.io/categories/jvm">jvm</a>
+    
     </div>
   
   <div class="content">
   
 
-<h3 id="functions-without-parameters">Functions without parameters</h3>
+<h2 id="functions-without-parameters">Functions without parameters</h2>
 
 <pre><code class="language-scala">def foo: String = ???
 def bar(): String = ???
@@ -229,16 +87,16 @@ def bar(): String = ???
 
 <p>The first one is better, bacause you can easly replace it with <code>val</code>. In fact, otheres developers shouldn&rsquo;t know if you use <code>val</code> or <code>def</code>. It should be transparent (you shouldn&rsquo;t use parentheses).</p>
 
-<h3 id="default-parameters">Default parameters</h3>
+<h2 id="default-parameters">Default parameters</h2>
 
 <pre><code class="language-scala">class Welcome(message: String = &quot;default&quot;)
 </code></pre>
 
-<h3 id="public-api">Public API</h3>
+<h2 id="public-api">Public API</h2>
 
 <p>If we define public API, all methods and parameters should have explicite type.</p>
 
-<h3 id="operators">Operators</h3>
+<h2 id="operators">Operators</h2>
 
 <pre><code class="language-scala">1 + 3 == (1).+(3)
 !true == true.unary_!
@@ -251,7 +109,7 @@ def bar(): String = ???
 <li>in other cases we <strong>should</strong> use dot notation.</li>
 </ul>
 
-<h3 id="named-parameters">Named parameters</h3>
+<h2 id="named-parameters">Named parameters</h2>
 
 <pre><code>case class User(name: String, lastname: String)
 User(name = &quot;Michal&quot;, lastname = &quot;Kowol&quot;) == User(lastname = &quot;Kowol&quot;, name = &quot;Michal&quot;) // true
@@ -259,11 +117,11 @@ User(name = &quot;Michal&quot;, lastname = &quot;Kowol&quot;) == User(lastname =
 
 <p>When we have a lot of parameters (especially with the same type - integers and strings), we should used named parameters. It makes code more readable and more expressible.</p>
 
-<h3 id="imports-in-code-s-block-are-ok">Imports in code&rsquo;s block are ok</h3>
+<h2 id="imports-in-code-s-block-are-ok">Imports in code&rsquo;s block are ok</h2>
 
 <p>If you need specific import only in one function, import it in function body.</p>
 
-<h3 id="private-access-modifiers-in-scala">Private access modifiers in Scala</h3>
+<h2 id="private-access-modifiers-in-scala">Private access modifiers in Scala</h2>
 
 <pre><code class="language-scala">package com.michal
 
@@ -310,29 +168,29 @@ class C {
 <li><blockquote>It should be noted that this trait is implemented using the DelayedInit functionality, which means that fields of the object will not have been initialized before the main method has been executed.</blockquote></li>
 </ul>
 
-<h3 id="copy-method-in-case-classes"><code>copy</code> method in case classes</h3>
+<h2 id="copy-method-in-case-classes"><code>copy</code> method in case classes</h2>
 
 <pre><code class="language-scala">case class User(name: String, age: Int)
 User(name = &quot;Bob&quot;, age = 10).copy(age = 40) // User(Bob, 40)
 </code></pre>
 
-<h3 id="list-vs-vector">List vs Vector</h3>
+<h2 id="list-vs-vector">List vs Vector</h2>
 
-<h4 id="list">List</h4>
+<h3 id="list">List</h3>
 
 <p>List has only pointer to first element - it adds very fast to head of list. To add element to end of list it has to iterate throught all elements (<code>O(n)</code>).</p>
 
-<h4 id="vector">Vector</h4>
+<h3 id="vector">Vector</h3>
 
 <p>All operations are constant in time (even putting element in the middile of collection).</p>
 
-<h5 id="performance-characteristics">Performance characteristics</h5>
+<h3 id="performance-characteristics">Performance characteristics</h3>
 
 <p><img src="https://michalkowol.github.io/img/scala-notes/performance.png" alt="performance characteristics" /></p>
 
 <p><a href="Performance characteristics">Performance characteristics</a></p>
 
-<h3 id="seq-is-mutable"><code>Seq</code> is mutable!</h3>
+<h2 id="seq-is-mutable"><code>Seq</code> is mutable!</h2>
 
 <pre><code class="language-scala">val s = Array(1 ,2, 3) // s: Array[Int] = Array(1, 2, 3)
 def testCase(s: Seq[Int]) = s // testCase: TestCase[](val s: Seq[Int]) =&gt; Seq[Int]
@@ -343,7 +201,7 @@ testCase(s) // res2: Seq[Int] = WrappedArray(7, 2, 3)
 
 <p>There is at least one mutable subtype of <code>Seq</code>: <code>WrappedArray</code>. To be sure sequence is immutable use <code>scala.collection.immutable.Seq</code>.</p>
 
-<h3 id="future">Future</h3>
+<h2 id="future">Future</h2>
 
 <pre><code class="language-scala">import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
@@ -385,7 +243,7 @@ for {
 
 <p><code>&lt;-</code> will &ldquo;unpack&rdquo;, <code>=</code> is simple assigment.</p>
 
-<h3 id="try-object-trait"><code>Try</code> object/trait</h3>
+<h2 id="try-object-trait"><code>Try</code> object/trait</h2>
 
 <pre><code class="language-scala">import scala.util.Try
 
@@ -398,7 +256,7 @@ f.map(_ + 200) // Failure(java.lang.NumberFormatException ...)
 
 <p>In <a href="http://www.scalactic.org/">scalactic</a> you can use <code>String Or ErrorMessage</code> (<code>Good(...)</code>, <code>Bad(...)</code> subclasses).</p>
 
-<h3 id="if-in-for-comprehension"><code>if</code> in for-comprehension</h3>
+<h2 id="if-in-for-comprehension"><code>if</code> in for-comprehension</h2>
 
 <pre><code class="language-scala">var ll = List(List(1, 2, 3), List(2, 3), List(1), List(9), List(11, 1))
 
@@ -411,20 +269,20 @@ for {
 <p>You can use <code>if</code> in for-comprehension.
 Every for-comprehension can be replaced with <code>flatMap</code> and <code>map</code> (outer iteration is <code>flatMap</code>).</p>
 
-<h3 id="filter-vs-withfilter"><code>filter</code> vs <code>withFilter</code></h3>
+<h2 id="filter-vs-withfilter"><code>filter</code> vs <code>withFilter</code></h2>
 
 <p><code>filter</code> always returns collections. <code>withFilter</code> returns generator. You can &ldquo;join&rdquo; join many generators.</p>
 
 <p>You should <code>withFilter</code> when you have many filters.</p>
 
-<h3 id="class-modifiers">Class modifiers</h3>
+<h2 id="class-modifiers">Class modifiers</h2>
 
 <ul>
 <li><code>final class Animal</code> you cannnot extend Animal</li>
 <li><code>sealed</code> all subtypes must be defined in this file. <code>sealed</code> should be define when you use <a href="http://en.wikipedia.org/wiki/Algebraic_data_type">ADT (algebraic data types)</a>. <code>sealed</code> is very helpfull in pattern matching.</li>
 </ul>
 
-<h3 id="traits-linearization">Traits linearization</h3>
+<h2 id="traits-linearization">Traits linearization</h2>
 
 <pre><code class="language-scala">trait A {
   def m: String
@@ -445,7 +303,7 @@ new BC().m // c
 new CB().m // b
 </code></pre>
 
-<h3 id="const-pattern-mattching">Const Pattern Mattching</h3>
+<h2 id="const-pattern-mattching">Const Pattern Mattching</h2>
 
 <pre><code class="language-scala">def pattern(value: String, consToMatch: String): String = {
   val a = &quot;1&quot;
@@ -463,7 +321,7 @@ pattern(&quot;3&quot;, &quot;3&quot;) // !!!
 pattern(&quot;3&quot;, &quot;xxx&quot;) // ???
 </code></pre>
 
-<h3 id="others">Others</h3>
+<h2 id="others">Others</h2>
 
 <ul>
 <li>In subclass you can replace <code>def</code> with <code>val</code>.</li>
@@ -484,6 +342,8 @@ pattern(&quot;3&quot;, &quot;xxx&quot;) // ???
       <a class="post-tags post-tags-development" href="https://michalkowol.github.io/tags/development">development</a>
     
       <a class="post-tags post-tags-scala" href="https://michalkowol.github.io/tags/scala">scala</a>
+    
+      <a class="post-tags post-tags-jvm" href="https://michalkowol.github.io/tags/jvm">jvm</a>
     
     </div>
   
