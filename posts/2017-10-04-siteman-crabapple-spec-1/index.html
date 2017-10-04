@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Siteman - Crabapple - integration spec (DRAFT) - 1 &middot; Michał Kowol
+    
+  </title>
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
+
+  
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+    
+    
+    <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
+  </nav>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">Siteman - Crabapple - integration spec (DRAFT) - 1</h1>
+  <span class="post-date">2017-10-04</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-siteman" href="https://michalkowol.github.io/categories/siteman">siteman</a>
+    
+    </div>
+  
+  <div class="content">
+  
+
+<h2 id="background">Background</h2>
+
+<h3 id="overview">Overview</h3>
+
+<p><img src="https://michalkowol.github.io/img/2017-10-04-siteman-crabapple-spec/siteman-crabapple.png" alt="" /></p>
+
+<h3 id="page">Page</h3>
+
+<p><img src="https://michalkowol.github.io/img/2017-10-04-siteman-crabapple-spec/real-page.png" alt="" /></p>
+
+<h3 id="massive-promo">Massive Promo</h3>
+
+<p><img src="https://michalkowol.github.io/img/2017-10-04-siteman-crabapple-spec/massive.png" alt="" /></p>
+
+<h3 id="article-with-headers">Article with headers</h3>
+
+<p><img src="https://michalkowol.github.io/img/2017-10-04-siteman-crabapple-spec/new-stuff.png" alt="" /></p>
+
+<h3 id="page-template">Page template</h3>
+
+<p><img src="https://michalkowol.github.io/img/2017-10-04-siteman-crabapple-spec/page-template.png" alt="" /></p>
+
+<h3 id="page-1">Page</h3>
+
+<p><img src="https://michalkowol.github.io/img/2017-10-04-siteman-crabapple-spec/page.png" alt="" /></p>
+
+<h3 id="editorial-collection">Editorial collection</h3>
+
+<p><img src="https://michalkowol.github.io/img/2017-10-04-siteman-crabapple-spec/ec-1.png" alt="" /></p>
+
+<p><img src="https://michalkowol.github.io/img/2017-10-04-siteman-crabapple-spec/ec-2.png" alt="" /></p>
+
+<h2 id="proposal-a-sectionparameters-and-editorialparameters">Proposal A (<code>sectionParameters</code> and <code>editorialParameters</code>)</h2>
+
+<h3 id="header">Header</h3>
+
+<p>Url: <code>/brands/comedy-central/distribution-points/cc-jokes/pages/header</code></p>
+
+<pre><code class="language-json">{
+  &quot;brandCode&quot;: &quot;comedy-central&quot;,
+  &quot;dpCode&quot;: &quot;cc-jokes&quot;,
+  &quot;pageType&quot;: &quot;header&quot;,
+  &quot;pageTemplate&quot;: &quot;header&quot;,
+  &quot;sections&quot;: [
+    {
+      &quot;sectionCode&quot;: &quot;generic-header&quot;,
+      &quot;sectionParameters&quot;: {
+        &quot;name&quot;: &quot;Comedy Central Jokes&quot;,
+        &quot;url&quot;: &quot;http://jokes.cc.com/&quot;
+      }
+    },
+    {
+      &quot;sectionCode&quot;: &quot;menu&quot;,
+      &quot;editorialParameters&quot;: {
+        &quot;menus&quot;: [
+          {
+            &quot;name&quot;: &quot;Homepage&quot;,
+            &quot;url&quot;: &quot;/&quot;
+          },
+          {
+            &quot;name&quot;: &quot;About&quot;,
+            &quot;url&quot;: &quot;/about&quot;
+          },
+          {
+            &quot;name&quot;: &quot;Series&quot;,
+            &quot;url&quot;: &quot;/series&quot;,
+            &quot;submenu&quot;: [
+              {
+                &quot;name&quot;: &quot;Teen Wold&quot;,
+                &quot;url&quot;: &quot;/series/teen-wolf&quot;,
+                &quot;submenu&quot;: [
+                  {
+                    &quot;name&quot;: &quot;Best moments&quot;,
+                    &quot;url&quot;: &quot;/series/teen-wolf/best-moments&quot;
+                  },
+                  {
+                    &quot;name&quot;: &quot;Latest&quot;,
+                    &quot;url&quot;: &quot;/series/teen-wolf/latest&quot;
+                  }
+                ]
+              },
+              {
+                &quot;name&quot;: &quot;CatFish&quot;,
+                &quot;url&quot;: &quot;/series/catfish&quot;
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  &quot;links&quot;: [
+    {
+      &quot;href&quot;: &quot;/brands/comedy-central/distribution-points/cc-jokes/pages/header&quot;,
+      &quot;ref&quot;: &quot;self&quot;
+    }
+  ]
+}
+</code></pre>
+
+<h3 id="series-homepage-body-for-given-context"><code>series-homepage</code> body for given context</h3>
+
+<p>Url: <code>/brands/comedy-central/distribution-points/cc-jokes/pages/series-homepage?context=50b90d86-0e31-4cf6-b200-69ea16c95c63</code></p>
+
+<pre><code class="language-json">{
+  &quot;brandCode&quot;: &quot;comedy-central&quot;,
+  &quot;dpCode&quot;: &quot;cc-jokes&quot;,
+  &quot;pageType&quot;: &quot;series-homepage&quot;,
+  &quot;pageTemplate&quot;: &quot;teen-wold-series-homepage&quot;,
+  &quot;context&quot;: &quot;50b90d86-0e31-4cf6-b200-69ea16c95c63&quot;,
+  &quot;sections&quot;: [
+    {
+      &quot;sectionCode&quot;: &quot;massive-promo&quot;,
+      &quot;sectionParameters&quot;: {
+        &quot;leftAlign&quot;: true
+      },
+      &quot;editorialParameters&quot;: {
+        &quot;massive&quot;: {
+          &quot;promoItem&quot;: &quot;8099f782-8b2a-4cdd-985e-aba0190dd10f&quot;,
+          &quot;mainText&quot;: &quot;Teen Wolf&quot;,
+          &quot;secondaryText&quot;: &quot;Watch Tonight&quot;,
+          &quot;image&quot;: &quot;699b5258-ad1b-47a0-8c01-8fe91f960c08&quot;
+        }
+      }
+    },
+    {
+      &quot;sectionCode&quot;: &quot;article-with-headers&quot;,
+      &quot;editorialParameters&quot;: {
+        &quot;mainHeader&quot;: &quot;New Stuff!!!&quot;,
+        &quot;showMeMoreButton&quot;: &quot;Show me more!&quot;,
+        &quot;articleLists&quot;: [
+          {
+            &quot;promoItem&quot;: &quot;56bb63fb-3bb4-4217-9056-8cd1c80b5773&quot;,
+            &quot;title&quot;: &quot;Fiercest females moments&quot;,
+            &quot;abstract&quot;: &quot;A look at the top ten fiercest female moments on Teen Wolf.&quot;,
+            &quot;image&quot;: &quot;06a3625f-9e5f-4979-a516-0164722e2d4d&quot;
+          },
+          {
+            &quot;promoItem&quot;: &quot;8a242645-1f4a-4797-b6b3-01103ceea601&quot;,
+            &quot;title&quot;: &quot;After after show: werewolves of london&quot;,
+            &quot;abstract&quot;: &quot;Check out the After After Show for episode 17 of Teen Wolf, Season 6.&quot;,
+            &quot;image&quot;: &quot;e55c4934-54fe-40ef-b7b6-15dfdd5eeaaf&quot;
+          }
+        ],
+        &quot;video&quot;: {
+          &quot;promoItem&quot;: &quot;60ae5447-1d4d-4e9e-b7ec-f8ff76816b05&quot;,
+          &quot;title&quot;: &quot;Werewolves of london&quot;,
+          &quot;loopingVideo&quot;: &quot;75338bb7-5702-4094-89c5-b4de3d70bd13&quot;
+        }
+      }
+    },
+    {
+      &quot;sectionCode&quot;: &quot;latest-episodes&quot;,
+      &quot;sectionParameters&quot;: {
+        &quot;onLoadCount&quot;: 12
+      }
+    }
+  ],
+  &quot;links&quot;: [
+    {
+      &quot;href&quot;: &quot;/brands/comedy-central/distribution-points/cc-jokes/pages/series-homepage?context=50b90d86-0e31-4cf6-b200-69ea16c95c63&quot;,
+      &quot;ref&quot;: &quot;self&quot;
+    }
+  ]
+}
+
+</code></pre>
+
+<h3 id="series-homepage-body-for-given-context-and-given-time"><code>series-homepage</code> body for given context and given time</h3>
+
+<p>Url: <code>/brands/comedy-central/distribution-points/cc-jokes/pages/series-homepage?context=50b90d86-0e31-4cf6-b200-69ea16c95c63</code></p>
+
+<pre><code class="language-json">{
+  &quot;brandCode&quot;: &quot;comedy-central&quot;,
+  &quot;dpCode&quot;: &quot;cc-jokes&quot;,
+  &quot;pageType&quot;: &quot;series-homepage&quot;,
+  &quot;pageTemplate&quot;: &quot;teen-wold-series-homepage&quot;,
+  &quot;context&quot;: &quot;50b90d86-0e31-4cf6-b200-69ea16c95c63&quot;,
+  &quot;sections&quot;: [
+    {
+      &quot;sectionCode&quot;: &quot;massive-promo&quot;,
+      &quot;sectionParameters&quot;: {
+        &quot;leftAlign&quot;: true
+      },
+      &quot;editorialParameters&quot;: {
+        &quot;massive&quot;: {
+          &quot;promoItem&quot;: &quot;8099f782-8b2a-4cdd-985e-aba0190dd10f&quot;,
+          &quot;mainText&quot;: &quot;Teen Wolf&quot;,
+          &quot;secondaryText&quot;: &quot;Watch!!!&quot;,
+          &quot;image&quot;: &quot;699b5258-ad1b-47a0-8c01-8fe91f960c08&quot;
+        }
+      }
+    },
+    {
+      &quot;sectionCode&quot;: &quot;article-with-headers&quot;,
+      &quot;editorialParameters&quot;: {
+        &quot;mainHeader&quot;: &quot;Old Stuff!!!&quot;,
+        &quot;showMeMoreButton&quot;: &quot;Give me more!&quot;,
+        &quot;articleLists&quot;: [
+          {
+            &quot;promoItem&quot;: &quot;56bb63fb-3bb4-4217-9056-8cd1c80b5773&quot;,
+            &quot;title&quot;: &quot;Fiercest females moments&quot;,
+            &quot;abstract&quot;: &quot;A look at the top ten fiercest female moments on Teen Wolf.&quot;,
+            &quot;image&quot;: &quot;06a3625f-9e5f-4979-a516-0164722e2d4d&quot;
+          }
+        ],
+        &quot;video&quot;: {
+          &quot;promoItem&quot;: &quot;60ae5447-1d4d-4e9e-b7ec-f8ff76816b05&quot;,
+          &quot;title&quot;: &quot;Werewolves of london&quot;,
+          &quot;loopingVideo&quot;: &quot;75338bb7-5702-4094-89c5-b4de3d70bd13&quot;
+        }
+      }
+    },
+    {
+      &quot;sectionCode&quot;: &quot;latest-episodes&quot;,
+      &quot;sectionParameters&quot;: {
+        &quot;onLoadCount&quot;: 30
+      }
+    }
+  ],
+  &quot;links&quot;: [
+    {
+      &quot;href&quot;: &quot;/brands/comedy-central/distribution-points/cc-jokes/pages/series-homepage?context=50b90d86-0e31-4cf6-b200-69ea16c95c63&amp;time=1523361600&quot;,
+      &quot;ref&quot;: &quot;self&quot;
+    }
+  ]
+}
+</code></pre>
+
+<h3 id="homepage-body-without-context"><code>homepage</code> body without context</h3>
+
+<p>Url: <code>/brands/comedy-central/distribution-points/cc-jokes/pages/homepage</code></p>
+
+<pre><code class="language-json">{
+  &quot;brandCode&quot;: &quot;comedy-central&quot;,
+  &quot;dpCode&quot;: &quot;cc-jokes&quot;,
+  &quot;pageType&quot;: &quot;homepage&quot;,
+  &quot;pageTemplate&quot;: &quot;homepage&quot;,
+  &quot;sections&quot;: [
+    {
+      &quot;sectionCode&quot;: &quot;latest-episodes&quot;,
+      &quot;sectionParameters&quot;: {
+        &quot;onLoadCount&quot;: null
+      }
+    }
+  ],
+  &quot;links&quot;: [
+    {
+      &quot;href&quot;: &quot;/brands/comedy-central/distribution-points/cc-jokes/pages/homepage&quot;,
+      &quot;ref&quot;: &quot;self&quot;
+    }
+  ]
+}
+</code></pre>
+
+<h3 id="homepage-body-with-context-that-does-not-exsist-fallback"><code>homepage</code> body with context that does not exsist (fallback)</h3>
+
+<p>Url: <code>/brands/comedy-central/distribution-points/cc-jokes/pages/homepage?context=42426e84-e2ac-46b3-a493-d238ab0a7874</code></p>
+
+<pre><code class="language-json">{
+  &quot;brandCode&quot;: &quot;comedy-central&quot;,
+  &quot;dpCode&quot;: &quot;cc-jokes&quot;,
+  &quot;pageType&quot;: &quot;homepage&quot;,
+  &quot;pageTemplate&quot;: &quot;homepage&quot;,
+  &quot;context&quot;: &quot;42426e84-e2ac-46b3-a493-d238ab0a7874&quot;,
+  &quot;sections&quot;: [
+    {
+      &quot;sectionCode&quot;: &quot;latest-episodes&quot;,
+      &quot;sectionParameters&quot;: {
+        &quot;onLoadCount&quot;: null
+      }
+    }
+  ],
+  &quot;links&quot;: [
+    {
+      &quot;href&quot;: &quot;/brands/comedy-central/distribution-points/cc-jokes/pages/homepage?context=42426e84-e2ac-46b3-a493-d238ab0a7874&quot;,
+      &quot;ref&quot;: &quot;self&quot;
+    }
+  ]
+}
+
+</code></pre>
+
+<h2 id="proposal-b-paramters-instead-of-sectionparameters-and-editorialparameters">Proposal B (<code>paramters</code> instead of <code>sectionParameters</code> and <code>editorialParameters</code>)</h2>
+
+<p>The proposal B is quite similar to Proposal A, but instead of <code>sectionParameters</code> and <code>editorialParameters</code> there is one <code>paramters</code> that combines those two fields.</p>
+
+<p>Url: <code>/brands/comedy-central/distribution-points/cc-jokes/pages/series-homepage?context=50b90d86-0e31-4cf6-b200-69ea16c95c63</code></p>
+
+<pre><code class="language-json">{
+  &quot;brandCode&quot;: &quot;comedy-central&quot;,
+  &quot;dpCode&quot;: &quot;cc-jokes&quot;,
+  &quot;pageType&quot;: &quot;series-homepage&quot;,
+  &quot;pageTemplate&quot;: &quot;teen-wold-series-homepage&quot;,
+  &quot;context&quot;: &quot;50b90d86-0e31-4cf6-b200-69ea16c95c63&quot;,
+  &quot;sections&quot;: [
+    {
+      &quot;sectionCode&quot;: &quot;massive-promo&quot;,
+      &quot;parameters&quot;: {
+        &quot;leftAlign&quot;: true,
+        &quot;massive&quot;: {
+          &quot;promoItem&quot;: &quot;8099f782-8b2a-4cdd-985e-aba0190dd10f&quot;,
+          &quot;mainText&quot;: &quot;Teen Wolf&quot;,
+          &quot;secondaryText&quot;: &quot;Watch Tonight&quot;,
+          &quot;image&quot;: &quot;699b5258-ad1b-47a0-8c01-8fe91f960c08&quot;
+        }
+      }
+    },
+    {
+      &quot;sectionCode&quot;: &quot;article-with-headers&quot;,
+      &quot;parameters&quot;: {
+        &quot;mainHeader&quot;: &quot;New Stuff!!!&quot;,
+        &quot;showMeMoreButton&quot;: &quot;Show me more!&quot;,
+        &quot;articleLists&quot;: [
+          {
+            &quot;promoItem&quot;: &quot;56bb63fb-3bb4-4217-9056-8cd1c80b5773&quot;,
+            &quot;title&quot;: &quot;Fiercest females moments&quot;,
+            &quot;abstract&quot;: &quot;A look at the top ten fiercest female moments on Teen Wolf.&quot;,
+            &quot;image&quot;: &quot;06a3625f-9e5f-4979-a516-0164722e2d4d&quot;
+          },
+          {
+            &quot;promoItem&quot;: &quot;8a242645-1f4a-4797-b6b3-01103ceea601&quot;,
+            &quot;title&quot;: &quot;After after show: werewolves of london&quot;,
+            &quot;abstract&quot;: &quot;Check out the After After Show for episode 17 of Teen Wolf, Season 6.&quot;,
+            &quot;image&quot;: &quot;e55c4934-54fe-40ef-b7b6-15dfdd5eeaaf&quot;
+          }
+        ],
+        &quot;video&quot;: {
+          &quot;promoItem&quot;: &quot;60ae5447-1d4d-4e9e-b7ec-f8ff76816b05&quot;,
+          &quot;title&quot;: &quot;Werewolves of london&quot;,
+          &quot;loopingVideo&quot;: &quot;75338bb7-5702-4094-89c5-b4de3d70bd13&quot;
+        }
+      }
+    },
+    {
+      &quot;sectionCode&quot;: &quot;latest-episodes&quot;,
+      &quot;parameters&quot;: {
+        &quot;onLoadCount&quot;: 12
+      }
+    }
+  ],
+  &quot;links&quot;: [
+    {
+      &quot;href&quot;: &quot;/brands/comedy-central/distribution-points/cc-jokes/pages/series-homepage?context=50b90d86-0e31-4cf6-b200-69ea16c95c63&quot;,
+      &quot;ref&quot;: &quot;self&quot;
+    }
+  ]
+}
+</code></pre>
+
+<p>please note the diffrence</p>
+
+<pre><code class="language-json">// ...
+{
+  &quot;sectionCode&quot;: &quot;massive-promo&quot;,
+  &quot;parameters&quot;: { // &lt;---------------
+    &quot;leftAlign&quot;: true,
+    &quot;massive&quot;: {
+      &quot;promoItem&quot;: &quot;8099f782-8b2a-4cdd-985e-aba0190dd10f&quot;,
+      &quot;mainText&quot;: &quot;Teen Wolf&quot;,
+      &quot;secondaryText&quot;: &quot;Watch Tonight&quot;,
+      &quot;image&quot;: &quot;699b5258-ad1b-47a0-8c01-8fe91f960c08&quot;
+    }
+  }
+}
+// ...
+</code></pre>
+
+<p>and</p>
+
+<pre><code class="language-json">// ...
+{
+  &quot;sectionCode&quot;: &quot;massive-promo&quot;,
+  &quot;sectionParameters&quot;: { // &lt;---------------
+    &quot;leftAlign&quot;: true
+  },
+  &quot;editorialParameters&quot;: { // &lt;---------------
+    &quot;massive&quot;: {
+      &quot;promoItem&quot;: &quot;8099f782-8b2a-4cdd-985e-aba0190dd10f&quot;,
+      &quot;mainText&quot;: &quot;Teen Wolf&quot;,
+      &quot;secondaryText&quot;: &quot;Watch Tonight&quot;,
+      &quot;image&quot;: &quot;699b5258-ad1b-47a0-8c01-8fe91f960c08&quot;
+    }
+  }
+}
+// ...
+</code></pre>
+
+<h3 id="ambiguity">Ambiguity</h3>
+
+<p>The main backward of this approach is possible ambiguity in <code>sectionParameters</code> and <code>editorialParameters</code></p>
+
+<p>Example:</p>
+
+<pre><code class="language-json">{
+  &quot;sectionCode&quot;: &quot;ambiguity-example&quot;,
+  &quot;sectionParameters&quot;: {
+    &quot;title&quot;: &quot;foo&quot;
+  },
+  &quot;editorialParameters&quot;: {
+    &quot;title&quot;: &quot;bar&quot;
+  }
+}
+
+</code></pre>
+
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
+    
+      <a class="post-tags post-tags-siteman" href="https://michalkowol.github.io/tags/siteman">siteman</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

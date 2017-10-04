@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Siteman - Crabapple - integration spec (DRAFT) - 2 &middot; Michał Kowol
+    
+  </title>
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
+
+  
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+    
+    
+    <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
+  </nav>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">Siteman - Crabapple - integration spec (DRAFT) - 2</h1>
+  <span class="post-date">2017-10-04</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-siteman" href="https://michalkowol.github.io/categories/siteman">siteman</a>
+    
+    </div>
+  
+  <div class="content">
+  
+
+<h2 id="background">Background</h2>
+
+<h3 id="req-a">Req A</h3>
+
+<pre><code class="language-json">{
+  &quot;title&quot;: &quot;Daily Joke&quot;,
+  &quot;createdBy&quot;: &quot;kowolm&quot;,
+  &quot;modifiedBy&quot;: &quot;kowolm&quot;,
+  &quot;contentBlocks&quot;: [
+    {
+      &quot;title&quot;: &quot;Featured Joke 6/1&quot;,
+      &quot;scheduleStartDate&quot;: &quot;2017-06-01T00:00:00Z&quot;,
+      &quot;massiveCode&quot;: {
+        &quot;massive&quot;: {
+          &quot;mainText&quot;: &quot;All the times the emas mad us think we were dreaming&quot;,
+          &quot;secondaryText&quot;: null,
+          &quot;image&quot;: &quot;mgid:mtv:d:a&quot;,
+          &quot;_image&quot;: &quot;mgid:mtv:d:b&quot;,
+          &quot;_contentRef&quot;: &quot;uuid-d&quot;
+        }
+      },
+      &quot;articleWithHeaderCode&quot;: {
+        &quot;mainHeader_001&quot;: &quot;New stuff!!!&quot;,
+        &quot;showMeMoreButton&quot;: &quot;Show me more!&quot;,
+        &quot;articleList&quot;: [
+          {
+            &quot;title&quot;: &quot;Fiercest females moments&quot;,
+            &quot;abstract&quot;: &quot;A look at the top ten...&quot;,
+            &quot;mainImage&quot;: &quot;mgid:mtv:a:a&quot;,
+            &quot;_image&quot;: &quot;mgid:mtv:a:b&quot;,
+            &quot;_contentRef&quot;: &quot;uuid-a&quot;
+          },
+          {
+            &quot;title&quot;: &quot;After after show: werewolves of london&quot;,
+            &quot;abstract&quot;: &quot;Check out the After After Show...&quot;,
+            &quot;mainImage&quot;: &quot;mgid:mtv:b:a&quot;,
+            &quot;_image&quot;: &quot;mgid:mtv:b:b&quot;,
+            &quot;_contentRef&quot;: &quot;uuid-b&quot;
+          }
+        ],
+        &quot;video&quot;: [
+          {
+            &quot;title&quot;: &quot;Werewolves of london&quot;,
+            &quot;loopingVideo&quot;: &quot;mgid:mtv:c:a&quot;,
+            &quot;_image&quot;: &quot;mgid:mtv:c:b&quot;,
+            &quot;_contentRef&quot;: &quot;uuid-c&quot;
+          }
+        ]
+      }
+    }
+  ]
+}
+</code></pre>
+
+<h3 id="req-b">Req B</h3>
+
+<pre><code class="language-json">{
+  &quot;title&quot;: &quot;Daily Joke&quot;,
+  &quot;createdBy&quot;: &quot;kowolm&quot;,
+  &quot;modifiedBy&quot;: &quot;kowolm&quot;,
+  &quot;contentBlocks&quot;: [
+    {
+      &quot;title&quot;: &quot;Featured Joke 6/1&quot;,
+      &quot;scheduleStartDate&quot;: &quot;2017-06-01T00:00:00Z&quot;,
+      &quot;sections&quot;: [
+        {
+          &quot;code&quot;: &quot;massiveCode&quot;,
+          &quot;massive&quot;: {
+            &quot;mainText&quot;: &quot;All the times the emas mad us think we were dreaming&quot;,
+            &quot;secondaryText&quot;: null,
+            &quot;image&quot;: &quot;mgid:mtv:d:a&quot;,
+            &quot;_image&quot;: &quot;mgid:mtv:d:b&quot;,
+            &quot;_contentRef&quot;: &quot;uuid-d&quot;
+          }
+        },
+        {
+          &quot;code&quot;: &quot;articleWithHeaderCode&quot;,
+          &quot;mainHeader_001&quot;: &quot;New stuff!!!&quot;,
+          &quot;showMeMoreButton&quot;: &quot;Show me more!&quot;,
+          &quot;articleList&quot;: [
+            {
+              &quot;title&quot;: &quot;Fiercest females moments&quot;,
+              &quot;abstract&quot;: &quot;A look at the top ten...&quot;,
+              &quot;mainImage&quot;: &quot;mgid:mtv:a:a&quot;,
+              &quot;_image&quot;: &quot;mgid:mtv:a:b&quot;,
+              &quot;_contentRef&quot;: &quot;uuid-a&quot;
+            },
+            {
+              &quot;title&quot;: &quot;After after show: werewolves of london&quot;,
+              &quot;abstract&quot;: &quot;Check out the After After Show...&quot;,
+              &quot;mainImage&quot;: &quot;mgid:mtv:b:a&quot;,
+              &quot;_image&quot;: &quot;mgid:mtv:b:b&quot;,
+              &quot;_contentRef&quot;: &quot;uuid-b&quot;
+            }
+          ],
+          &quot;video&quot;: [
+            {
+              &quot;title&quot;: &quot;Werewolves of london&quot;,
+              &quot;loopingVideo&quot;: &quot;mgid:mtv:c:a&quot;,
+              &quot;_image&quot;: &quot;mgid:mtv:c:b&quot;,
+              &quot;_contentRef&quot;: &quot;uuid-c&quot;
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+
+<h3 id="req-c">Req C</h3>
+
+<pre><code class="language-json">{
+  &quot;title&quot;: &quot;Daily Joke&quot;,
+  &quot;createdBy&quot;: &quot;kowolm&quot;,
+  &quot;modifiedBy&quot;: &quot;kowolm&quot;,
+  &quot;contentBlocks&quot;: [
+    {
+      &quot;title&quot;: &quot;Featured Joke 6/1&quot;,
+      &quot;scheduleStartDate&quot;: &quot;2017-06-01T00:00:00Z&quot;,
+      &quot;sections&quot;: [
+        {
+          &quot;massiveCode&quot;: {
+            &quot;massive&quot;: {
+              &quot;mainText&quot;: &quot;All the times the emas mad us think we were dreaming&quot;,
+              &quot;secondaryText&quot;: null,
+              &quot;image&quot;: &quot;mgid:mtv:d:a&quot;,
+              &quot;_image&quot;: &quot;mgid:mtv:d:b&quot;,
+              &quot;_contentRef&quot;: &quot;uuid-d&quot;
+            }
+          }
+        },
+        {
+          &quot;articleWithHeaderCode&quot;: {
+            &quot;mainHeader_001&quot;: &quot;New stuff!!!&quot;,
+            &quot;showMeMoreButton&quot;: &quot;Show me more!&quot;,
+            &quot;articleList&quot;: [
+              {
+                &quot;title&quot;: &quot;Fiercest females moments&quot;,
+                &quot;abstract&quot;: &quot;A look at the top ten...&quot;,
+                &quot;mainImage&quot;: &quot;mgid:mtv:a:a&quot;,
+                &quot;_image&quot;: &quot;mgid:mtv:a:b&quot;,
+                &quot;_contentRef&quot;: &quot;uuid-a&quot;
+              },
+              {
+                &quot;title&quot;: &quot;After after show: werewolves of london&quot;,
+                &quot;abstract&quot;: &quot;Check out the After After Show...&quot;,
+                &quot;mainImage&quot;: &quot;mgid:mtv:b:a&quot;,
+                &quot;_image&quot;: &quot;mgid:mtv:b:b&quot;,
+                &quot;_contentRef&quot;: &quot;uuid-b&quot;
+              }
+            ],
+            &quot;video&quot;: [
+              {
+                &quot;title&quot;: &quot;Werewolves of london&quot;,
+                &quot;loopingVideo&quot;: &quot;mgid:mtv:c:a&quot;,
+                &quot;_image&quot;: &quot;mgid:mtv:c:b&quot;,
+                &quot;_contentRef&quot;: &quot;uuid-c&quot;
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+
+<h3 id="req-d">Req D</h3>
+
+<pre><code class="language-json">{
+  &quot;title&quot;: &quot;Daily Joke&quot;,
+  &quot;createdBy&quot;: &quot;kowolm&quot;,
+  &quot;modifiedBy&quot;: &quot;kowolm&quot;,
+  &quot;contentBlocks&quot;: [
+    {
+      &quot;title&quot;: &quot;Featured Joke 6/1&quot;,
+      &quot;scheduleStartDate&quot;: &quot;2017-06-01T00:00:00Z&quot;,
+      &quot;sections&quot;: [
+        {
+          &quot;code&quot;: &quot;massiveCode&quot;,
+          &quot;parameters&quot;: {
+            &quot;massive&quot;: {
+              &quot;mainText&quot;: &quot;All the times the emas mad us think we were dreaming&quot;,
+              &quot;secondaryText&quot;: null,
+              &quot;image&quot;: &quot;mgid:mtv:d:a&quot;,
+              &quot;_image&quot;: &quot;mgid:mtv:d:b&quot;,
+              &quot;_contentRef&quot;: &quot;uuid-d&quot;
+            }
+          }
+        },
+        {
+          &quot;code&quot;: &quot;articleWithHeaderCode&quot;,
+          &quot;parameters&quot;: {
+            &quot;mainHeader_001&quot;: &quot;New stuff!!!&quot;,
+            &quot;showMeMoreButton&quot;: &quot;Show me more!&quot;,
+            &quot;articleList&quot;: [
+              {
+                &quot;title&quot;: &quot;Fiercest females moments&quot;,
+                &quot;abstract&quot;: &quot;A look at the top ten...&quot;,
+                &quot;mainImage&quot;: &quot;mgid:mtv:a:a&quot;,
+                &quot;_image&quot;: &quot;mgid:mtv:a:b&quot;,
+                &quot;_contentRef&quot;: &quot;uuid-a&quot;
+              },
+              {
+                &quot;title&quot;: &quot;After after show: werewolves of london&quot;,
+                &quot;abstract&quot;: &quot;Check out the After After Show...&quot;,
+                &quot;mainImage&quot;: &quot;mgid:mtv:b:a&quot;,
+                &quot;_image&quot;: &quot;mgid:mtv:b:b&quot;,
+                &quot;_contentRef&quot;: &quot;uuid-b&quot;
+              }
+            ],
+            &quot;video&quot;: [
+              {
+                &quot;title&quot;: &quot;Werewolves of london&quot;,
+                &quot;loopingVideo&quot;: &quot;mgid:mtv:c:a&quot;,
+                &quot;_image&quot;: &quot;mgid:mtv:c:b&quot;,
+                &quot;_contentRef&quot;: &quot;uuid-c&quot;
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+
+<h3 id="resp">Resp</h3>
+
+<pre><code class="language-json">{
+  &quot;brandCode&quot;: &quot;comedycentral&quot;,
+  &quot;dpCode&quot;: &quot;cc-jokes (not needed?)&quot;,
+  &quot;pageType&quot;: &quot;series-homepage&quot;,
+  &quot;context&quot;: &quot;50b90d86-0e31-4cf6-b200-69ea16c95c63&quot;,
+  &quot;pageTemplate&quot;: &quot;teen-wolf-series-homepage&quot;, &lt;---- in the first release pageType==pageTemplate
+  &quot;seoTitle&quot;: &quot;Funny Jokes | Comedy Central Jokes&quot;,
+  &quot;seoDescription&quot;: &quot;Comedy Central Jokes - tons of funny jokes to tell &amp; share: dirty jokes, Yo' Mama jokes, sports jokes, funny insults, pick-up lines, Blonde jokes, joke of the day + more&quot;,
+  &quot;sections&quot;: [
+    {
+      &quot;sectionCode&quot;: &quot;seo&quot;,
+      &quot;sectionParameters&quot;: {
+        &quot;title&quot;: &quot;seo title&quot;,
+        &quot;description&quot;: &quot;seo desc&quot;
+      }
+    },
+    {
+      &quot;sectionCode&quot;: &quot;massive-promo&quot;,
+      &quot;sectionParameters&quot;: {
+        &quot;leftAlign&quot;: true
+      },
+      &quot;editorialParameters&quot;: {
+        &quot;massive&quot;: {
+          &quot;mainText&quot;: &quot;All the times the emas mad us think we were dreaming&quot;,
+          &quot;secondaryText&quot;: null,
+          &quot;image&quot;: &quot;mgid:mtv:d:a&quot;,
+          &quot;_contentRef&quot;: &quot;uuid-d&quot;
+        }
+      }
+    },
+    {
+      &quot;sectionCode&quot;: &quot;article-with-headers&quot;,
+      &quot;editorialParameters&quot;: {
+        &quot;mainHeader_001&quot;: &quot;New stuff!!!&quot;,
+        &quot;showMeMoreButton&quot;: &quot;Show me more!&quot;,
+        &quot;articleList&quot;: [
+          {
+            &quot;title&quot;: &quot;Fiercest females moments&quot;,
+            &quot;abstract&quot;: &quot;A look at the top ten...&quot;,
+            &quot;mainImage&quot;: &quot;mgid:mtv:a:a&quot;,
+            &quot;_contentRef&quot;: &quot;uuid-a&quot;
+          },
+          {
+            &quot;title&quot;: &quot;After after show: werewolves of london&quot;,
+            &quot;abstract&quot;: &quot;Check out the After After Show...&quot;,
+            &quot;mainImage&quot;: &quot;mgid:mtv:b:a&quot;,
+            &quot;_contentRef&quot;: &quot;uuid-b&quot;
+          }
+        ],
+        &quot;video&quot;: [
+          {
+            &quot;title&quot;: &quot;Werewolves of london&quot;,
+            &quot;loopingVideo&quot;: &quot;mgid:mtv:c:a&quot;,
+            &quot;_contentRef&quot;: &quot;uuid-c&quot;
+          }
+        ]
+      }
+    },
+    {
+      &quot;sectionCode&quot;: &quot;latest-episodes&quot;,
+      &quot;sectionParameters&quot;: {
+        &quot;onLoadCount&quot;: 12
+      }
+    }
+  ],
+  &quot;links&quot;: [
+    {
+      &quot;href&quot;: &quot;http://delivery.site-mgmt.arc.viacom.tech/brands/comedycentral/platforms/cc-jokes/pages/series-homepage?context=50b90d86-0e31-4cf6-b200-69ea16c95c63&quot;,
+      &quot;ref&quot;: &quot;self&quot;
+    }
+  ]
+}
+</code></pre>
+
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
+    
+      <a class="post-tags post-tags-siteman" href="https://michalkowol.github.io/tags/siteman">siteman</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+
