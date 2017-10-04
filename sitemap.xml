@@ -3,6 +3,26 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://michalkowol.github.io/posts/2017-10-04-siteman-crabapple-spec/</loc>
+    <lastmod>2017-10-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/posts/2017-10-03-siteman-notes/</loc>
+    <lastmod>2017-10-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/posts/2017-09-20-siteman-crabapple/</loc>
+    <lastmod>2017-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/posts/2017-06-02-siteman-notes/</loc>
+    <lastmod>2017-06-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://michalkowol.github.io/posts/2017-01-23-jackson/</loc>
     <lastmod>2017-01-23T00:00:00+00:00</lastmod>
   </url>
@@ -155,13 +175,13 @@
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/categories/development/</loc>
+    <loc>https://michalkowol.github.io/tags/development/</loc>
     <lastmod>2017-01-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/tags/development/</loc>
+    <loc>https://michalkowol.github.io/categories/development/</loc>
     <lastmod>2017-01-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -173,13 +193,13 @@
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/categories/howto/</loc>
+    <loc>https://michalkowol.github.io/tags/howto/</loc>
     <lastmod>2017-01-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/tags/howto/</loc>
+    <loc>https://michalkowol.github.io/categories/howto/</loc>
     <lastmod>2017-01-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -197,25 +217,25 @@
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/categories/java/</loc>
-    <lastmod>2017-01-23T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://michalkowol.github.io/tags/java/</loc>
     <lastmod>2017-01-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/categories/javascript/</loc>
-    <lastmod>2014-07-22T00:00:00+00:00</lastmod>
+    <loc>https://michalkowol.github.io/categories/java/</loc>
+    <lastmod>2017-01-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://michalkowol.github.io/tags/javascript/</loc>
+    <lastmod>2014-07-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/categories/javascript/</loc>
     <lastmod>2014-07-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -227,25 +247,25 @@
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/categories/jvm/</loc>
-    <lastmod>2014-12-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://michalkowol.github.io/tags/jvm/</loc>
     <lastmod>2014-12-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/categories/linux/</loc>
-    <lastmod>2016-12-10T00:00:00+00:00</lastmod>
+    <loc>https://michalkowol.github.io/categories/jvm/</loc>
+    <lastmod>2014-12-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://michalkowol.github.io/tags/linux/</loc>
+    <lastmod>2016-12-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/categories/linux/</loc>
     <lastmod>2016-12-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -264,7 +284,7 @@
   
   <url>
     <loc>https://michalkowol.github.io/</loc>
-    <lastmod>2017-01-23T00:00:00+00:00</lastmod>
+    <lastmod>2017-10-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -275,14 +295,20 @@
   </url>
   
   <url>
+    <loc>https://michalkowol.github.io/tags/network/</loc>
+    <lastmod>2017-01-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://michalkowol.github.io/categories/network/</loc>
     <lastmod>2017-01-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/tags/network/</loc>
-    <lastmod>2017-01-21T00:00:00+00:00</lastmod>
+    <loc>https://michalkowol.github.io/tags/nfs/</loc>
+    <lastmod>2016-11-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -305,20 +331,20 @@
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/categories/photoshop/</loc>
-    <lastmod>2016-12-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://michalkowol.github.io/tags/photoshop/</loc>
     <lastmod>2016-12-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>https://michalkowol.github.io/categories/photoshop/</loc>
+    <lastmod>2016-12-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://michalkowol.github.io/posts/</loc>
-    <lastmod>2017-01-23T00:00:00+00:00</lastmod>
+    <lastmod>2017-10-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -329,13 +355,13 @@
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/categories/random/</loc>
+    <loc>https://michalkowol.github.io/tags/random/</loc>
     <lastmod>2017-01-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/tags/random/</loc>
+    <loc>https://michalkowol.github.io/categories/random/</loc>
     <lastmod>2017-01-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -365,13 +391,13 @@
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/categories/scala/</loc>
+    <loc>https://michalkowol.github.io/tags/scala/</loc>
     <lastmod>2014-12-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/tags/scala/</loc>
+    <loc>https://michalkowol.github.io/categories/scala/</loc>
     <lastmod>2014-12-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -379,6 +405,18 @@
   <url>
     <loc>https://michalkowol.github.io/tags/scan/</loc>
     <lastmod>2016-12-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/tags/siteman/</loc>
+    <lastmod>2017-10-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://michalkowol.github.io/categories/siteman/</loc>
+    <lastmod>2017-10-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -419,13 +457,13 @@
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/categories/tech/</loc>
+    <loc>https://michalkowol.github.io/tags/tech/</loc>
     <lastmod>2016-12-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://michalkowol.github.io/tags/tech/</loc>
+    <loc>https://michalkowol.github.io/categories/tech/</loc>
     <lastmod>2016-12-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>

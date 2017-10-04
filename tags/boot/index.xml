@@ -17,7 +17,8 @@
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-07-linux-headers/</guid>
-      <description>Solution  sudo apt-get install &amp;ndash;fix-broken should fail but list unused packets free them one by one using sudo dpkg --purge .... If a packet refuse to uninstall due to dependencies, just advance to the next one. After uninstalling everything you could, sudo apt-get install --fix-broken again, and this time it should work.  So, after upgrading kernels and rebooting to test it, you can remove all other kernels with:</description>
+      <description>Overview Sometimes, during updating your ubuntu, you get a problem with full /boot directory. The sandard ways to clear that directories fail and you need to find better solution to this problem.
+Solution  sudo apt-get install - fix-broken should fail but list unused packets free them one by one using sudo dpkg --purge .... If a packet refuse to uninstall due to dependencies, just advance to the next one.</description>
     </item>
     
   </channel>

@@ -77,25 +77,40 @@
   <div class="content">
   
 
-<h3 id="locale">Locale</h3>
+<h2 id="overview">Overview</h2>
+
+<p>If you installed new, server ubuntu distribiution, you could have problem with localces on your computer.</p>
+
+<h2 id="locale">Locale</h2>
 
 <p>check which locales are supported:</p>
 
-<pre><code>locale -a
+<pre><code class="language-bash">locale -a
 </code></pre>
 
-<p>add the locales you want (for example ru):</p>
+<p>and install</p>
 
-<pre><code>sudo locale-gen ru_RU
-sudo locale-gen ru_RU.UTF-8
+<pre><code class="language-bash">apt-get install language-pack-XX
 </code></pre>
 
-<p>run this update comand</p>
+<p>where <code>XX</code> is language code - in example <code>language-pack-pl</code> or <code>language-pack-ru</code></p>
 
-<pre><code>sudo update-locale 
+<h3 id="alternative">Alternative</h3>
+
+<p>You can generate locale using <code>locale-gen</code></p>
+
+<pre><code class="language-bash">sudo locale-gen pl_PL
+sudo locale-gen pl_PL.UTF-8
 </code></pre>
 
-<p><a href="http://askubuntu.com/questions/76013/how-do-i-add-locale-to-ubuntu-server">How do I add locale to ubuntu server?</a></p>
+<p>then, run this update comand</p>
+
+<pre><code class="language-bash">sudo update-locale 
+</code></pre>
+
+<h2 id="references">References</h2>
+
+<p><a href="https://askubuntu.com/questions/76013/how-do-i-add-locale-to-ubuntu-server">How do I add locale to ubuntu server?</a></p>
 
   </div>
   <div class="tags">

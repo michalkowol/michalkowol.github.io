@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nfs on Michał Kowol</title>
+    <link>https://michalkowol.github.io/tags/nfs/</link>
+    <description>Recent content in Nfs on Michał Kowol</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 04 Nov 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://michalkowol.github.io/tags/nfs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Samba (smb)</title>
+      <link>https://michalkowol.github.io/posts/2016-11-04-smb-howto/</link>
+      <pubDate>Fri, 04 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://michalkowol.github.io/posts/2016-11-04-smb-howto/</guid>
+      <description>Overview Samba is a free software re-implementation of the SMB/CIFS networking protocol. Samba provides file and print services for various Microsoft Windows clients and can integrate with a Microsoft Windows Server domain, either as a Domain Controller (DC) or as a domain member. As of version 4, it supports Active Directory and Microsoft Windows NT domains.
+Configuration On Ubuntu configuration file is located in /etc/samba/smb.conf. You need root privileges to edit it.</description>
+    </item>
+    
+  </channel>
+</rss>

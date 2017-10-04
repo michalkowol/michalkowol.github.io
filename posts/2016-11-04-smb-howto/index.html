@@ -68,8 +68,6 @@
   
     <div class="post-categories">
     
-      <a class="post-category post-category-random" href="https://michalkowol.github.io/categories/random">random</a>
-    
       <a class="post-category post-category-tech" href="https://michalkowol.github.io/categories/tech">tech</a>
     
       <a class="post-category post-category-howto" href="https://michalkowol.github.io/categories/howto">howto</a>
@@ -79,13 +77,17 @@
   <div class="content">
   
 
+<h2 id="overview">Overview</h2>
+
+<p><a href="https://en.wikipedia.org/wiki/Samba_(software)">Samba</a> is a free software re-implementation of the SMB/CIFS networking protocol. Samba provides file and print services for various Microsoft Windows clients and can integrate with a Microsoft Windows Server domain, either as a Domain Controller (DC) or as a domain member. As of version 4, it supports Active Directory and Microsoft Windows NT domains.</p>
+
 <h2 id="configuration">Configuration</h2>
 
 <p>On Ubuntu configuration file is located in <code>/etc/samba/smb.conf</code>. You need <code>root</code> privileges to edit it.</p>
 
 <h3 id="sample-file">Sample file</h3>
 
-<pre><code class="language-nohighlight">[global]
+<pre><code class="language-bash">[global]
   workgroup = WORKGROUP
   server string = servername
   unix password sync = yes
@@ -133,9 +135,9 @@ smbpasswd -a bob
 
 </code></pre>
 
-<h4 id="configuring-anonymous-public-shares">Configuring anonymous public shares</h4>
+<h3 id="configuring-anonymous-public-shares">Configuring anonymous public shares</h3>
 
-<pre><code class="language-nohighlight">[public]
+<pre><code class="language-bash">[public]
   comment = Public
   browsable = yes
   path = /media/storage/public
@@ -148,14 +150,14 @@ smbpasswd -a bob
 
 <p>This sets up a share named <code>public</code> which is shown when browsing the server to any user with rights to do so. You can see it is public, but not writable except for <code>bob</code> and that it is ok for guests to login.</p>
 
-<pre><code class="language-nohighlight">[global]
+<pre><code class="language-bash">[global]
   # ...
   guest account = nobody
 </code></pre>
 
-<p>Which defines the account to use when authenticating guests. Don’t forget to create this user using <code>smbpasswd -an nobody</code>. This will create the user with no password.</p>
+<p>Which defines the account to use when authenticating guests. Donâ€™t forget to create this user using <code>smbpasswd -an nobody</code>. This will create the user with no password.</p>
 
-<pre><code class="language-nohighlight">[global]
+<pre><code class="language-bash">[global]
   #...
   map to guest = bad user
 </code></pre>
@@ -166,7 +168,6 @@ smbpasswd -a bob
 
 <ul>
 <li><code>sudo service smbd restart</code> - restarts samba server (reloads config)</li>
-<li><code>smbpasswd -an nobody</code> - creates user with no password in smb</li>
 </ul>
 
 <h2 id="links">Links</h2>
@@ -185,13 +186,13 @@ smbpasswd -a bob
     <div class="post-tags">
     Tagged 
     
-      <a class="post-tags post-tags-random" href="https://michalkowol.github.io/tags/random">random</a>
-    
       <a class="post-tags post-tags-tech" href="https://michalkowol.github.io/tags/tech">tech</a>
     
       <a class="post-tags post-tags-howto" href="https://michalkowol.github.io/tags/howto">howto</a>
     
       <a class="post-tags post-tags-smb" href="https://michalkowol.github.io/tags/smb">smb</a>
+    
+      <a class="post-tags post-tags-nfs" href="https://michalkowol.github.io/tags/nfs">nfs</a>
     
     </div>
   

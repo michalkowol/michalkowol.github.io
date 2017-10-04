@@ -17,10 +17,13 @@
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-07-locale/</guid>
-      <description>Locale check which locales are supported:
-locale -a  add the locales you want (for example ru):
-sudo locale-gen ru_RU sudo locale-gen ru_RU.UTF-8  run this update comand
-sudo update-locale  How do I add locale to ubuntu server?</description>
+      <description>Overview If you installed new, server ubuntu distribiution, you could have problem with localces on your computer.
+Locale check which locales are supported:
+locale -a  and install
+apt-get install language-pack-XX  where XX is language code - in example language-pack-pl or language-pack-ru
+Alternative You can generate locale using locale-gen
+sudo locale-gen pl_PL sudo locale-gen pl_PL.UTF-8  then, run this update comand
+sudo update-locale  References How do I add locale to ubuntu server?</description>
     </item>
     
   </channel>

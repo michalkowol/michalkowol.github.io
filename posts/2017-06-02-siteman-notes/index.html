@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Siteman - notes &middot; Michał Kowol
+    
+  </title>
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
+
+  
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+    
+    
+    <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
+  </nav>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">Siteman - notes</h1>
+  <span class="post-date">2017-06-02</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-siteman" href="https://michalkowol.github.io/categories/siteman">siteman</a>
+    
+    </div>
+  
+  <div class="content">
+  
+
+<h2 id="list-page-templates">List page templates</h2>
+
+<p><code>GET /distribution-points-templates/{dpTemplateCode}/pages-templates</code></p>
+
+<p><code>GET /distribution-points-templates/mtv-website-main/pages-templates</code></p>
+
+<pre><code>{
+    &quot;data&quot;: [
+        {
+            &quot;pageTemplateCode&quot;: &quot;homepage&quot;,
+            &quot;instructions&quot;: &quot;homepage instruction&quot;,
+            &quot;links&quot;: [
+                {
+                    &quot;rel&quot;: &quot;self&quot;,
+                    &quot;href&quot;: &quot;http://localhost:8080/distribution-points-templates/mtv-website-main/pages-templates/homepage&quot;
+                }
+            ]
+        },
+        {
+            &quot;pageTemplateCode&quot;: &quot;series-homepage&quot;,
+            &quot;links&quot;: [
+                {
+                    &quot;rel&quot;: &quot;self&quot;,
+                    &quot;href&quot;: &quot;http://localhost:8080/distribution-points-templates/mtv-website-main/pages-templates/series-homepage&quot;
+                }
+            ]
+        },
+        // ...
+    ],
+    &quot;links&quot;: [
+        {
+            &quot;rel&quot;: &quot;self&quot;,
+            &quot;href&quot;: &quot;http://localhost:8080/distribution-points-templates/mtv-website-main/pages-templates&quot;
+        }
+    ]
+}
+</code></pre>
+
+<p>Note: should be ordered by &ldquo;position&rdquo;.</p>
+
+<h2 id="get-page-template-details">Get page template details</h2>
+
+<p><code>GET /distribution-points-templates/{dpTemplateCode}/pages-templates/{pageTemplateCode}</code></p>
+
+<p><code>GET /distribution-points-templates/mtv-website-main/pages-templates/homepage</code></p>
+
+<pre><code>{
+    &quot;dpTemplateCode&quot;: &quot;mtv-website-main&quot;,
+    &quot;pageTemplateCode&quot;: &quot;homepage&quot;.
+    &quot;position&quot;: 1,
+    &quot;instructions&quot;: &quot;homepage instruction&quot;,
+    &quot;sections&quot;: [
+        {
+            &quot;pageSectionTemplateCode&quot;: &quot;massive&quot;
+            &quot;programmable&quot;: true,
+            &quot;noOfCollections&quot;: 1,
+            &quot;instructions&quot;: &quot;homepage instruction&quot;
+        },
+        {
+            &quot;pageSectionTemplateCode&quot;: &quot;submassive&quot;
+            &quot;programmable&quot;: true,
+            &quot;noOfCollections&quot;: 1
+        },
+        {
+            &quot;pageSectionTemplateCode&quot;: &quot;most-viewed-videos&quot;
+            &quot;programmable&quot;: false,
+            &quot;noOfCollections&quot;: 1
+        },
+        // ...
+    }
+    ]
+    &quot;links&quot;: [
+        {
+            &quot;rel&quot;: &quot;self&quot;,
+            &quot;href&quot;: &quot;http://localhost:8080/distribution-points-templates/mtv-website-main/pages-templates/homepage&quot;
+        },
+        {
+            &quot;rel&quot;: &quot;distribution-points-templates.pages-templates&quot;,
+            &quot;href&quot;: &quot;http://localhost:8080/distribution-points-templates/mtv-website-main/pages-templates&quot;
+        }
+    ]
+}
+</code></pre>
+
+<p>Note: sections are ordered by position</p>
+
+<h2 id="pages">Pages</h2>
+
+<h3 id="listing-all-pages">Listing all pages</h3>
+
+<p>Template: <code>GET /brands</code></p>
+
+<p>Example: <code>GET /brands</code></p>
+
+<pre><code class="language-json">{
+    &quot;data&quot;: [
+        {
+            &quot;dpCode&quot;: &quot;mtv-com-website&quot;,
+            &quot;pageTemplateCode&quot;: &quot;homepage&quot;,
+            &quot;dpTemplateCode&quot;: &quot;mtv-website-main&quot;,
+            &quot;pageCollectionId&quot;: &quot;de198e5b-5c6e-49fb-8285-5c590a319818&quot;,
+            &quot;link&quot;: [
+                {
+                    &quot;rel&quot;: &quot;self&quot;,
+                    &quot;href&quot;: &quot;http://localhost:8080/brands/mtv.com/distribution-points/mtv-website-main/pages/homepage&quot;
+                }
+            ]
+        },
+        {
+            &quot;dpCode&quot;: &quot;mtv-com-website&quot;,
+            &quot;pageTemplateCode&quot;: &quot;series-homepage&quot;,
+            &quot;dpTemplateCode&quot;: &quot;mtv-website-main&quot;,
+            &quot;link&quot;: [ ... ]
+        },
+        {
+            &quot;dpCode&quot;: &quot;mtv-com-website&quot;,
+            &quot;pageTemplateCode&quot;: &quot;about&quot;,
+            &quot;dpTemplateCode&quot;: &quot;mtv-website-main&quot;,
+            &quot;link&quot;: [ ... ]
+        },
+        {
+            &quot;dpCode&quot;: &quot;mtv-com-website&quot;,
+            &quot;pageTemplateCode&quot;: &quot;news&quot;,
+            &quot;dpTemplateCode&quot;: &quot;mtv-website-main&quot;,
+            &quot;link&quot;: [ ... ]
+        },
+        {
+            &quot;dpCode&quot;: &quot;mtv-com-website&quot;,
+            &quot;pageTemplateCode&quot;: &quot;watch-live-tv&quot;,
+            &quot;dpTemplateCode&quot;: &quot;mtv-website-main&quot;,
+            &quot;link&quot;: [ ... ]
+        }
+    ],
+    &quot;links&quot;: [
+        {
+            &quot;rel&quot;: &quot;self&quot;,
+            &quot;href&quot;: &quot;http://localhost:8080/brands/mtv.com/distribution-points/mtv-website-main/pages&quot;
+        }
+    ]
+}
+</code></pre>
+
+<h3 id="listing-all-pages-for-given-brand-and-dp">Listing all pages for given brand and dp</h3>
+
+<p>Template: <code>GET /brands/{brandCode}/distribution-points/{dpCode}/pages</code></p>
+
+<p>Example: <code>GET /brands/mtv.com/distribution-points/mtv-website-main/pages</code></p>
+
+<h4 id="ver-1">Ver 1</h4>
+
+<pre><code class="language-json">{
+    &quot;data&quot;: [
+        {
+            &quot;dpCode&quot;: &quot;mtv-com-website&quot;,
+            &quot;pageTemplateCode&quot;: &quot;homepage&quot;,
+            &quot;dpTemplateCode&quot;: &quot;mtv-website-main&quot;,
+            &quot;pageCollectionId&quot;: &quot;de198e5b-5c6e-49fb-8285-5c590a319818&quot;,
+            &quot;link&quot;: [
+                {
+                    &quot;rel&quot;: &quot;self&quot;,
+                    &quot;href&quot;: &quot;http://localhost:8080/brands/mtv.com/distribution-points/mtv-website-main/pages/homepage&quot;
+                }
+            ]
+        },
+        {
+            &quot;dpCode&quot;: &quot;mtv-com-website&quot;,
+            &quot;pageTemplateCode&quot;: &quot;series-homepage&quot;,
+            &quot;dpTemplateCode&quot;: &quot;mtv-website-main&quot;,
+            &quot;link&quot;: [ ... ]
+        },
+        {
+            &quot;dpCode&quot;: &quot;mtv-com-website&quot;,
+            &quot;pageTemplateCode&quot;: &quot;about&quot;,
+            &quot;dpTemplateCode&quot;: &quot;mtv-website-main&quot;,
+            &quot;link&quot;: [ ... ]
+        },
+        {
+            &quot;dpCode&quot;: &quot;mtv-com-website&quot;,
+            &quot;pageTemplateCode&quot;: &quot;news&quot;,
+            &quot;dpTemplateCode&quot;: &quot;mtv-website-main&quot;,
+            &quot;link&quot;: [ ... ]
+        },
+        {
+            &quot;dpCode&quot;: &quot;mtv-com-website&quot;,
+            &quot;pageTemplateCode&quot;: &quot;watch-live-tv&quot;,
+            &quot;dpTemplateCode&quot;: &quot;mtv-website-main&quot;,
+            &quot;link&quot;: [ ... ]
+        }
+    ],
+    &quot;links&quot;: [
+        {
+            &quot;rel&quot;: &quot;self&quot;,
+            &quot;href&quot;: &quot;http://localhost:8080/brands/mtv.com/distribution-points/mtv-website-main/pages&quot;
+        }
+    ]
+}
+</code></pre>
+
+<h4 id="ver-2">Ver 2</h4>
+
+<pre><code class="language-json">{
+    &quot;data&quot;: [
+        {
+            &quot;pageTemplateCode&quot;: &quot;homepage&quot;,
+            &quot;pageCollectionId&quot;: &quot;de198e5b-5c6e-49fb-8285-5c590a319818&quot;,
+            &quot;link&quot;: [
+                {
+                    &quot;rel&quot;: &quot;self&quot;,
+                    &quot;href&quot;: &quot;http://localhost:8080/brands/mtv.com/distribution-points/mtv-website-main/pages/homepage&quot;
+                }
+            ]
+        },
+        {
+            &quot;pageTemplateCode&quot;: &quot;series-homepage&quot;,
+            &quot;link&quot;: [ ... ]
+        },
+        {
+            &quot;pageTemplateCode&quot;: &quot;about&quot;,
+            &quot;link&quot;: [ ... ]
+        },
+        {
+            &quot;pageTemplateCode&quot;: &quot;news&quot;,
+            &quot;link&quot;: [ ... ]
+        },
+        {
+            &quot;pageTemplateCode&quot;: &quot;watch-live-tv&quot;,
+            &quot;link&quot;: [ ... ]
+        }
+    ],
+    &quot;links&quot;: [
+        {
+            &quot;rel&quot;: &quot;self&quot;,
+            &quot;href&quot;: &quot;http://localhost:8080/brands/mtv.com/distribution-points/mtv-website-main/pages&quot;
+        }
+    ]
+}
+</code></pre>
+
+<h3 id="listing-page-s-overridings-for-given-brand-dp-and-page-template-code">Listing page&rsquo;s overridings for given brand, dp and page template code</h3>
+
+<p>Template: <code>GET /brands/{brandCode}/distribution-points/{dpCode}/pages/{pageTemplateCode}</code></p>
+
+<p>Example: <code>GET /brands/mtv.com/distribution-points/mtv-website-main/pages/series-homepage</code></p>
+
+<pre><code>{
+  &quot;data&quot;: [
+    {
+      &quot;seriesRef&quot;: &quot;696b503c-ffb0-45b7-831a-cdb9e32930fa&quot;,
+      &quot;links&quot;: [
+        {
+          &quot;rel&quot;: &quot;self&quot;,
+          &quot;href&quot;: &quot;http://localhost:8080/brands/mtv.com/distribution-points/mtv-website-main/pages/series-homepage/696b503c-ffb0-45b7-831a-cdb9e32930fa&quot;
+        }
+      ]
+    },
+    {
+      &quot;seriesRef&quot;: &quot;7a48a14a-d237-11e1-a549-0026b9414f30&quot;,
+      &quot;link&quot;: [ ... ]
+    }
+  ],
+  &quot;links&quot;: [
+    {
+      &quot;rel&quot;: &quot;self&quot;,
+      &quot;href&quot;: &quot;http://localhost:8080/brands/mtv.com/distribution-points/mtv-website-main/pages/series-homepage&quot;
+    }
+  ]
+}
+</code></pre>
+
+<h3 id="get-page-for-given-brand-dp-page-template-code-and-series-ref">Get page for given brand, dp, page template code and series ref</h3>
+
+<p>Template: <code>GET /brands/{brandCode}/distribution-points/{dpCode}/pages/{pageTemplateCode}/{seriesRef}</code></p>
+
+<p>Example: <code>GET /brands/mtv.com/distribution-points/mtv-website-main/pages/series-homepage/696b503c-ffb0-45b7-831a-cdb9e32930fa</code></p>
+
+<h4 id="ver-1-1">Ver 1</h4>
+
+<pre><code>{
+  {
+    &quot;seriesRef&quot;: &quot;696b503c-ffb0-45b7-831a-cdb9e32930fa&quot;,
+    &quot;title&quot;: &quot;foo&quot;,
+    &quot;description&quot;: &quot;foo&quot;,
+    &quot;comments&quot;: &quot;foo&quot;,
+    &quot;dpCode&quot;: &quot;mtv-com-website&quot;,
+    &quot;dpTemplateCode&quot;: &quot;mtv-website-main&quot;,
+    &quot;newDpTemplateCode&quot;: null,
+    &quot;pageCollectionId&quot;: null,
+    &quot;newPageCollectionId&quot;: &quot;81bdeaf5-4e57-4a1a-a3ae-44b763561c12&quot;,
+    &quot;pageTmplCode&quot;: &quot;series-homepage&quot;,
+    &quot;newPageTmplCode&quot;: &quot;series-homepage-overriden&quot;,
+    &quot;sections&quot;: [
+    ]
+  }
+  &quot;links&quot;: [
+    {
+      &quot;rel&quot;: &quot;self&quot;,
+      &quot;href&quot;: &quot;http://localhost:8080/brands/mtv.com/distribution-points/mtv-website-main/pages/series-homepage/696b503c-ffb0-45b7-831a-cdb9e32930fa&quot;
+    }
+  ]
+}
+</code></pre>
+
+<h4 id="ver-2-1">Ver 2</h4>
+
+<pre><code>{
+  {
+    &quot;seriesRef&quot;: &quot;696b503c-ffb0-45b7-831a-cdb9e32930fa&quot;,
+    &quot;title&quot;: &quot;foo&quot;,
+    &quot;description&quot;: &quot;foo&quot;,
+    &quot;comments&quot;: &quot;foo&quot;,
+    &quot;dpCode&quot;: &quot;mtv-com-website&quot;,
+    &quot;dpTemplateCode&quot;: &quot;mtv-website-main&quot;,
+    &quot;pageCollectionId&quot;: &quot;81bdeaf5-4e57-4a1a-a3ae-44b763561c12&quot;,
+    &quot;pageTmplCode&quot;: &quot;series-homepage-overriden&quot;,
+  }
+  &quot;links&quot;: [
+    {
+      &quot;rel&quot;: &quot;self&quot;,
+      &quot;href&quot;: &quot;http://localhost:8080/brands/mtv.com/distribution-points/mtv-website-main/pages/series-homepage/696b503c-ffb0-45b7-831a-cdb9e32930fa&quot;
+    }
+  ]
+}
+</code></pre>
+
+<h2 id="done">Done</h2>
+
+<h3 id="brands">Brands</h3>
+
+<ol>
+<li><code>GET /brands</code></li>
+<li><code>GET /brands/{brandCode}</code></li>
+</ol>
+
+<h3 id="editorial-collections">Editorial collections</h3>
+
+<ol>
+<li><code>GET /editorial-collections</code></li>
+<li><code>GET /editorial-collections/{id}</code> &lt;&mdash;&mdash;- to remove</li>
+<li><code>GET /brands/{brandCode}/editorial-collections</code></li>
+<li><code>GET /brands/{brandCode}/editorial-collections/{id}</code></li>
+<li><code>POST /brands/{brandCode}/editorial-collections</code></li>
+<li><code>PUT  /brands/{brandCode}/editorial-collections/{id}</code></li>
+</ol>
+
+<h3 id="page-collections">Page collections</h3>
+
+<ol>
+<li><code>GET /page-collections</code></li>
+<li><code>GET /brands/{brandCode}/page-collections</code></li>
+<li><code>GET /brands/{brandCode}/page-collections/{id}</code></li>
+</ol>
+
+<h3 id="distribution-points">Distribution points</h3>
+
+<ol>
+<li><code>GET /distribution-points</code></li>
+<li><code>GET /distribution-points/{dpCode}</code></li>
+</ol>
+
+<h3 id="distribution-points-templates">Distribution points templates</h3>
+
+<ol>
+<li><code>GET /distribution-points-templates</code></li>
+<li><code>GET /distribution-points-templates/{dpTemplateCode}</code></li>
+</ol>
+
+<h3 id="templating">Templating</h3>
+
+<ol>
+<li><code>GET /templating/collections-config/{collectionId}</code></li>
+<li><code>GET /templating/page-config</code></li>
+</ol>
+
+<h3 id="fake-update-notifications">Fake update notifications</h3>
+
+<ol>
+<li><code>GET /fake-update-notifications/collection/{id}</code></li>
+<li><code>GET /fake-update-notifications/page/{dpTemplateCode}/{pageTemplateCode}/{dpCode}</code></li>
+<li><code>GET /fake-update-notifications/page/{dpTemplateCode}/{pageTemplateCode}/{dpCode}/{seriesRef}</code></li>
+</ol>
+
+<h3 id="pages-prototype">Pages prototype</h3>
+
+<ol>
+<li><code>GET /pages-prototype/{brandCode}/{dpTemplateCode}/{pageTemplateCode}/{dpCode}</code></li>
+<li><code>GET /pages-prototype/{brandCode}/{dpTemplateCode}/{pageTemplateCode}/{dpCode}/{seriesRef}</code></li>
+</ol>
+
+<h2 id="in-progress">In progress:</h2>
+
+<ol>
+<li><code>GET /pages</code></li>
+</ol>
+
+<h2 id="ideas">Ideas:</h2>
+
+<p>Michal:</p>
+
+<ol>
+<li><code>GET /brands/{brandCode}/distribution-points</code> 0.5</li>
+<li><code>GET /brands/{brandCode}/distribution-points/{dpCode}</code> 0.25</li>
+</ol>
+
+<p>Kamil Mykitiuk:</p>
+
+<ol>
+<li><code>GET /brands/{brandCode}/distribution-points/{dpCode}/pages</code></li>
+<li><code>GET /brands/{brandCode}/distribution-points/{dpCode}/pages/{pageTemplateCode}</code></li>
+<li><code>GET /brands/{brandCode}/distribution-points/{dpCode}/pages/{pageTemplateCode}/{seriesRef}</code></li>
+</ol>
+
+<p>Michal:</p>
+
+<ol>
+<li><code>POST /brands/{brandCode}/distribution-points/{dpCode}/pages</code></li>
+
+<li><p><code>PUT  /brands/{brandCode}/distribution-points/{dpCode}/pages/{pageTemplateCode}/{seriesRef}</code></p></li>
+
+<li><p><code>POST /brands/{brandCode}/page-collections</code> (with page sections - base on page template and page section template) 5</p></li>
+
+<li><p><code>PUT /brands/{brandCode}/page-collections/{id}</code> (same as above) 2 if POST is done</p></li>
+
+<li><p><code>POST /distribution-points-templates</code> 0.5 (code, title, instructions)</p></li>
+
+<li><p><code>PUT /distribution-points-templates/{dpTemplateCode}</code> 1 (same as above)</p></li>
+
+<li><p><code>POST /distribution-points</code> 0.5 (code, dp_template_code, brand_code, title, comments, trademark_stmt_code, platform_code)</p></li>
+
+<li><p><code>PUT /distribution-points/{dpCode}</code> 1 (same as above)</p></li>
+</ol>
+
+<h2 id="bad-ideas">Bad ideas:</h2>
+
+<ol>
+<li><code>GET /brands/{brandCode}/pages</code> &lt;- ???</li>
+<li><code>GET /brands/{brandCode}/distribution-points/{dpCode}/distribution-points-templates</code> 0.5</li>
+<li><code>GET /brands/{brandCode}/distribution-points/{dpCode}/distribution-points-templates/{dpTemplateCode}</code> 0.25</li>
+<li><code>GET /brands/{brandCode}/distribution-points/{dpCode}/pages/{dpTemplateCode}/{pageTemplateCode}</code> (we could remove {dpTemplateCode})</li>
+</ol>
+
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
+    
+      <a class="post-tags post-tags-siteman" href="https://michalkowol.github.io/tags/siteman">siteman</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

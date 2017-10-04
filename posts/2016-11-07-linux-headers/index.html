@@ -77,10 +77,14 @@
   <div class="content">
   
 
+<h2 id="overview">Overview</h2>
+
+<p>Sometimes, during updating your ubuntu, you get a problem with full <code>/boot</code> directory. The sandard ways to clear that directories fail and you need to find better solution to this problem.</p>
+
 <h2 id="solution">Solution</h2>
 
 <ol>
-<li><code>sudo apt-get install</code> &ndash;fix-broken should fail but list unused packets</li>
+<li><code>sudo apt-get install</code> - fix-broken should fail but list unused packets</li>
 <li>free them one by one using sudo <code>dpkg --purge ...</code>. If a packet refuse to uninstall due to dependencies, just advance to the next one.</li>
 <li>After uninstalling everything you could, <code>sudo apt-get install --fix-broken</code> again, and this time it should work.</li>
 </ol>

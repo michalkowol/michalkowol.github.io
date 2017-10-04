@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Weekly Crabapple Working Session &middot; Michał Kowol
+    
+  </title>
+
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/poole.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/lanyon.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/hljsdefault.min.css">
+  <link rel="stylesheet" href="https://michalkowol.github.io/css/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://michalkowol.github.io/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://michalkowol.github.io/assets/favicon.ico">
+
+  
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p><strong style="color: white;">Michał Kowol</strong> | Tech Blog</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/">Home</a>
+    <a class="sidebar-nav-item " href="https://michalkowol.github.io/posts">Posts</a>
+    
+    
+    <a class="sidebar-nav-item" href="https://github.com/michalkowol" target="_blank">GitHub</a>
+  </nav>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://michalkowol.github.io/" title="Home">Michał Kowol</a>
+            <small>Tech Blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<article class="post">
+  <h1 class="post-title">Weekly Crabapple Working Session</h1>
+  <span class="post-date">2017-09-20</span>
+  
+    <div class="post-categories">
+    
+      <a class="post-category post-category-siteman" href="https://michalkowol.github.io/categories/siteman">siteman</a>
+    
+    </div>
+  
+  <div class="content">
+  
+
+<h2 id="list-of-topics">List of topics</h2>
+
+<h3 id="mockups-for-paramount-site">Mockups for Paramount Site</h3>
+
+<p>Url: <a href="http://www.paramountnetwork.vmn.io">http://www.paramountnetwork.vmn.io</a></p>
+
+<ul>
+<li><strong>Wires are not ready - Paramount Site is still in design phase</strong></li>
+<li>John said that he saw and made more complicated modules for different pages and modules for Paramount are not very complex and we should be able to map everything.</li>
+<li>Question: How we could commit to something without knowing how should it look like? Answer: Crabapple is in the same situation.</li>
+<li>Crabapple and Paramount need global modules (global header, footer, search, <del>global countdown (not needed for now)</del>).</li>
+</ul>
+
+<h3 id="product-owner-for-paramount">Product Owner for Paramount</h3>
+
+<p>How is the PO for Paramount? Do not know.</p>
+
+<blockquote>
+<p>Peter Flow</p>
+</blockquote>
+
+<h3 id="editors-for-paramount">Editors for Paramount</h3>
+
+<p>How is the editor for Paramount? Do not know.</p>
+
+<h3 id="global-modules">Global modules</h3>
+
+<p>Crabapple could threat headers and footers  just like separate pages. So instead of one hit to SiteMgmt to get the content of the whole site, they would make 3 calls: one for header, one for &ldquo;body&rdquo; and one for footer.</p>
+
+<h3 id="scheduling">Scheduling</h3>
+
+<p>We are not going to deliver pro-active cache invalidation for Crabapple in this release. They are goint to hit our delivery service several times per minute to get the data. In response, we always return the page with editorialzation data valid for given time.</p>
+
+<h3 id="routing">Routing</h3>
+
+<p>In future (not for Paramount Launch) we are going to include routing in SiteMgmt.</p>
+
+<blockquote>
+<p>Big topic. In future.</p>
+</blockquote>
+
+<h3 id="editorialiaztion-is-optional">Editorialiaztion is optional</h3>
+
+<p>The site should be able to render without any editorialization. It should be &ldquo;data/content driver&rdquo;.</p>
+
+<blockquote>
+<p>No one needs to go to SiteMgmt to make site works.</p>
+</blockquote>
+
+<h3 id="page-with-context-ref-data">Page with Context Ref - data</h3>
+
+<p>We need to be able to return different editorial data for each context. So, page with code <code>series-homepage</code> and with context  of <code>teen-wolf</code> should return different data than page with code <code>series-homepage</code> and context of <code>catfish</code> and different editorial data then <code>series-homepage</code> without context.</p>
+
+<p>One level fallback is good enough? (If we cannot find page with code <code>x</code> and with context <code>y</code>, we return page with code <code>x</code>).</p>
+
+<blockquote>
+<p>Fallback is per module. Let&rsquo;s say there is massive, article (editorialization), and we provide editorialization only for massive, than article would fallback to default state.
+Mimum data per section.
+NEED TO TALK ABOUT IT AGAIN</p>
+</blockquote>
+
+<h3 id="page-with-context-ref-template">Page with Context Ref - template</h3>
+
+<p>For this release, we do not need different page template base on context.</p>
+
+<h3 id="two-sections-with-the-same-code-on-page">Two sections with the same code on page</h3>
+
+<p>This situation should not happen (strange, because I have seen it in <a href="http://www.paramountnetwork.vmn.io/feeds/triforce/manifest/v8?url=http%3A%2F%2Fwww.paramountnetwork.vmn.io%2F">triforce manifest</a>.</p>
+
+<h3 id="examples-of-responses-for-crabapple-json">Examples of responses for Crabapple (JSON)</h3>
+
+<p>Need to deliver new version, so integration could be smoother.</p>
+
+<blockquote>
+<p>PREVIEW</p>
+</blockquote>
+
+<h3 id="reducing-the-scope">Reducing the scope</h3>
+
+<h4 id="tabs-tabs-separate-application-must">Tabs - Tabs/ Separate Application (Must)</h4>
+
+<p>We are depended upon MindTree folks. Big unknown.</p>
+
+<h4 id="delivery-service-delivery-service-publishing-to-staging-publishing-to-live-versioning-min-no-delivery-more-only-live-all-staging-live-must">Delivery Service - Delivery service (publishing to staging, publishing to live, versioning) - min: no delivery, more - only live, all: staging, live (Must)</h4>
+
+<ul>
+<li>Only one publish stage stage: live</li>
+<li>Only the latest version on authoring (no versioning)</li>
+<li>Versions on delivery</li>
+<li>No reverting - if you want, you could do a manual reverting base on versions form delivery</li>
+<li>We change a state of page/editorial collection when user clicks &ldquo;Publish to Live&rdquo; (we do not wait for confirmation message from delivery service)</li>
+</ul>
+
+<blockquote>
+<p>Hide/show</p>
+</blockquote>
+
+<h4 id="authentication-authroiaztion-with-access-level-admin-producer-must">Authentication/Authroiaztion with access level (admin, producer) (Must)</h4>
+
+<ul>
+<li>Use Apache with Revert Proxy that gives us Auth and Authorization for free - need to talk about it with Authoring API (AAPI) Team</li>
+<li>Use the ACL in simple file this map - user-&gt;right and with default fallback to editor</li>
+</ul>
+
+<h2 id="structure-of-paramount-homepage-http-www-paramountnetwork-vmn-io">Structure of <a href="http://www.paramountnetwork.vmn.io">Paramount Homepage</a></h2>
+
+<ul>
+<li>Global header - <a href="https://confluence.mtvi.com/pages/viewpage.action?pageId=313178382">ENT_M239</a> - data: <a href="http://www.paramountnetwork.vmn.io/feeds/ent_m239/V2_0_0/147b186b-a551-40f1-ad82-a62e9acb389d">here</a></li>
+<li>Looping video (<strong>editorial</strong>) - <a href="https://confluence.mtvi.com/pages/viewpage.action?pageId=313178436">ENT_M251</a>  - data: <a href="http://www.paramountnetwork.vmn.io/feeds/ent_m251/19207c23-36fd-4d1b-b04e-70d14609d6ce">here</a></li>
+<li>Coming Soon - 4 promoted series (<strong>editorial</strong>) <a href="https://confluence.mtvi.com/pages/viewpage.action?pageId=313178436">ENT_M251</a> - data: <a href="http://www.paramountnetwork.vmn.io/feeds/ent_m251/2aac49d6-fafe-443a-a234-0a26f5772e67">here</a></li>
+<li>Hit Shows - 4 promoted shows (<strong>editorial</strong>) - <a href="https://confluence.mtvi.com/pages/viewpage.action?pageId=313178394">ENT_M249</a> - data: <a href="http://www.paramountnetwork.vmn.io/feeds/ent_m249/dedaeca6-63d3-4d7d-9ffc-4c40b1def80f">here</a></li>
+<li>Footer - <a href="https://confluence.mtvi.com/pages/viewpage.action?pageId=313178386">ENT_M006</a> - data: <a href="http://www.paramountnetwork.vmn.io/feeds/ent_m006/e00c6100-66e1-4c1f-bc81-3f3572109604">here</a></li>
+</ul>
+
+<p>Triforce url: <a href="http://www.paramountnetwork.vmn.io/feeds/triforce/manifest/v8?url=http%3A%2F%2Fwww.paramountnetwork.vmn.io%2F">here</a></p>
+
+<pre><code class="language-json">{
+  &quot;manifest&quot;: {
+    &quot;css&quot;: null,
+    &quot;pageClass&quot;: &quot;arcv2dynamic_ent_p125_omnipage&quot;,
+    &quot;id&quot;: &quot;8b075342-402a-4813-acd1-8ec8323ff6de&quot;,
+    &quot;CMSTitle&quot;: &quot;Paramount Network Official Site | TV Show Full Episodes and Video Clips | ParamountNetwork.com&quot;,
+    &quot;parameters&quot;: {
+      &quot;disableBannerAd&quot;: &quot;true&quot;
+    },
+    &quot;reporting&quot;: {
+      &quot;url&quot;: &quot;/&quot;,
+      &quot;cmsPageId&quot;: &quot;8b075342-402a-4813-acd1-8ec8323ff6de&quot;,
+      &quot;pageType&quot;: &quot;ENT_P125&quot;
+    },
+    &quot;title&quot;: &quot;The Paramount Network: Beyond Movies&quot;,
+    &quot;type&quot;: &quot;ENT_P125&quot;,
+    &quot;zones&quot;: {
+      &quot;t1_lc_promo1&quot;: {
+        &quot;feed&quot;: &quot;http://www.paramountnetwork.vmn.io/feeds/ent_m251/19207c23-36fd-4d1b-b04e-70d14609d6ce&quot;,
+        &quot;version&quot;: &quot;V3&quot;,
+        &quot;moduleName&quot;: &quot;ENT_M251&quot;,
+        &quot;priority&quot;: &quot;-100&quot;,
+        &quot;driver&quot;: &quot;ent_m251_V1_0_0&quot;,
+        &quot;scriptHash&quot;: &quot;cce72109669a1e6&quot;,
+        &quot;zone&quot;: &quot;t1_lc_promo1&quot;
+      },
+      &quot;t2_lc_promo1&quot;: {
+        &quot;feed&quot;: &quot;http://www.paramountnetwork.vmn.io/feeds/ent_m251/2aac49d6-fafe-443a-a234-0a26f5772e67&quot;,
+        &quot;version&quot;: &quot;V3&quot;,
+        &quot;moduleName&quot;: &quot;ENT_M251&quot;,
+        &quot;priority&quot;: &quot;-100&quot;,
+        &quot;driver&quot;: &quot;ent_m251_V1_0_0&quot;,
+        &quot;scriptHash&quot;: &quot;cce72109669a1e6&quot;,
+        &quot;zone&quot;: &quot;t2_lc_promo1&quot;
+      },
+      &quot;t3_lc_promo1&quot;: {
+        &quot;feed&quot;: &quot;http://www.paramountnetwork.vmn.io/feeds/ent_m249/dedaeca6-63d3-4d7d-9ffc-4c40b1def80f&quot;,
+        &quot;version&quot;: &quot;V3&quot;,
+        &quot;moduleName&quot;: &quot;ENT_M249&quot;,
+        &quot;priority&quot;: &quot;-100&quot;,
+        &quot;driver&quot;: &quot;ent_m249&quot;,
+        &quot;scriptHash&quot;: &quot;709795aab4eb2a6&quot;,
+        &quot;zone&quot;: &quot;t3_lc_promo1&quot;
+      },
+      &quot;header&quot;: {
+        &quot;feed&quot;: &quot;http://www.paramountnetwork.vmn.io/feeds/ent_m239/V2_0_0/147b186b-a551-40f1-ad82-a62e9acb389d&quot;,
+        &quot;version&quot;: &quot;V3&quot;,
+        &quot;moduleName&quot;: &quot;ENT_M239&quot;,
+        &quot;priority&quot;: &quot;-100&quot;,
+        &quot;driver&quot;: &quot;ent_m239&quot;,
+        &quot;scriptHash&quot;: &quot;59ea6de4cd2e940&quot;,
+        &quot;zone&quot;: &quot;header&quot;
+      },
+      &quot;footer&quot;: {
+        &quot;feed&quot;: &quot;http://www.paramountnetwork.vmn.io/feeds/ent_m006/e00c6100-66e1-4c1f-bc81-3f3572109604&quot;,
+        &quot;version&quot;: &quot;V3&quot;,
+        &quot;moduleName&quot;: &quot;ENT_M006&quot;,
+        &quot;priority&quot;: &quot;-100&quot;,
+        &quot;driver&quot;: &quot;ent_m006&quot;,
+        &quot;scriptHash&quot;: &quot;787b4f41b91946f&quot;,
+        &quot;zone&quot;: &quot;footer&quot;
+      }
+    },
+    &quot;showCSS&quot;: null,
+    &quot;supplemental&quot;: {},
+    &quot;repoData&quot;: {
+      &quot;metadata&quot;: {
+        &quot;websiteName&quot;: &quot;paramountnetwork.com&quot;,
+        &quot;ruleName&quot;: &quot;Paramount Home Page&quot;,
+        &quot;url&quot;: &quot;/&quot;
+      },
+      &quot;website&quot;: {
+        &quot;adCall1x2&quot;: true
+      },
+      &quot;doubleClick&quot;: {
+        &quot;enabled&quot;: true,
+        &quot;positionThreshold&quot;: 3,
+        &quot;adReloadable&quot;: true,
+        &quot;adReloadTime&quot;: 60000,
+        &quot;autoRefreshByVisibility&quot;: true,
+        &quot;disablePOE&quot;: false,
+        &quot;metadata&quot;: {
+          &quot;property&quot;: &quot;paramountnetwork&quot;,
+          &quot;is_main&quot;: true
+        },
+        &quot;adUnits&quot;: {
+          &quot;1&quot;: &quot;@property&quot;
+        },
+        &quot;keyValues&quot;: {
+          &quot;mtfIFPath&quot;: &quot;/asm/doubleclick/&quot;,
+          &quot;section&quot;: &quot;home&quot;
+        },
+        &quot;keyValuesDynamic&quot;: &quot;&quot;,
+        &quot;exclusionCategories&quot;: &quot;home&quot;
+      },
+      &quot;omniture&quot;: {
+        &quot;enabled&quot;: true,
+        &quot;dynamicAccountSelection&quot;: true,
+        &quot;dynamicAccountList&quot;: &quot;paramountnetworkdev=paramountnetwork-l,testing.paramountnetwork&quot;,
+        &quot;linkInternalFilters&quot;: &quot;javascript:,paramountnetwork,mtvi.com&quot;,
+        &quot;videoViewEventDisable&quot;: true,
+        &quot;enableVisitorNameSpace&quot;: true,
+        &quot;defaultHier&quot;: &quot;hier1&quot;,
+        &quot;pageName&quot;: &quot;home/index&quot;,
+        &quot;channel&quot;: &quot;home&quot;,
+        &quot;contextData&quot;: {
+          &quot;v.channel&quot;: &quot;home&quot;,
+          &quot;v.siteID&quot;: &quot;www.paramountnetwork.com&quot;,
+          &quot;v.pageType&quot;: &quot;Homepage&quot;,
+          &quot;v.pageCat&quot;: &quot;unknown&quot;,
+          &quot;v.siteSec&quot;: &quot;general&quot;,
+          &quot;v.seriesTitle&quot;: &quot;no-show&quot;,
+          &quot;v.episodeTitle&quot;: &quot;no-episode&quot;,
+          &quot;v.franchiseTitle&quot;: &quot;no-franchise&quot;,
+          &quot;v.eventTitle&quot;: &quot;no-event&quot;,
+          &quot;v.langOption&quot;: &quot;eng&quot;,
+          &quot;v.contentType&quot;: &quot;unknown&quot;,
+          &quot;v.uuid&quot;: &quot;default&quot;,
+          &quot;v.activity&quot;: &quot;pageview&quot;,
+          &quot;v.dayW&quot;: &quot;default&quot;,
+          &quot;v.hourD&quot;: &quot;default&quot;
+        }
+      }
+    },
+    &quot;repoURL&quot;: &quot;http://repo.cc.com/feeds/websites/paramountnetwork.com/pages?url=%2F&amp;cmsPageId=8b075342-402a-4813-acd1-8ec8323ff6de&amp;pageType=ENT_P125&quot;
+  }
+}
+</code></pre>
+
+<h2 id="notes">Notes</h2>
+
+<ul>
+<li>Crabapple integration - php, it accepts any json</li>
+<li>Hits only for pages that have some editorialization - in example <code>series-homepage</code> (couple per minute - only for paramount)</li>
+<li>Tooltips</li>
+<li>Preview - images for editors</li>
+</ul>
+
+  </div>
+  <div class="tags">
+  
+    <div class="post-tags">
+    Tagged 
+    
+      <a class="post-tags post-tags-siteman" href="https://michalkowol.github.io/tags/siteman">siteman</a>
+    
+    </div>
+  
+  </div>
+</article>
+<div>
+
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src="https://michalkowol.github.io/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
+

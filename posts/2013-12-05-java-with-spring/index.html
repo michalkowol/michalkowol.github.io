@@ -209,7 +209,7 @@ class AppConfig {
 
 <h4 id="result">Result</h4>
 
-<p>Result of running <code>Boot</code> is <code>true</code>. This is because we alwyas get the same instance (the same addedss in memory) of <code>Juicer</code>.</p>
+<p>Result of running <code>Boot</code> is <code>true</code>. This is because we always get the same instance (the same address in the memory) of <code>Juicer</code>.</p>
 
 <h3 id="prototype-scope">Prototype scope</h3>
 
@@ -342,9 +342,9 @@ class Boot {
 password= xhajs
 </code></pre>
 
-<p>If we use java to configure our app we do not have to use names. Spring is smart enought to figure it out base on name of the methods in <code>@Configurotion</code> classes.</p>
+<p>If we use java to configure our app we do not have to use names. Spring is smart enough to figure it out base on name of the methods in <code>@Configurotion</code> classes.</p>
 
-<p>If we want tou specify specific name we could use <code>javax.inject.Named</code> annotation - example <code>@Named(&quot;type&quot;)</code>. We need to add that dependency:</p>
+<p>If we want to specify specific name we could use <code>javax.inject.Named</code> annotation - example <code>@Named(&quot;type&quot;)</code>. We need to add that dependency:</p>
 
 <pre><code class="language-gradle">compile 'javax.inject:javax.inject:1'
 </code></pre>

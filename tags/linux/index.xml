@@ -26,7 +26,8 @@
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-07-linux-headers/</guid>
-      <description>Solution  sudo apt-get install &amp;ndash;fix-broken should fail but list unused packets free them one by one using sudo dpkg --purge .... If a packet refuse to uninstall due to dependencies, just advance to the next one. After uninstalling everything you could, sudo apt-get install --fix-broken again, and this time it should work.  So, after upgrading kernels and rebooting to test it, you can remove all other kernels with:</description>
+      <description>Overview Sometimes, during updating your ubuntu, you get a problem with full /boot directory. The sandard ways to clear that directories fail and you need to find better solution to this problem.
+Solution  sudo apt-get install - fix-broken should fail but list unused packets free them one by one using sudo dpkg --purge .... If a packet refuse to uninstall due to dependencies, just advance to the next one.</description>
     </item>
     
     <item>
@@ -46,10 +47,13 @@ sudo mount -t cifs -o uid=www-data,gid=www-data,ro,username=username,password=pa
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://michalkowol.github.io/posts/2016-11-07-locale/</guid>
-      <description>Locale check which locales are supported:
-locale -a  add the locales you want (for example ru):
-sudo locale-gen ru_RU sudo locale-gen ru_RU.UTF-8  run this update comand
-sudo update-locale  How do I add locale to ubuntu server?</description>
+      <description>Overview If you installed new, server ubuntu distribiution, you could have problem with localces on your computer.
+Locale check which locales are supported:
+locale -a  and install
+apt-get install language-pack-XX  where XX is language code - in example language-pack-pl or language-pack-ru
+Alternative You can generate locale using locale-gen
+sudo locale-gen pl_PL sudo locale-gen pl_PL.UTF-8  then, run this update comand
+sudo update-locale  References How do I add locale to ubuntu server?</description>
     </item>
     
   </channel>
