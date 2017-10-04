@@ -6,71 +6,10 @@
     <description>Recent content on Michał Kowol</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 04 Oct 2017 14:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 23 Jan 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://michalkowol.github.io/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Siteman - Crabapple - integration spec (DRAFT) - 2</title>
-      <link>https://michalkowol.github.io/posts/2017-10-04-siteman-crabapple-spec-2/</link>
-      <pubDate>Wed, 04 Oct 2017 14:00:00 +0000</pubDate>
-      
-      <guid>https://michalkowol.github.io/posts/2017-10-04-siteman-crabapple-spec-2/</guid>
-      <description>Background Req A { &amp;quot;title&amp;quot;: &amp;quot;Daily Joke&amp;quot;, &amp;quot;createdBy&amp;quot;: &amp;quot;kowolm&amp;quot;, &amp;quot;modifiedBy&amp;quot;: &amp;quot;kowolm&amp;quot;, &amp;quot;contentBlocks&amp;quot;: [ { &amp;quot;title&amp;quot;: &amp;quot;Featured Joke 6/1&amp;quot;, &amp;quot;scheduleStartDate&amp;quot;: &amp;quot;2017-06-01T00:00:00Z&amp;quot;, &amp;quot;massiveCode&amp;quot;: { &amp;quot;massive&amp;quot;: { &amp;quot;mainText&amp;quot;: &amp;quot;All the times the emas mad us think we were dreaming&amp;quot;, &amp;quot;secondaryText&amp;quot;: null, &amp;quot;image&amp;quot;: &amp;quot;mgid:mtv:d:a&amp;quot;, &amp;quot;_image&amp;quot;: &amp;quot;mgid:mtv:d:b&amp;quot;, &amp;quot;_contentRef&amp;quot;: &amp;quot;uuid-d&amp;quot; } }, &amp;quot;articleWithHeaderCode&amp;quot;: { &amp;quot;mainHeader_001&amp;quot;: &amp;quot;New stuff!!!&amp;quot;, &amp;quot;showMeMoreButton&amp;quot;: &amp;quot;Show me more!&amp;quot;, &amp;quot;articleList&amp;quot;: [ { &amp;quot;title&amp;quot;: &amp;quot;Fiercest females moments&amp;quot;, &amp;quot;abstract&amp;quot;: &amp;quot;A look at the top ten...&amp;quot;, &amp;quot;mainImage&amp;quot;: &amp;quot;mgid:mtv:a:a&amp;quot;, &amp;quot;_image&amp;quot;: &amp;quot;mgid:mtv:a:b&amp;quot;, &amp;quot;_contentRef&amp;quot;: &amp;quot;uuid-a&amp;quot; }, { &amp;quot;title&amp;quot;: &amp;quot;After after show: werewolves of london&amp;quot;, &amp;quot;abstract&amp;quot;: &amp;quot;Check out the After After Show.</description>
-    </item>
-    
-    <item>
-      <title>Siteman - Crabapple - integration spec (DRAFT) - 1</title>
-      <link>https://michalkowol.github.io/posts/2017-10-04-siteman-crabapple-spec-1/</link>
-      <pubDate>Wed, 04 Oct 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://michalkowol.github.io/posts/2017-10-04-siteman-crabapple-spec-1/</guid>
-      <description>Background Overview Page Massive Promo Article with headers Page template Page Editorial collection Proposal A (sectionParameters and editorialParameters) Header Url: /brands/comedy-central/distribution-points/cc-jokes/pages/header
-{ &amp;quot;brandCode&amp;quot;: &amp;quot;comedy-central&amp;quot;, &amp;quot;dpCode&amp;quot;: &amp;quot;cc-jokes&amp;quot;, &amp;quot;pageType&amp;quot;: &amp;quot;header&amp;quot;, &amp;quot;pageTemplate&amp;quot;: &amp;quot;header&amp;quot;, &amp;quot;sections&amp;quot;: [ { &amp;quot;sectionCode&amp;quot;: &amp;quot;generic-header&amp;quot;, &amp;quot;sectionParameters&amp;quot;: { &amp;quot;name&amp;quot;: &amp;quot;Comedy Central Jokes&amp;quot;, &amp;quot;url&amp;quot;: &amp;quot;http://jokes.cc.com/&amp;quot; } }, { &amp;quot;sectionCode&amp;quot;: &amp;quot;menu&amp;quot;, &amp;quot;editorialParameters&amp;quot;: { &amp;quot;menus&amp;quot;: [ { &amp;quot;name&amp;quot;: &amp;quot;Homepage&amp;quot;, &amp;quot;url&amp;quot;: &amp;quot;/&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;About&amp;quot;, &amp;quot;url&amp;quot;: &amp;quot;/about&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;Series&amp;quot;, &amp;quot;url&amp;quot;: &amp;quot;/series&amp;quot;, &amp;quot;submenu&amp;quot;: [ { &amp;quot;name&amp;quot;: &amp;quot;Teen Wold&amp;quot;, &amp;quot;url&amp;quot;: &amp;quot;/series/teen-wolf&amp;quot;, &amp;quot;submenu&amp;quot;: [ { &amp;quot;name&amp;quot;: &amp;quot;Best moments&amp;quot;, &amp;quot;url&amp;quot;: &amp;quot;/series/teen-wolf/best-moments&amp;quot; }, { &amp;quot;name&amp;quot;: &amp;quot;Latest&amp;quot;, &amp;quot;url&amp;quot;: &amp;quot;/series/teen-wolf/latest&amp;quot; } ] }, { &amp;quot;name&amp;quot;: &amp;quot;CatFish&amp;quot;, &amp;quot;url&amp;quot;: &amp;quot;/series/catfish&amp;quot; } ] } ] } } ], &amp;quot;links&amp;quot;: [ { &amp;quot;href&amp;quot;: &amp;quot;/brands/comedy-central/distribution-points/cc-jokes/pages/header&amp;quot;, &amp;quot;ref&amp;quot;: &amp;quot;self&amp;quot; } ] }  series-homepage body for given context Url: /brands/comedy-central/distribution-points/cc-jokes/pages/series-homepage?</description>
-    </item>
-    
-    <item>
-      <title>Weekly Crabapple Working Session</title>
-      <link>https://michalkowol.github.io/posts/2017-10-04-siteman-meeting-notes/</link>
-      <pubDate>Wed, 04 Oct 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://michalkowol.github.io/posts/2017-10-04-siteman-meeting-notes/</guid>
-      <description>Weekly Crabapple Working Session - 2017-10-04 Meeting notes  For time travel we should use ISO8601 standard (timezone support) Fallback: if we don&amp;rsquo;t have &amp;ldquo;override&amp;rdquo; for given context, we should do fallback to default pageType and do not include context in the responce - it would be helpful for debugging Naming conventions: authoring and live vs draft and final - which one should we use? I opt for authoring and live.</description>
-    </item>
-    
-    <item>
-      <title>Sync up on Section Template solution</title>
-      <link>https://michalkowol.github.io/posts/2017-10-03-siteman-notes/</link>
-      <pubDate>Tue, 03 Oct 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://michalkowol.github.io/posts/2017-10-03-siteman-notes/</guid>
-      <description>Sync up on Section Template solution - 2017-10-03  Use case: sometimes there is section that needs some editorialization, but it does not have any editorial rules. Example: joke on jokes.cc.com needs only content ref. Some section parameters should be read-only or invisible for producers (they should be only for dev-admin) For the Paramount Launch we should go with Individual Section - it could be easier to implement, and less prone to errors - need to confirm it with Rafał.</description>
-    </item>
-    
-    <item>
-      <title>Weekly Crabapple Working Session</title>
-      <link>https://michalkowol.github.io/posts/2017-09-20-siteman-crabapple/</link>
-      <pubDate>Wed, 20 Sep 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://michalkowol.github.io/posts/2017-09-20-siteman-crabapple/</guid>
-      <description>List of topics Mockups for Paramount Site Url: http://www.paramountnetwork.vmn.io
- Wires are not ready - Paramount Site is still in design phase John said that he saw and made more complicated modules for different pages and modules for Paramount are not very complex and we should be able to map everything. Question: How we could commit to something without knowing how should it look like? Answer: Crabapple is in the same situation.</description>
-    </item>
-    
-    <item>
-      <title>Siteman - notes</title>
-      <link>https://michalkowol.github.io/posts/2017-06-02-siteman-notes/</link>
-      <pubDate>Fri, 02 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://michalkowol.github.io/posts/2017-06-02-siteman-notes/</guid>
-      <description>List page templates GET /distribution-points-templates/{dpTemplateCode}/pages-templates
-GET /distribution-points-templates/mtv-website-main/pages-templates
-{ &amp;quot;data&amp;quot;: [ { &amp;quot;pageTemplateCode&amp;quot;: &amp;quot;homepage&amp;quot;, &amp;quot;instructions&amp;quot;: &amp;quot;homepage instruction&amp;quot;, &amp;quot;links&amp;quot;: [ { &amp;quot;rel&amp;quot;: &amp;quot;self&amp;quot;, &amp;quot;href&amp;quot;: &amp;quot;http://localhost:8080/distribution-points-templates/mtv-website-main/pages-templates/homepage&amp;quot; } ] }, { &amp;quot;pageTemplateCode&amp;quot;: &amp;quot;series-homepage&amp;quot;, &amp;quot;links&amp;quot;: [ { &amp;quot;rel&amp;quot;: &amp;quot;self&amp;quot;, &amp;quot;href&amp;quot;: &amp;quot;http://localhost:8080/distribution-points-templates/mtv-website-main/pages-templates/series-homepage&amp;quot; } ] }, // ... ], &amp;quot;links&amp;quot;: [ { &amp;quot;rel&amp;quot;: &amp;quot;self&amp;quot;, &amp;quot;href&amp;quot;: &amp;quot;http://localhost:8080/distribution-points-templates/mtv-website-main/pages-templates&amp;quot; } ] }  Note: should be ordered by &amp;ldquo;position&amp;rdquo;.
-Get page template details GET /distribution-points-templates/{dpTemplateCode}/pages-templates/{pageTemplateCode}
-GET /distribution-points-templates/mtv-website-main/pages-templates/homepage
-{ &amp;quot;dpTemplateCode&amp;quot;: &amp;quot;mtv-website-main&amp;quot;, &amp;quot;pageTemplateCode&amp;quot;: &amp;quot;homepage&amp;quot;.</description>
-    </item>
     
     <item>
       <title>How to deserialize abstract types from JSON using Jackson?</title>

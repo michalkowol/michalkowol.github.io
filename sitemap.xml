@@ -3,36 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://michalkowol.github.io/posts/2017-10-04-siteman-crabapple-spec-2/</loc>
-    <lastmod>2017-10-04T14:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://michalkowol.github.io/posts/2017-10-04-siteman-crabapple-spec-1/</loc>
-    <lastmod>2017-10-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://michalkowol.github.io/posts/2017-10-04-siteman-meeting-notes/</loc>
-    <lastmod>2017-10-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://michalkowol.github.io/posts/2017-10-03-siteman-notes/</loc>
-    <lastmod>2017-10-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://michalkowol.github.io/posts/2017-09-20-siteman-crabapple/</loc>
-    <lastmod>2017-09-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://michalkowol.github.io/posts/2017-06-02-siteman-notes/</loc>
-    <lastmod>2017-06-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://michalkowol.github.io/posts/2017-01-23-jackson/</loc>
     <lastmod>2017-01-23T00:00:00+00:00</lastmod>
   </url>
@@ -294,7 +264,7 @@
   
   <url>
     <loc>https://michalkowol.github.io/</loc>
-    <lastmod>2017-10-04T14:00:00+00:00</lastmod>
+    <lastmod>2017-01-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -354,7 +324,7 @@
   
   <url>
     <loc>https://michalkowol.github.io/posts/</loc>
-    <lastmod>2017-10-04T14:00:00+00:00</lastmod>
+    <lastmod>2017-01-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -415,18 +385,6 @@
   <url>
     <loc>https://michalkowol.github.io/tags/scan/</loc>
     <lastmod>2016-12-10T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://michalkowol.github.io/tags/siteman/</loc>
-    <lastmod>2017-10-04T14:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://michalkowol.github.io/categories/siteman/</loc>
-    <lastmod>2017-10-04T14:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
